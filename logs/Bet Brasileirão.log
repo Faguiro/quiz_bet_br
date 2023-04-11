@@ -1,0 +1,108 @@
+2023-04-09 00:47:47,120 ERROR: Exception on /quiz [GET] [in C:\Users\fenix\Documents\quiz_bet_br\.myenv\lib\site-packages\flask\app.py:1454]
+Traceback (most recent call last):
+  File "C:\Users\fenix\Documents\quiz_bet_br\.myenv\lib\site-packages\flask\app.py", line 2070, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\fenix\Documents\quiz_bet_br\.myenv\lib\site-packages\flask\app.py", line 1515, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\fenix\Documents\quiz_bet_br\.myenv\lib\site-packages\flask\app.py", line 1513, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\fenix\Documents\quiz_bet_br\.myenv\lib\site-packages\flask\app.py", line 1499, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "C:\Users\fenix\Documents\quiz_bet_br\bet\main\routes.py", line 167, in quiz
+    return render_template('_quiz.html', form=form, question=question)
+  File "C:\Users\fenix\Documents\quiz_bet_br\.myenv\lib\site-packages\flask\templating.py", line 147, in render_template
+    return _render(
+  File "C:\Users\fenix\Documents\quiz_bet_br\.myenv\lib\site-packages\flask\templating.py", line 128, in _render
+    rv = template.render(context)
+  File "C:\Users\fenix\Documents\quiz_bet_br\.myenv\lib\site-packages\jinja2\environment.py", line 1304, in render
+    self.environment.handle_exception()
+  File "C:\Users\fenix\Documents\quiz_bet_br\.myenv\lib\site-packages\jinja2\environment.py", line 925, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\fenix\Documents\quiz_bet_br\bet\templates\_quiz.html", line 2, in <module>
+    {% extends "base.html" %}
+  File "C:\Users\fenix\Documents\quiz_bet_br\bet\templates\base.html", line 1, in <module>
+    {% extends 'bootstrap/base.html' %}
+  File "C:\Users\fenix\Documents\quiz_bet_br\.myenv\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 1, in <module>
+    {% block doc -%}
+  File "C:\Users\fenix\Documents\quiz_bet_br\.myenv\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 4, in <module>
+    {%- block html %}
+  File "C:\Users\fenix\Documents\quiz_bet_br\.myenv\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 20, in <module>
+    {% block body -%}
+  File "C:\Users\fenix\Documents\quiz_bet_br\.myenv\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 23, in <module>
+    {% block content -%}
+  File "C:\Users\fenix\Documents\quiz_bet_br\bet\templates\_quiz.html", line 7, in <module>
+    <form method="POST" action="{{ url_for('bp.quiz') }}">
+  File "C:\Users\fenix\Documents\quiz_bet_br\.myenv\lib\site-packages\flask\helpers.py", line 338, in url_for
+    return appctx.app.handle_url_build_error(error, endpoint, values)
+  File "C:\Users\fenix\Documents\quiz_bet_br\.myenv\lib\site-packages\flask\helpers.py", line 325, in url_for
+    rv = url_adapter.build(
+  File "C:\Users\fenix\Documents\quiz_bet_br\.myenv\lib\site-packages\werkzeug\routing.py", line 2305, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.BuildError: Could not build url for endpoint 'bp.quiz'. Did you mean 'main.quiz' instead?
+2023-04-09 00:49:13,664 INFO: Bet Brasileirão startup [in C:\Users\fenix\Documents\quiz_bet_br\bet\__init__.py:74]
+2023-04-09 00:49:39,302 ERROR: Exception on /quiz [POST] [in C:\Users\fenix\Documents\quiz_bet_br\.myenv\lib\site-packages\flask\app.py:1454]
+Traceback (most recent call last):
+  File "C:\Users\fenix\Documents\quiz_bet_br\.myenv\lib\site-packages\sqlalchemy\engine\base.py", line 1770, in _execute_context
+    self.dialect.do_execute(
+  File "C:\Users\fenix\Documents\quiz_bet_br\.myenv\lib\site-packages\sqlalchemy\engine\default.py", line 717, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: table quiz has no column named answer1
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\fenix\Documents\quiz_bet_br\.myenv\lib\site-packages\flask\app.py", line 2070, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\fenix\Documents\quiz_bet_br\.myenv\lib\site-packages\flask\app.py", line 1515, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\fenix\Documents\quiz_bet_br\.myenv\lib\site-packages\flask\app.py", line 1513, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\fenix\Documents\quiz_bet_br\.myenv\lib\site-packages\flask\app.py", line 1499, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "C:\Users\fenix\Documents\quiz_bet_br\bet\main\routes.py", line 164, in quiz
+    db.session.commit()
+  File "<string>", line 2, in commit
+  File "C:\Users\fenix\Documents\quiz_bet_br\.myenv\lib\site-packages\sqlalchemy\orm\session.py", line 1428, in commit
+    self._transaction.commit(_to_root=self.future)
+  File "C:\Users\fenix\Documents\quiz_bet_br\.myenv\lib\site-packages\sqlalchemy\orm\session.py", line 829, in commit
+    self._prepare_impl()
+  File "C:\Users\fenix\Documents\quiz_bet_br\.myenv\lib\site-packages\sqlalchemy\orm\session.py", line 808, in _prepare_impl
+    self.session.flush()
+  File "C:\Users\fenix\Documents\quiz_bet_br\.myenv\lib\site-packages\sqlalchemy\orm\session.py", line 3298, in flush
+    self._flush(objects)
+  File "C:\Users\fenix\Documents\quiz_bet_br\.myenv\lib\site-packages\sqlalchemy\orm\session.py", line 3437, in _flush
+    with util.safe_reraise():
+  File "C:\Users\fenix\Documents\quiz_bet_br\.myenv\lib\site-packages\sqlalchemy\util\langhelpers.py", line 70, in __exit__
+    compat.raise_(
+  File "C:\Users\fenix\Documents\quiz_bet_br\.myenv\lib\site-packages\sqlalchemy\util\compat.py", line 207, in raise_
+    raise exception
+  File "C:\Users\fenix\Documents\quiz_bet_br\.myenv\lib\site-packages\sqlalchemy\orm\session.py", line 3398, in _flush
+    flush_context.execute()
+  File "C:\Users\fenix\Documents\quiz_bet_br\.myenv\lib\site-packages\sqlalchemy\orm\unitofwork.py", line 456, in execute
+    rec.execute(self)
+  File "C:\Users\fenix\Documents\quiz_bet_br\.myenv\lib\site-packages\sqlalchemy\orm\unitofwork.py", line 630, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "C:\Users\fenix\Documents\quiz_bet_br\.myenv\lib\site-packages\sqlalchemy\orm\persistence.py", line 242, in save_obj
+    _emit_insert_statements(
+  File "C:\Users\fenix\Documents\quiz_bet_br\.myenv\lib\site-packages\sqlalchemy\orm\persistence.py", line 1219, in _emit_insert_statements
+    result = connection._execute_20(
+  File "C:\Users\fenix\Documents\quiz_bet_br\.myenv\lib\site-packages\sqlalchemy\engine\base.py", line 1582, in _execute_20
+    return meth(self, args_10style, kwargs_10style, execution_options)
+  File "C:\Users\fenix\Documents\quiz_bet_br\.myenv\lib\site-packages\sqlalchemy\sql\elements.py", line 323, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "C:\Users\fenix\Documents\quiz_bet_br\.myenv\lib\site-packages\sqlalchemy\engine\base.py", line 1451, in _execute_clauseelement
+    ret = self._execute_context(
+  File "C:\Users\fenix\Documents\quiz_bet_br\.myenv\lib\site-packages\sqlalchemy\engine\base.py", line 1813, in _execute_context
+    self._handle_dbapi_exception(
+  File "C:\Users\fenix\Documents\quiz_bet_br\.myenv\lib\site-packages\sqlalchemy\engine\base.py", line 1994, in _handle_dbapi_exception
+    util.raise_(
+  File "C:\Users\fenix\Documents\quiz_bet_br\.myenv\lib\site-packages\sqlalchemy\util\compat.py", line 207, in raise_
+    raise exception
+  File "C:\Users\fenix\Documents\quiz_bet_br\.myenv\lib\site-packages\sqlalchemy\engine\base.py", line 1770, in _execute_context
+    self.dialect.do_execute(
+  File "C:\Users\fenix\Documents\quiz_bet_br\.myenv\lib\site-packages\sqlalchemy\engine\default.py", line 717, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) table quiz has no column named answer1
+[SQL: INSERT INTO quiz (question, answer1, answer2, answer3, answer4, answer5, answer6) VALUES (?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('JOGO-1 Vasco x Fluminense', '1', '1', '1', '1', '1', '1')]
+(Background on this error at: http://sqlalche.me/e/14/e3q8)
