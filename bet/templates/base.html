@@ -5,7 +5,51 @@
 {% endblock %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/quiz.css') }}">
 
+
 {% block navbar %}
+<style>
+    /* Estilo personalizado para a barra de navegação */
+    .navbar {
+               background-color: orange; /* Cor de fundo laranja */
+               border-color: black; /* Cor da borda preta */
+           }
+   
+           .navbar-brand {
+               color: black; /* Cor do texto preto */
+           }
+   
+           .navbar-nav > li > a {
+               color: black; /* Cor do texto preto */
+           }
+   
+           .navbar-nav > li > a:hover,
+           .navbar-nav > li > a:focus {
+               background-color: black; /* Cor de fundo preta em hover/foco */
+               color: white; /* Cor do texto branco em hover/foco */
+           }
+   
+           .navbar-nav.navbar-right > li > a {
+               color: black; /* Cor do texto preto na parte direita da barra de navegação */
+           }
+   
+           .navbar-nav.navbar-right > li > a:hover,
+           .navbar-nav.navbar-right > li > a:focus {
+               background-color: black; /* Cor de fundo preta em hover/foco na parte direita da barra de navegação */
+               color: white; /* Cor do texto branco em hover/foco na parte direita da barra de navegação */
+           }
+
+           #counter {
+                    font-size: 80px;
+                    color: blue;
+                    animation: blinker 1s linear infinite;
+                }
+
+                @keyframes blinker {
+                    50% {
+                        opacity: 0;
+                    }
+                }
+</style>
     <nav class="navbar navbar-default">
         <div class="container">
             <div class="navbar-header">
@@ -19,15 +63,15 @@
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url_for('main.index') }}">{{ _('Home') }}</a></li>
-                    <li><a href="{{ url_for('main.explore') }}">{{ _('Explore') }}</a></li>
+                    <li><a href="{{ url_for('main.quiz') }}">{{ _('Apostar') }}</a></li>
+                    <li><a href="{{ url_for('main.result') }}">{{ _('Resultado') }}</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     {% if current_user.is_anonymous %}
-                    <li><a href="{{ url_for('auth.login') }}">{{ _('Login') }}</a></li>
+                    <li><a href="{{ url_for('auth.login') }}">{{ _('Entrar') }}</a></li>
                     {% else %}
-                    <li><a href="{{ url_for('main.user', username=current_user.username) }}">{{ _('Profile') }}</a></li>
-                    <li><a href="{{ url_for('auth.logout') }}">{{ _('Logout') }}</a></li>
+                    <li><a href="{{ url_for('main.user', username=current_user.username) }}">{{ _('Perfil') }}</a></li>
+                    <li><a href="{{ url_for('auth.logout') }}">{{ _('Sair') }}</a></li>
                     {% endif %}
                 </ul>
             </div>
@@ -36,6 +80,38 @@
 {% endblock %}
 
 {% block content %}
+<style>
+    
+    body {
+             background-color: #ffffff; /* branco */
+         }
+         h1 {
+             color: #ff8c00; /* laranja */
+         }
+         .form-group label {
+             color: #000000; /* preto */
+         }
+         .form-control {
+             background-color: #ffffff; /* branco */
+             color: #000000; /* preto */
+             border: 1px solid #ff8c00; /* laranja */
+         }
+         .checkbox label {
+             color: #000000; /* preto */
+         }
+         .btn-default {
+             background-color: #ff8c00; /* laranja */
+             color: #ffffff; /* branco */
+             border: 1px solid #ff8c00; /* laranja */
+         }
+         .btn-default:hover {
+             background-color: #ff4500; /* tom mais escuro de laranja */
+             border: 1px solid #ff4500; /* tom mais escuro de laranja */
+         }
+         a {
+             color: #ff8c00; /* laranja */
+         }
+ </style>
     <div class="container">
         {% with messages = get_flashed_messages() %}
         {% if messages %}
@@ -67,5 +143,20 @@
                 $(destElem).text("{{ _('Error: Could not contact server.') }}");
             });
         }
+    </script>
+    <script>
+        let counter = parseFloat(localStorage.getItem('counter')) || 1000.00;
+        if (!counter) {
+            counter = 1000.00;
+        }
+    
+        document.getElementById("counter").innerHTML = counter.toFixed(2);
+    
+        function initPayPalButton() {
+            counter += 2.00;
+            localStorage.setItem('counter', counter);
+            document.getElementById("counter").innerHTML = counter.toFixed(2);
+        }
+        
     </script>
 {% endblock %}

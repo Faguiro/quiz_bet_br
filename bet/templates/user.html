@@ -8,23 +8,23 @@
                 <h1>{{ _('User') }}: {{ user.username }}</h1>
                 {% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}
                 {% if user.last_seen %}
-                <p>{{ _('Last seen on') }}: {{ moment(user.last_seen).format('LLL') }}</p>
+                <p>{{ _('Ultima vez online:') }}: {{ moment(user.last_seen).format('LLL') }}</p>
                 {% endif %}
-                <p>{{ _('%(count)d followers', count=user.followers.count()) }}, {{ _('%(count)d following', count=user.followed.count()) }}</p>
+                <p>{{ _('%(count)d  seguidores', count=user.followers.count()) }}, {{ _('%(count)d seguindo', count=user.followed.count()) }}</p>
                 {% if user == current_user %}
-                <p><a href="{{ url_for('main.edit_profile') }}">{{ _('Edit your profile') }}</a></p>
+                <p><a href="{{ url_for('main.edit_profile') }}">{{ _('Edite seu perfil') }}</a></p>
                 {% elif not current_user.is_following(user) %}
                 <p>
                     <form action="{{ url_for('main.follow', username=user.username) }}" method="post">
                         {{ form.hidden_tag() }}
-                        {{ form.submit(value=_('Follow'), class_='btn btn-default') }}
+                        {{ form.submit(value=_('Seguir'), class_='btn btn-default') }}
                     </form>
                 </p>
                 {% else %}
                 <p>
                     <form action="{{ url_for('main.unfollow', username=user.username) }}" method="post">
                         {{ form.hidden_tag() }}
-                        {{ form.submit(value=_('Unfollow'), class_='btn btn-default') }}
+                        {{ form.submit(value=_('Deixar de seguir'), class_='btn btn-default') }}
                     </form>
                 </p>
                 {% endif %}
@@ -34,7 +34,7 @@
     {% for post in posts %}
         {% include '_post.html' %}
     {% endfor %}
-    <nav aria-label="...">
+   <!--  <nav aria-label="...">
         <ul class="pager">
             <li class="previous{% if not prev_url %} disabled{% endif %}">
                 <a href="{{ prev_url or '#' }}">
@@ -47,5 +47,5 @@
                 </a>
             </li>
         </ul>
-    </nav>
+    </nav> -->
 {% endblock %}
