@@ -2,66 +2,7 @@
 {% import 'bootstrap/wtf.html' as wtf %}
 
 {% block app_content %}
-<style>
- /* Estilo personalizado para a barra de navegação */
- .navbar {
-            background-color: orange; /* Cor de fundo laranja */
-            border-color: black; /* Cor da borda preta */
-        }
 
-        .navbar-brand {
-            color: black; /* Cor do texto preto */
-        }
-
-        .navbar-nav > li > a {
-            color: black; /* Cor do texto preto */
-        }
-
-        .navbar-nav > li > a:hover,
-        .navbar-nav > li > a:focus {
-            background-color: black; /* Cor de fundo preta em hover/foco */
-            color: white; /* Cor do texto branco em hover/foco */
-        }
-
-        .navbar-nav.navbar-right > li > a {
-            color: black; /* Cor do texto preto na parte direita da barra de navegação */
-        }
-
-        .navbar-nav.navbar-right > li > a:hover,
-        .navbar-nav.navbar-right > li > a:focus {
-            background-color: black; /* Cor de fundo preta em hover/foco na parte direita da barra de navegação */
-            color: white; /* Cor do texto branco em hover/foco na parte direita da barra de navegação */
-        }
-   body {
-            background-color: #ffffff; /* branco */
-        }
-        h1 {
-            color: #ff8c00; /* laranja */
-        }
-        .form-group label {
-            color: #000000; /* preto */
-        }
-        .form-control {
-            background-color: #ffffff; /* branco */
-            color: #000000; /* preto */
-            border: 1px solid #ff8c00; /* laranja */
-        }
-        .checkbox label {
-            color: #000000; /* preto */
-        }
-        .btn-default {
-            background-color: #ff8c00; /* laranja */
-            color: #ffffff; /* branco */
-            border: 1px solid #ff8c00; /* laranja */
-        }
-        .btn-default:hover {
-            background-color: #ff4500; /* tom mais escuro de laranja */
-            border: 1px solid #ff4500; /* tom mais escuro de laranja */
-        }
-        a {
-            color: #ff8c00; /* laranja */
-        }
-</style>
     <h1>{{ _('Entrar') }}</h1>
     <div class="row">
         <div class="col-md-4">
@@ -72,6 +13,6 @@
     <p>{{ _('Novo usuário?') }} <a href="{{ url_for('auth.register') }}">{{ _('Clique para se registrar!') }}</a></p>
     <p>
         {{ _('Esqueceu sua senha?') }}
-        <a href="{{ url_for('auth.reset_password_request') }}">{{ _('Clique para redefini-lo') }}</a>
+        <a href="{{ url_for('auth.reset_password_request') }}">{{ _('Clique para redefini-la') }}</a>
     </p>
 {% endblock %}

@@ -22,6 +22,7 @@ class User(db.Model, UserMixin):
     password_hash = db.Column(db.String(128))
     posts = db.relationship('Post', backref='author', lazy='dynamic')
     about_me = db.Column(db.String(140))
+    profile_photo = db.Column(db.LargeBinary, nullable=True)
     last_seen = db.Column(db.DateTime, default=datetime.utcnow)
     followed = db.relationship(
         'User', secondary=followers,
@@ -101,6 +102,11 @@ class Quiz(db.Model):
     answer4 = db.Column(db.String(255), nullable=False)
     answer5 = db.Column(db.String(255), nullable=False)
     answer6 = db.Column(db.String(255), nullable=False)
+    answer7 = db.Column(db.String(255), nullable=False)
+    answer8 = db.Column(db.String(255), nullable=False)
+    answer9 = db.Column(db.String(255), nullable=False)
+    answer10 = db.Column(db.String(255), nullable=False)
+    answered = db.Column(db.Boolean, default=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __repr__(self):

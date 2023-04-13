@@ -1,6 +1,6 @@
 from datetime import datetime
 from flask import render_template, flash, redirect, url_for, request, g, \
-    jsonify, current_app
+    jsonify, current_app, Response
 from flask_login import current_user, login_required
 from flask_babel import _, get_locale
 from langdetect import detect, LangDetectException
@@ -9,6 +9,9 @@ from bet.main.forms import EditProfileForm, EmptyForm, PostForm, QuizForm
 from bet.models import User, Post, Quiz
 from bet.translate import translate
 from bet.main import bp
+import io
+from io import BytesIO
+from PIL import Image
 
 
 @bp.before_app_request
@@ -86,8 +89,24 @@ def user(username):
 def edit_profile():
     form = EditProfileForm(current_user.username)
     if form.validate_on_submit():
+        # Convert the image to PNG format
+        img_data = form.profile_photo.data
+        if img_data:
+            img_data = img_data.read()
+            img = Image.open(io.BytesIO(img_data))
+            img = img.convert('RGBA')
+
+            # Redimensionar a imagem para que o tamanho do arquivo não ultrapasse 150KB
+            max_size = (150, 150)
+            img.thumbnail(max_size)
+
+            img_file = io.BytesIO()
+            img.save(img_file, format='PNG')
+            img_data = img_file.getvalue()
+
         current_user.username = form.username.data
         current_user.about_me = form.about_me.data
+        current_user.profile_photo = img_data
         db.session.commit()
         flash(_('Your changes have been saved.'))
         return redirect(url_for('main.edit_profile'))
@@ -95,7 +114,7 @@ def edit_profile():
         form.username.data = current_user.username
         form.about_me.data = current_user.about_me
     return render_template('edit_profile.html', title=_('Edit Profile'),
-                           form=form)
+                           form=form, username=User.username)
 
 
 @bp.route('/follow/<username>', methods=['POST'])
@@ -150,9 +169,7 @@ def translate_text():
 @login_required
 def quiz():
     # Verificar se o usuário já respondeu o quiz
-    answers = Quiz.query.filter_by(user_id=current_user.id).first()
-    quiz_respondido = False
-    print ("Resposta",quiz_respondido)
+    quiz_respondido = Quiz.query.filter_by(user_id=current_user.id, answered=True).first()
 
     if quiz_respondido:
         # Se o usuário já respondeu, redirecionar para a rota de resultado
@@ -168,13 +185,36 @@ def quiz():
             answer4 = form.answer4.data
             answer5 = form.answer5.data
             answer6 = form.answer6.data
-            answer = Quiz(answer1=answer1, answer2=answer2, answer3=answer3,
-                            answer4=answer4, answer5=answer5, answer6=answer6,
-                            user_id=current_user.id)
+            answer7 = form.answer7.data
+            answer8 = form.answer8.data
+            answer9 = form.answer9.data
+            answer10 = form.answer10.data
+            answered = True
+
+            # Crie um dicionário com os valores dos campos do formulário
+            quiz_data = {
+                'answer1': answer1,
+                'answer2': answer2,
+                'answer3': answer3,
+                'answer4': answer4,
+                'answer5': answer5,
+                'answer6': answer6,
+                'answer7': answer7,
+                'answer8': answer8,
+                'answer9': answer9,
+                'answer10': answer10,
+                'answered': answered,
+                'user_id': current_user.id
+            }
+
+            # Crie uma nova instância do modelo Quiz com o dicionário de dados
+            answer = Quiz(**quiz_data)
+
             db.session.add(answer)
             db.session.commit()
             return redirect(url_for('main.result', answer1=answer1, answer2=answer2, answer3=answer3, answer4=answer4, answer5=answer5, answer6=answer6))
     return render_template('_quiz.html', title='Quiz', form=form)
+
 
 
 
@@ -188,4 +228,16 @@ def result():
     answer4 = answers.answer4
     answer5 = answers.answer5
     answer6 = answers.answer6
-    return render_template('result.html', answer1=answer1, answer2=answer2, answer3=answer3, answer4=answer4, answer5=answer5, answer6=answer6)
+    answer7 = answers.answer7
+    answer8 = answers.answer8
+    answer9 = answers.answer9
+    answer10 = answers.answer10
+    return render_template('result.html', answer1=answer1, answer2=answer2, answer3=answer3, answer4=answer4, answer5=answer5, answer6=answer6,answer7=answer7,answer8=answer8,answer9=answer9,answer10=answer10)
+
+
+@bp.route('/user/<username>/image')
+def show_post_image(username):
+    user = User.query.filter_by(username=username).first()
+    if user and user.profile_photo: # Verifica se o usuário existe e possui uma foto de perfil
+        return Response(user.profile_photo, content_type='image/png')
+    return 'Image not found', 404

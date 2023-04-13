@@ -5,12 +5,17 @@ from wtforms.validators import ValidationError, DataRequired, Length
 from flask_babel import _, lazy_gettext as _l
 from bet.models import User
 from wtforms import RadioField
+from flask_wtf.file import FileField, FileAllowed
+
 
 
 class EditProfileForm(FlaskForm):
     username = StringField(_l('Username'), validators=[DataRequired()])
     about_me = TextAreaField(_l('About me'),
                              validators=[Length(min=0, max=140)])
+    profile_photo = FileField(_l('Profile Photo'), validators=[
+        FileAllowed(['jpg', 'jpeg', 'png'], _l('Only JPEG and PNG images are allowed.'))
+    ])
     submit = SubmitField(_l('Submit'))
 
     def __init__(self, original_username, *args, **kwargs):
@@ -40,3 +45,7 @@ class QuizForm(FlaskForm):
     answer4 = RadioField('answer4', choices=[('1', 'Vasco'), ('2', 'Empate'), ('3', 'Fluminense')], validators=[DataRequired()])
     answer5 = RadioField('answer5', choices=[('1', 'Vasco'), ('2', 'Empate'), ('3', 'Fluminense')], validators=[DataRequired()])
     answer6 = RadioField('answer6', choices=[('1', 'Vasco'), ('2', 'Empate'), ('3', 'Fluminense')], validators=[DataRequired()])
+    answer7 = RadioField('answer6', choices=[('1', 'Vasco'), ('2', 'Empate'), ('3', 'Fluminense')], validators=[DataRequired()])
+    answer8 = RadioField('answer6', choices=[('1', 'Vasco'), ('2', 'Empate'), ('3', 'Fluminense')], validators=[DataRequired()])
+    answer9 = RadioField('answer6', choices=[('1', 'Vasco'), ('2', 'Empate'), ('3', 'Fluminense')], validators=[DataRequired()])
+    answer10 = RadioField('answer6', choices=[('1', 'Vasco'), ('2', 'Empate'), ('3', 'Fluminense')], validators=[DataRequired()])
