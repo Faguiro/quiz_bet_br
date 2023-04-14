@@ -39,13 +39,13 @@ class PostForm(FlaskForm):
 
 
 class QuizForm(FlaskForm):
-    answer1 = RadioField('answer1', choices=[('1', 'Vasco'), ('2', 'Empate'), ('3', 'Fluminense')], validators=[DataRequired()])
-    answer2 = RadioField('answer2', choices=[('1', 'Vasco'), ('2', 'Empate'), ('3', 'Fluminense')], validators=[DataRequired()])
-    answer3 = RadioField('answer3', choices=[('1', 'Vasco'), ('2', 'Empate'), ('3', 'Fluminense')], validators=[DataRequired()])
-    answer4 = RadioField('answer4', choices=[('1', 'Vasco'), ('2', 'Empate'), ('3', 'Fluminense')], validators=[DataRequired()])
-    answer5 = RadioField('answer5', choices=[('1', 'Vasco'), ('2', 'Empate'), ('3', 'Fluminense')], validators=[DataRequired()])
-    answer6 = RadioField('answer6', choices=[('1', 'Vasco'), ('2', 'Empate'), ('3', 'Fluminense')], validators=[DataRequired()])
-    answer7 = RadioField('answer6', choices=[('1', 'Vasco'), ('2', 'Empate'), ('3', 'Fluminense')], validators=[DataRequired()])
-    answer8 = RadioField('answer6', choices=[('1', 'Vasco'), ('2', 'Empate'), ('3', 'Fluminense')], validators=[DataRequired()])
-    answer9 = RadioField('answer6', choices=[('1', 'Vasco'), ('2', 'Empate'), ('3', 'Fluminense')], validators=[DataRequired()])
-    answer10 = RadioField('answer6', choices=[('1', 'Vasco'), ('2', 'Empate'), ('3', 'Fluminense')], validators=[DataRequired()])
+    answer1 = RadioField('answer1', choices=[('1', 'Palmeiras'), ('2', 'Empate'), ('3', 'Cuiabá')], validators=[DataRequired()])
+    answer2 = RadioField('answer2', choices=[('1', 'América'), ('2', 'Empate'), ('3', 'Fluminense')], validators=[DataRequired()])
+    answer3 = RadioField('answer3', choices=[('1', 'Botafogo'), ('2', 'Empate'), ('3', 'São Paulo')], validators=[DataRequired()])
+    answer4 = RadioField('answer4', choices=[('1', 'Bragantino'), ('2', 'Empate'), ('3', 'Bahia')], validators=[DataRequired()])
+    answer5 = RadioField('answer5', choices=[('1', 'Atlétio-PR'), ('2', 'Empate'), ('3', 'Goiás')], validators=[DataRequired()])
+    answer6 = RadioField('answer6', choices=[('1', 'Fortaleza'), ('2', 'Empate'), ('3', 'Internacional')], validators=[DataRequired()])
+    answer7 = RadioField('answer6', choices=[('1', 'Atético-MG'), ('2', 'Empate'), ('3', 'Vasco da Gama')], validators=[DataRequired()])
+    answer8 = RadioField('answer6', choices=[('1', 'Corinthians'), ('2', 'Empate'), ('3', 'Cruzeiro')], validators=[DataRequired()])
+    answer9 = RadioField('answer6', choices=[('1', 'Flamengo'), ('2', 'Empate'), ('3', 'Coritiba')], validators=[DataRequired()])
+    answer10 = RadioField('answer6',choices=[('1', 'Gêmio'), ('2', 'Empate'), ('3', 'Santos')], validators=[DataRequired()])

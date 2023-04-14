@@ -31,20 +31,21 @@
     align-items: center;
   }
 
-  .icones {
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-    margin-top: 10px;
-  }
-
+  .icones,
   ul#answer1,
   ul#answer2,
   ul#answer3,
   ul#answer4,
   ul#answer5,
-  ul#answer6 {
+  ul#answer6,
+  ul#answer7,
+  ul#answer8,
+  ul#answer9,
+  ul#answer10 {
     display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 10px;
     gap: 20%;
     margin-top: 15px;
   }
@@ -64,15 +65,25 @@
   }
 
   button[type="submit"] {
-    background-color: #007bff;
-    /* cor de fundo do botão */
-    color: #fff;
-    /* cor do texto do botão */
+    display: grid;
+    margin-bottom: 54px;  
+    background-color: orange;
+    /* Cor de fundo laranja */
+    border-color: black;
+    color:black;
+    /* Cor da borda preta */
     padding: 10px 20px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     margin-top: 20px;
+    font-weight: 700;
+    height: 58px;
+    font-size: 27px;
+  }
+  .bt-submit:hover{
+    transform: scale(1.2);
+    color: white;
   }
 
   .container-fluid {
@@ -81,25 +92,42 @@
   }
 
   .titulo {
-    margin: 10px 0;
+    margin: 40px 0;
+    font-weight: bold;
+    text-align: center;
   }
 
   .subtitulo {
-    margin: 10px 0;  
+    margin: 10px 0;
+  }
+
+  @media only screen and (max-width: 600px) {
+    form {
+      width: 90%;
+    }
+
+    .container-fluid {
+      width: 90%;
+      display: flex;
+    }
+
+    .titulo {
+      margin: 10px 0;
+      font-weight: bold;
+      text-align: center;
+    }
   }
 </style>
 <section class="main">
   <div class="container-fluid">
-    <h3 class="titulo">
+    <h1 class="titulo">
       Você é um verdadeiro fã de futebol brasileiro?<br>
-      Então, prove suas habilidades no nosso quiz bet Brasileirão! <br> Faça suas escolhas com sabedoria, acumule pontos
-      e concorra a prêmios incríveis. É hora de mostrar seu conhecimento e ganhar como um verdadeiro campeão!
-      </h2>
+
       <span class="subtitle">
-        Você é um verdadeiro fã de futebol brasileiro? Então, prove suas habilidades no nosso quiz bet Brasileirão! Faça
-        suas escolhas com sabedoria, acumule pontos e concorra a prêmios incríveis. É hora de mostrar seu conhecimento e
-        ganhar como um verdadeiro campeão!
-      </span>
+        <!--   Então, prove suas habilidades no nosso quiz bet Brasileirão! <br> Faça suas escolhas com sabedoria, acumule pontos
+      e concorra a prêmios incríveis. É hora de mostrar seu conhecimento e ganhar como um verdadeiro campeão! -->
+    </h1>
+    </span>
 
   </div>
 
@@ -112,9 +140,9 @@
         {{ form.answer1.label }}
         <br>
         <div class="icones">
-          <img src="{{ url_for('static', filename='/images/vasco.png') }}" width="80" height="80">
+          <img src="{{ url_for('static', filename='/images/palmeiras.png') }}" width="80" height="80">
           <img src="{{ url_for('static', filename='/images/empate.png') }}" width="80" height="80">
-          <img src="{{ url_for('static', filename='/images/fluminense.png') }}" width="80" height="80">
+          <img src="{{ url_for('static', filename='/images/cuiaba.png') }}" width="80" height="80">
         </div>
         {{ form.answer1 }}
       </div>
@@ -125,7 +153,7 @@
         {{ form.answer2.label }}
         <br>
         <div class="icones">
-          <img src="{{ url_for('static', filename='/images/vasco.png') }}" width="80" height="80">
+          <img src="{{ url_for('static', filename='/images/america.png') }}" width="80" height="80">
           <img src="{{ url_for('static', filename='/images/empate.png') }}" width="80" height="80">
           <img src="{{ url_for('static', filename='/images/fluminense.png') }}" width="80" height="80">
         </div>
@@ -138,9 +166,10 @@
         {{ form.answer3.label }}
         <br>
         <div class="icones">
-          <img src="{{ url_for('static', filename='/images/vasco.png') }}" width="80" height="80">
+          <img src="{{ url_for('static', filename='/images/botafogo.png') }}" width="80" height="80">
           <img src="{{ url_for('static', filename='/images/empate.png') }}" width="80" height="80">
-          <img src="{{ url_for('static', filename='/images/fluminense.png') }}" width="80" height="80">
+          <img src="{{ url_for('static', filename='/images/sao_paulo.png') }}" width="80" height="80">
+
         </div>
         {{ form.answer3 }}
       </div>
@@ -152,9 +181,10 @@
         {{ form.answer4.label }}
         <br>
         <div class="icones">
-          <img src="{{ url_for('static', filename='/images/vasco.png') }}" width="80" height="80">
+          <img src="{{ url_for('static', filename='/images/bragantino.png') }}" width="80" height="80">
           <img src="{{ url_for('static', filename='/images/empate.png') }}" width="80" height="80">
-          <img src="{{ url_for('static', filename='/images/fluminense.png') }}" width="80" height="80">
+          <img src="{{ url_for('static', filename='/images/bahia.png') }}" width="80" height="80">
+
         </div>
         {{ form.answer4 }}
       </div>
@@ -166,9 +196,9 @@
         {{ form.answer5.label }}
         <br>
         <div class="icones">
-          <img src="{{ url_for('static', filename='/images/vasco.png') }}" width="80" height="80">
+          <img src="{{ url_for('static', filename='/images/Athletico-PR.png') }}" width="80" height="80">
           <img src="{{ url_for('static', filename='/images/empate.png') }}" width="80" height="80">
-          <img src="{{ url_for('static', filename='/images/fluminense.png') }}" width="80" height="80">
+          <img src="{{ url_for('static', filename='/images/goias.png') }}" width="80" height="80">
         </div>
         {{ form.answer5 }}
       </div>
@@ -180,9 +210,9 @@
         {{ form.answer6.label }}
         <br>
         <div class="icones">
-          <img src="{{ url_for('static', filename='/images/vasco.png') }}" width="80" height="80">
+          <img src="{{ url_for('static', filename='/images/fortaleza.png') }}" width="80" height="80">
           <img src="{{ url_for('static', filename='/images/empate.png') }}" width="80" height="80">
-          <img src="{{ url_for('static', filename='/images/fluminense.png') }}" width="80" height="80">
+          <img src="{{ url_for('static', filename='/images/inter.png') }}" width="80" height="80">
         </div>
         {{ form.answer6 }}
       </div>
@@ -193,9 +223,9 @@
         {{ form.answer7.label }}
         <br>
         <div class="icones">
-          <img src="{{ url_for('static', filename='/images/vasco.png') }}" width="80" height="80">
+          <img src="{{ url_for('static', filename='/images/atletico-mineiro.png') }}" width="80" height="80">
           <img src="{{ url_for('static', filename='/images/empate.png') }}" width="80" height="80">
-          <img src="{{ url_for('static', filename='/images/fluminense.png') }}" width="80" height="80">
+          <img src="{{ url_for('static', filename='/images/vasco.png') }}" width="80" height="80">
         </div>
         {{ form.answer7 }}
       </div>
@@ -206,9 +236,9 @@
         {{ form.answer8.label }}
         <br>
         <div class="icones">
-          <img src="{{ url_for('static', filename='/images/vasco.png') }}" width="80" height="80">
+          <img src="{{ url_for('static', filename='/images/corinthians.png') }}" width="80" height="80">
           <img src="{{ url_for('static', filename='/images/empate.png') }}" width="80" height="80">
-          <img src="{{ url_for('static', filename='/images/fluminense.png') }}" width="80" height="80">
+          <img src="{{ url_for('static', filename='/images/cruzeiro.png') }}" width="80" height="80">
         </div>
         {{ form.answer8 }}
       </div>
@@ -219,9 +249,9 @@
         {{ form.answer9.label }}
         <br>
         <div class="icones">
-          <img src="{{ url_for('static', filename='/images/vasco.png') }}" width="80" height="80">
+          <img src="{{ url_for('static', filename='/images/flamengo.png') }}" width="80" height="80">
           <img src="{{ url_for('static', filename='/images/empate.png') }}" width="80" height="80">
-          <img src="{{ url_for('static', filename='/images/fluminense.png') }}" width="80" height="80">
+          <img src="{{ url_for('static', filename='/images/coritiba.png') }}" width="80" height="80">
         </div>
         {{ form.answer9 }}
       </div>
@@ -232,9 +262,9 @@
         {{ form.answer10.label }}
         <br>
         <div class="icones">
-          <img src="{{ url_for('static', filename='/images/vasco.png') }}" width="80" height="80">
+          <img src="{{ url_for('static', filename='/images/gremio.png') }}" width="80" height="80">
           <img src="{{ url_for('static', filename='/images/empate.png') }}" width="80" height="80">
-          <img src="{{ url_for('static', filename='/images/fluminense.png') }}" width="80" height="80">
+          <img src="{{ url_for('static', filename='/images/santos.png') }}" width="80" height="80">
         </div>
         {{ form.answer10 }}
       </div>

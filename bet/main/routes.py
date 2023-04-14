@@ -14,6 +14,8 @@ from io import BytesIO
 from PIL import Image
 
 
+
+
 @bp.before_app_request
 def before_request():
     if current_user.is_authenticated:
@@ -206,34 +208,32 @@ def quiz():
                 'answered': answered,
                 'user_id': current_user.id
             }
-
             # Crie uma nova instância do modelo Quiz com o dicionário de dados
             answer = Quiz(**quiz_data)
-
             db.session.add(answer)
             db.session.commit()
             return redirect(url_for('main.result', answer1=answer1, answer2=answer2, answer3=answer3, answer4=answer4, answer5=answer5, answer6=answer6))
     return render_template('_quiz.html', title='Quiz', form=form)
 
 
-
-
-
 @bp.route('/result')
 def result():
-    answers = Quiz.query.filter_by(user_id=current_user.id).first()
-    answer1 = answers.answer1
-    answer2 = answers.answer2
-    answer3 = answers.answer3
-    answer4 = answers.answer4
-    answer5 = answers.answer5
-    answer6 = answers.answer6
-    answer7 = answers.answer7
-    answer8 = answers.answer8
-    answer9 = answers.answer9
-    answer10 = answers.answer10
-    return render_template('result.html', answer1=answer1, answer2=answer2, answer3=answer3, answer4=answer4, answer5=answer5, answer6=answer6,answer7=answer7,answer8=answer8,answer9=answer9,answer10=answer10)
-
+    form = QuizForm()
+    try:
+        answers = Quiz.query.filter_by(user_id=current_user.id).first()
+        answer1 = answers.answer1
+        answer2 = answers.answer2
+        answer3 = answers.answer3
+        answer4 = answers.answer4
+        answer5 = answers.answer5
+        answer6 = answers.answer6
+        answer7 = answers.answer7
+        answer8 = answers.answer8
+        answer9 = answers.answer9
+        answer10 = answers.answer10
+        return render_template('result.html', answer1=answer1, answer2=answer2, answer3=answer3, answer4=answer4, answer5=answer5, answer6=answer6,answer7=answer7,answer8=answer8,answer9=answer9,answer10=answer10)
+    except:
+        return redirect(url_for('main.index'))
 
 @bp.route('/user/<username>/image')
 def show_post_image(username):
@@ -241,3 +241,4 @@ def show_post_image(username):
     if user and user.profile_photo: # Verifica se o usuário existe e possui uma foto de perfil
         return Response(user.profile_photo, content_type='image/png')
     return 'Image not found', 404
+
