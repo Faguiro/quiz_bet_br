@@ -30,6 +30,7 @@ class User(db.Model, UserMixin):
         secondaryjoin=(followers.c.followed_id == id),
         backref=db.backref('followers', lazy='dynamic'), lazy='dynamic')
     answers = db.relationship('Quiz', backref='user', lazy='dynamic')
+    cateira = db.relationship('Pagamento', backref='user', lazy='dynamic')
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
@@ -111,3 +112,12 @@ class Quiz(db.Model):
 
     def __repr__(self):
         return '<Quiz {}>'.format(self.user_id)
+    
+class Pagamento(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    pagador = db.Column(db.String(50), nullable=False)
+    nome = db.Column(db.String(50), nullable=False)
+    valor = db.Column(db.Float, nullable=False)
+    email = db.Column(db.String(100), nullable=False)
+    data = db.Column(db.DateTime, nullable=False, default=datetime.now())
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
