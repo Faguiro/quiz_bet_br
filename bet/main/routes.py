@@ -9,9 +9,12 @@ from bet.main.forms import EditProfileForm, EmptyForm, PostForm, QuizForm
 from bet.models import User, Post, Quiz
 from bet.translate import translate
 from bet.main import bp
+
 import io
 from io import BytesIO
 from PIL import Image
+from bet.pay import bp as pay_bp
+bp.register_blueprint(pay_bp, url_prefix='/pay')
 
 
 

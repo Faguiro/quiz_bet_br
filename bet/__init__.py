@@ -37,6 +37,9 @@ def create_app(config_class=Config):
     from bet.errors import bp as errors_bp
     app.register_blueprint(errors_bp)
 
+    from bet.pay import bp as pay_bp
+    app.register_blueprint(pay_bp, url_prefix='/pay')
+
     from bet.auth import bp as auth_bp
     app.register_blueprint(auth_bp, url_prefix='/auth')
 
@@ -81,4 +84,4 @@ def get_locale():
     return request.accept_languages.best_match(current_app.config['LANGUAGES'])
 
 
-from bet import models
+from bet import models, routes
