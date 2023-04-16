@@ -10,25 +10,27 @@ Outro recurso interessante deste sistema é o uso de Blueprints, o que permite s
 
 O sistema utiliza a linguagem Python, uma linguagem de programação poderosa e versátil, que oferece uma grande variedade de bibliotecas e frameworks, o que o torna uma excelente escolha para a criação de sistemas web.
 
-####################################################
+#
 
 # Para rodar este sistema, siga os seguintes passos:
 
 1 - Certifique-se de ter o Python 3 e o pip instalados na sua máquina.
 
 2 - Clone o repositório em sua máquina local usando o seguinte comando no terminal:
-
-'' git clone https://github.com/nome_do_repositorio.git ''
-
+```
+ git clone https://github.com/Faguiro/quiz_bet_br.git
+ ```
 3 - Instale as dependências necessárias utilizando o comando:
 
-'' pip install -r requirements.txt
-
+``` 
+pip install -r req.txt 
+```
 4 - Certifique-se de que o Stripe está configurado corretamente com suas informações de API e chaves secretas.
 
 5 - Execute o arquivo app.py para iniciar o servidor Flask com o seguinte comando:
-
+```
 python app.py
+```
 
 Acesse o sistema através do navegador utilizando a URL: http://localhost:5000/
 
