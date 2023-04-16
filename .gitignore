@@ -42,5 +42,8 @@ app.db
 microblog.log*
 migrations
 .env
+logs
 
+*.db
+app.db
 
