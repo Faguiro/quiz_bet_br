@@ -60,11 +60,14 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="{{ url_for('main.index') }}">Bet Brasileirão</a>
+                
+                
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li><a href="{{ url_for('main.quiz') }}">{{ _('Apostar') }}</a></li>
                     <li><a href="{{ url_for('main.result') }}">{{ _('Resultado') }}</a></li>
+                    <li><a href="{{ url_for('main.pagamentos') }}">{{ _('Comprar Créditos') }}</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     {% if current_user.is_anonymous %}

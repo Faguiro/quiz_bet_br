@@ -1,17 +1,19 @@
 from datetime import datetime
 from flask import render_template, flash, redirect, url_for, request, g, \
-    jsonify, current_app, Response
+    jsonify, current_app, Response, abort
 from flask_login import current_user, login_required
 from flask_babel import _, get_locale
 from langdetect import detect, LangDetectException
 from bet import db
 from bet.main.forms import EditProfileForm, EmptyForm, PostForm, QuizForm
-from bet.models import User, Post, Quiz
+from bet.models import User, Post, Quiz, Pagamento
 from bet.translate import translate
 from bet.main import bp
 import io
 from io import BytesIO
 from PIL import Image
+import  stripe
+from bet import db, Config
 
 
 
@@ -241,4 +243,115 @@ def show_post_image(username):
     if user and user.profile_photo: # Verifica se o usuário existe e possui uma foto de perfil
         return Response(user.profile_photo, content_type='image/png')
     return 'Image not found', 404
+
+
+
+
+####################### PAGAMENTOS #################
+
+stripe.api_key = Config.STRIPE_SECRET_KEY
+
+products = {
+    'Suporte total': {
+        'codigo': 'full',
+        'name': 'Todas as rodadas do Brasileirão',
+        'price': 5000,
+    },
+    'Suporte por rodada': {
+        'codigo': 'unidade',
+        'name': 'Rodadas  avulsas do Brasileirão',
+        'price': 500,
+        'por': 'rodada',
+        'adjustable_quantity': {
+            'enabled': True,
+            'minimum': 1,
+            'maximum': 15,
+        },
+    },
+}
+
+
+
+@bp.route('/pagamentos')
+def pagamentos():
+    return render_template('pagamentos.html', products=products)
+
+
+@bp.route('/pagamento/<codigo>', methods=['POST'])
+def order_codigo(codigo):
+
+    codigo_escolhido = codigo
+    produto_encontrado = None
+    for produto in products.values():
+        if 'codigo' in produto and produto['codigo'] == codigo_escolhido:
+            produto_encontrado = produto
+            break
+    
+    # Verificar se o produto foi encontrado e imprimir seu nome
+    if not produto_encontrado:
+        print('abortado', codigo)
+        abort(404)
+    else:  
+        product =  produto_encontrado
+        print(product)
+
+        line_item = {
+            'price_data': {
+                'product_data': {
+                    'name': product['name'],
+                },
+                'unit_amount': product['price'],
+                'currency': 'BRL',
+            },
+            'quantity': 1,
+            'adjustable_quantity': product.get('adjustable_quantity', {'enabled': False}),
+        }
+        print (line_item)
+
+
+        checkout_session = stripe.checkout.Session.create(
+            line_items=[line_item],
+            payment_method_types=['card'],
+            mode='payment',
+            success_url=request.host_url + 'pagamento/success',
+            cancel_url=request.host_url + 'pagamento/cancel',
+        )
+        return redirect(checkout_session.url)
+
+@bp.route('/pagamento/success')
+def success():
+    return render_template('success.html')
+
+@bp.route('/pagamento/cancel')
+def cancel():
+    return render_template('cancel.html')
+
+@bp.route('/event', methods=['POST'])
+def new_event():
+    
+    event = None
+    payload = request.data
+    signature = request.headers['STRIPE_SIGNATURE']
+
+    try:
+        event = stripe.Webhook.construct_event(payload, signature, Config.STRIPE_WEBHOOK_SECRET)
+    except Exception as e:
+        print(e)
+        abort(400)
+
+    if event['type'] == 'checkout.session.completed':
+        session = stripe.checkout.Session.retrieve(
+            event['data']['object'].id, expand=['line_items'])
+        #print(f'Sale to {session.customer_details.email}:')
+        for item in session.line_items.data:
+            #print (item)
+            print (session.customer_details)
+            # Criar instância do modelo Produto e salvar no banco de dados
+            produto = Pagamento(pagador = session.customer_details.name ,nome=item.description, valor=item.amount_total/100, email=session.customer_details.email)
+            db.session.add(produto)
+            db.session.commit()
+            """ print(f'  - {item.quantity} {item.description} '
+                    f'${item.amount_total/100:.02f} {item.currency.upper()}') """
+
+    return {'success': True}
 
