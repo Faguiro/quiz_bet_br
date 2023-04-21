@@ -1,0 +1,41 @@
+  /* Estilo personalizado para a barra de navegação */
+    .navbar {
+               background-color: orange; /* Cor de fundo laranja */
+               border-color: black; /* Cor da borda preta */
+           }
+
+           .navbar-brand {
+               color: black; /* Cor do texto preto */
+           }
+
+           .navbar-nav > li > a {
+               color: black; /* Cor do texto preto */
+           }
+
+           .navbar-nav > li > a:hover,
+           .navbar-nav > li > a:focus {
+               background-color: black; /* Cor de fundo preta em hover/foco */
+               color: white; /* Cor do texto branco em hover/foco */
+           }
+
+           .navbar-nav.navbar-right > li > a {
+               color: black; /* Cor do texto preto na parte direita da barra de navegação */
+           }
+
+           .navbar-nav.navbar-right > li > a:hover,
+           .navbar-nav.navbar-right > li > a:focus {
+               background-color: black; /* Cor de fundo preta em hover/foco na parte direita da barra de navegação */
+               color: white; /* Cor do texto branco em hover/foco na parte direita da barra de navegação */
+           }
+
+           #counter {
+                    font-size: 80px;
+                    color: blue;
+                    animation: blinker 1s linear infinite;
+                }
+
+                @keyframes blinker {
+                    50% {
+                        opacity: 0;
+                    }
+                }

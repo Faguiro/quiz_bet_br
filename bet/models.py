@@ -31,6 +31,11 @@ class User(db.Model, UserMixin):
         backref=db.backref('followers', lazy='dynamic'), lazy='dynamic')
     answers = db.relationship('Quiz', backref='user', lazy='dynamic')
     cateira = db.relationship('Pagamento', backref='user', lazy='dynamic')
+    saldo = db.Column(db.Float, nullable=False, default=0.0)
+
+    def atualiza_saldo(self, valor):
+        self.saldo += valor # Atualiza o saldo do usuário com o valor recebido
+
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
@@ -112,7 +117,7 @@ class Quiz(db.Model):
 
     def __repr__(self):
         return '<Quiz {}>'.format(self.user_id)
-    
+
 class Pagamento(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     pagador = db.Column(db.String(50), nullable=False)

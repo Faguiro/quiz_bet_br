@@ -28,15 +28,15 @@
           <td>{{ product['name'] }}</td>
           <td>{{ "%.2f"|format(product['price'] / 100) }} R${% if product.get('por') %} por {{ product['por'] }}{% endif %}</td>
           <td>
-            <form method="POST" action="/pagamento/{{ product.codigo }}">
+            <form method="POST" action="/stripe_pagamento/{{ product.codigo }}">
                   <input type="submit" value="Comprar">
               </form>
           </td>
       </tr>
   {% endfor %}
- 
-  
-  
+
+
+
     </table>
   </body>
 </html>

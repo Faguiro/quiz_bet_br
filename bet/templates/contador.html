@@ -1,0 +1,86 @@
+<style>
+
+/* Defina a animação */
+@keyframes fadeInOut {
+  0% { opacity: 1; }
+  30% { opacity: 0; }
+  80% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* Aplique a animação na classe do contador */
+.contador {
+    width: max-content;
+    padding: 2rem;
+    position: absolute;
+    text-align: center;
+    top: 30%;
+    right: 5%;
+    transform: scale(0.8);
+    animation-name: fadeInOut;
+    animation-duration: 10s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+/* Defina a duração de tempo em que o contador estará invisível */
+.contador {
+  opacity: 0;
+  animation-delay: 5s; /* Metade da duração total da animação */
+}
+ #counter {
+                    font-size: 30px;
+                    color: blue;
+                    animation: blinker 1s linear infinite;
+                }
+
+                @keyframes blinker {
+                    50% {
+                        opacity: 0;
+                    }
+                }
+</style>
+<div class='contador jumbotron'>
+
+    <div>
+        <p>Prêmio Atualizando</p>
+        <p id="counter">
+            R$ 1.000,00
+        </p>
+    </div>
+    <p>Prazo para as apostas</p>
+    <div id="countdown" style="font-size:50px; font-family: Arial, sans-serif; color: red;">
+    </div>
+    <br><br>
+ </div>
+    <script>
+        // Data final da contagem regressiva
+        var countDownDate = new Date("Apr 30, 2023 15:37:25").getTime();
+
+        // Atualiza a contagem a cada 1 segundo
+        var x = setInterval(function () {
+
+            // Obtém a data e hora atuais
+            var now = new Date().getTime();
+
+            // Encontra a distância entre a data atual e a data final
+            var distance = countDownDate - now;
+
+            // Calcula o número de dias, horas, minutos e segundos
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Exibe a contagem regressiva
+            document.getElementById("countdown").innerHTML = days + "d " + hours + "h "
+                + minutes + "m " + seconds + "s ";
+
+            // Se a contagem chegar a zero, escreva "EXPIRED" e desabilite o botão de envio
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("countdown").innerHTML = "AGUARDE A PRÓXIMA RODADA";
+                document.getElementById("submit-button").disabled = true;
+            }
+        }, 1000);
+    </script>
