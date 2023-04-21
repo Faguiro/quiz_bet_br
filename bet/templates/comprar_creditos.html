@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Página de Pagamentos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='comprar_creditos.css') }}">
+</head>
+<body>
+    <h1>Métodos de Pagamento</h1>
+    <div class="container">
+        {% for metodo in metodos_pagamento %}
+            <div class="metodo">
+                <img src="{{ url_for('static', filename='images/cards/' + metodo.imagem) }}" alt="{{ metodo.nome }}">
+                <h2>{{ metodo.nome }}</h2>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+
+<script>
+
+         // Captura os elementos com a classe .metodo
+        const metodosPagamento = document.querySelectorAll('.metodo');
+
+        // Adiciona o evento de clique a cada elemento .metodo
+        metodosPagamento.forEach(metodo => {
+            metodo.addEventListener('click', () => {
+                // Obtém o nome do método de pagamento clicado
+                const nomeMetodo = metodo.querySelector('h2').innerText;
+
+                // Transforma o nome do método de pagamento em minúsculas e substitui espaços por underscores
+                const nomeMetodoFormatado = nomeMetodo.toLowerCase().replace(/\s+/g, '_');
+
+                // Redireciona o usuário para a página do método de pagamento escolhido
+                window.location.href = `pagamento/${nomeMetodoFormatado}`;
+            });
+        });
+
+</script>
+</html>

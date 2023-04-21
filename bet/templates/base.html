@@ -1,93 +1,29 @@
+
+
+
 {% extends 'bootstrap/base.html' %}
 
 {% block title %}
     {% if title %}{{ title }} - Bet Brasileirão{% else %}{{ _('Welcome to Bet Brasileirão') }}{% endif %}
 {% endblock %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/quiz.css') }}">
 
 
 {% block navbar %}
-<style>
-    /* Estilo personalizado para a barra de navegação */
-    .navbar {
-               background-color: orange; /* Cor de fundo laranja */
-               border-color: black; /* Cor da borda preta */
-           }
-   
-           .navbar-brand {
-               color: black; /* Cor do texto preto */
-           }
-   
-           .navbar-nav > li > a {
-               color: black; /* Cor do texto preto */
-           }
-   
-           .navbar-nav > li > a:hover,
-           .navbar-nav > li > a:focus {
-               background-color: black; /* Cor de fundo preta em hover/foco */
-               color: white; /* Cor do texto branco em hover/foco */
-           }
-   
-           .navbar-nav.navbar-right > li > a {
-               color: black; /* Cor do texto preto na parte direita da barra de navegação */
-           }
-   
-           .navbar-nav.navbar-right > li > a:hover,
-           .navbar-nav.navbar-right > li > a:focus {
-               background-color: black; /* Cor de fundo preta em hover/foco na parte direita da barra de navegação */
-               color: white; /* Cor do texto branco em hover/foco na parte direita da barra de navegação */
-           }
-
-           #counter {
-                    font-size: 80px;
-                    color: blue;
-                    animation: blinker 1s linear infinite;
-                }
-
-                @keyframes blinker {
-                    50% {
-                        opacity: 0;
-                    }
-                }
-</style>
-    <nav class="navbar navbar-default">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="{{ url_for('main.index') }}">Bet Brasileirão</a>
-                
-                
-            </div>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li><a href="{{ url_for('main.quiz') }}">{{ _('Apostar') }}</a></li>
-                    <li><a href="{{ url_for('main.result') }}">{{ _('Resultado') }}</a></li>
-                    <li><a href="{{ url_for('main.pagamentos') }}">{{ _('Comprar Créditos') }}</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    {% if current_user.is_anonymous %}
-                    <li><a href="{{ url_for('auth.login') }}">{{ _('Entrar') }}</a></li>
-                    {% else %}
-                    <li><a href="{{ url_for('main.user', username=current_user.username) }}">{{ _('Perfil') }}</a></li>
-                    <li><a href="{{ url_for('auth.logout') }}">{{ _('Sair') }}</a></li>
-                    {% endif %}
-                </ul>
-            </div>
-        </div>
-    </nav>
+{% include 'nav.html' %}
 {% endblock %}
 
 {% block content %}
 <style>
-    
+
     body {
-             background-color: #ffffff; /* branco */
-         }
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #191c29;
+}
          h1 {
              color: #ff8c00; /* laranja */
          }
@@ -147,19 +83,11 @@
             });
         }
     </script>
-    <script>
-        let counter = parseFloat(localStorage.getItem('counter')) || 1000.00;
-        if (!counter) {
-            counter = 1000.00;
-        }
-    
-        document.getElementById("counter").innerHTML = counter.toFixed(2);
-    
-        function initPayPalButton() {
-            counter += 2.00;
-            localStorage.setItem('counter', counter);
-            document.getElementById("counter").innerHTML = counter.toFixed(2);
-        }
-        
-    </script>
+
 {% endblock %}
+
+
+
+
+
+

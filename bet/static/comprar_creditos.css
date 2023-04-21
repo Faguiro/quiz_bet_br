@@ -1,0 +1,54 @@
+body {
+    background-color: black;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.metodo {
+    min-width: 150px;
+    margin: 20px;
+    text-align: center;
+}
+
+.metodo img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: orange;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid black;
+    transition: all 0.5s ease-out;
+}
+
+.metodo h2 {
+    font-size: 18px;
+}
+.metodo:hover h2 {
+    font-size: 18px;
+    transform: scale(1.2);
+    color:orange;
+    transition: all 0.5s ease-out;
+}
+
+.metodo img:hover {
+    cursor: pointer;
+    box-shadow: 0 3px 10px rgb(234 219 219);
+    transform: scale(1.2);
+    transition: all 0.5s ease-out;
+    border: 1px solid #343131;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    color: orange;
+}
+

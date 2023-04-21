@@ -14,6 +14,7 @@ from io import BytesIO
 from PIL import Image
 import  stripe
 from bet import db, Config
+import os
 
 
 
@@ -52,7 +53,7 @@ def index():
         if posts.has_prev else None
     return render_template('index.html', title=_('Home'), form=form,
                            posts=posts.items, next_url=next_url,
-                           prev_url=prev_url) 
+                           prev_url=prev_url)
 
 
 @bp.route('/explore')
@@ -84,13 +85,15 @@ def user(username):
     prev_url = url_for('main.user', username=user.username,
                        page=posts.prev_num) if posts.has_prev else None
     form = EmptyForm()
+    saldo = str(user.saldo) # obtém o saldo do usuário
     return render_template('user.html', user=user, posts=posts.items,
-                           next_url=next_url, prev_url=prev_url, form=form)
+                           next_url=next_url, prev_url=prev_url, form=form, saldo=saldo)
 
 
 @bp.route('/edit_profile', methods=['GET', 'POST'])
 @login_required
 def edit_profile():
+
     form = EditProfileForm(current_user.username)
     if form.validate_on_submit():
         # Convert the image to PNG format
@@ -107,17 +110,19 @@ def edit_profile():
             img_file = io.BytesIO()
             img.save(img_file, format='PNG')
             img_data = img_file.getvalue()
+        else:
+            img_data = current_user.profile_photo
 
         current_user.username = form.username.data
         current_user.about_me = form.about_me.data
         current_user.profile_photo = img_data
         db.session.commit()
-        flash(_('Your changes have been saved.'))
-        return redirect(url_for('main.edit_profile'))
+        flash(_('Suas alterações foram salvas.'))
+        return redirect(url_for('main.index'))
     elif request.method == 'GET':
         form.username.data = current_user.username
         form.about_me.data = current_user.about_me
-    return render_template('edit_profile.html', title=_('Edit Profile'),
+    return render_template('edit_profile.html', title=_('Editar Perfil'),
                            form=form, username=User.username)
 
 
@@ -220,7 +225,6 @@ def quiz():
 
 @bp.route('/result')
 def result():
-    form = QuizForm()
     try:
         answers = Quiz.query.filter_by(user_id=current_user.id).first()
         answer1 = answers.answer1
@@ -237,6 +241,7 @@ def result():
     except:
         return redirect(url_for('main.index'))
 
+
 @bp.route('/user/<username>/image')
 def show_post_image(username):
     user = User.query.filter_by(username=username).first()
@@ -248,7 +253,22 @@ def show_post_image(username):
 
 
 ####################### PAGAMENTOS #################
+@bp.route('/comprarcreditos')
+def comprar_creditos():
+    # Dados dos métodos de pagamento
+    metodos_pagamento = [
+        {'nome': 'Pix', 'imagem': 'pix.png'},
+        {'nome': 'Mercado Pago', 'imagem': 'mercadopago.png'},
+        {'nome': 'PicPay', 'imagem': 'picpay.png'},
+        {'nome': 'Stripe', 'imagem': 'stripe.png'},
+        {'nome': 'PayPal', 'imagem': 'paypal.png'}
+    ]
+    # Renderizando o template com os dados
+    return render_template('comprar_creditos.html', metodos_pagamento=metodos_pagamento)
 
+
+
+####################### PAGAMENTOS  stripe configurações #################
 stripe.api_key = Config.STRIPE_SECRET_KEY
 
 products = {
@@ -270,28 +290,29 @@ products = {
     },
 }
 
+####################### PAGAMENTOS  stripe #################
+
+@bp.route('/pagamento/stripe')
+@login_required
+def pagamento_stripe():
+    return render_template('stripe_pagamentos.html', products=products)
 
 
-@bp.route('/pagamentos')
-def pagamentos():
-    return render_template('pagamentos.html', products=products)
-
-
-@bp.route('/pagamento/<codigo>', methods=['POST'])
-def order_codigo(codigo):
-
+@bp.route('/stripe_pagamento/<codigo>', methods=['POST'])
+@login_required
+def stripe_order_codigo(codigo):
     codigo_escolhido = codigo
     produto_encontrado = None
     for produto in products.values():
         if 'codigo' in produto and produto['codigo'] == codigo_escolhido:
             produto_encontrado = produto
             break
-    
+
     # Verificar se o produto foi encontrado e imprimir seu nome
     if not produto_encontrado:
         print('abortado', codigo)
         abort(404)
-    else:  
+    else:
         product =  produto_encontrado
         print(product)
 
@@ -313,22 +334,24 @@ def order_codigo(codigo):
             line_items=[line_item],
             payment_method_types=['card'],
             mode='payment',
-            success_url=request.host_url + 'pagamento/success',
-            cancel_url=request.host_url + 'pagamento/cancel',
+            success_url=request.host_url + 'pagamento/stripe/stripe_success',
+            cancel_url=request.host_url + 'pagamento/stripe/stripe_cancel',
+            metadata={
+                'user_id': current_user.id  # Adiciona o ID do usuário como metadata na sessão de checkout
+            }
         )
         return redirect(checkout_session.url)
 
-@bp.route('/pagamento/success')
-def success():
-    return render_template('success.html')
+@bp.route('/pagamento/stripe/stripe_success')
+def stripe_success():
+    return render_template('stripe_success.html')
 
-@bp.route('/pagamento/cancel')
-def cancel():
-    return render_template('cancel.html')
+@bp.route('/pagamento/stripe/stripe_cancel')
+def stripe_cancel():
+    return render_template('stripe_cancel.html')
 
-@bp.route('/event', methods=['POST'])
+@bp.route('/stripe/event', methods=['POST'])
 def new_event():
-    
     event = None
     payload = request.data
     signature = request.headers['STRIPE_SIGNATURE']
@@ -340,18 +363,32 @@ def new_event():
         abort(400)
 
     if event['type'] == 'checkout.session.completed':
-        session = stripe.checkout.Session.retrieve(
-            event['data']['object'].id, expand=['line_items'])
-        #print(f'Sale to {session.customer_details.email}:')
-        for item in session.line_items.data:
-            #print (item)
-            print (session.customer_details)
-            # Criar instância do modelo Produto e salvar no banco de dados
-            produto = Pagamento(pagador = session.customer_details.name ,nome=item.description, valor=item.amount_total/100, email=session.customer_details.email)
-            db.session.add(produto)
-            db.session.commit()
-            """ print(f'  - {item.quantity} {item.description} '
-                    f'${item.amount_total/100:.02f} {item.currency.upper()}') """
+        session = stripe.checkout.Session.retrieve(event['data']['object'].id, expand=['line_items'])
+        user_id = session.metadata.get('user_id')  # Obtém o ID do usuário a partir dos metadata da sessão de checkout
 
-    return {'success': True}
+
+        for item in session.line_items.data:
+            try:
+                produto = Pagamento(
+                    pagador=session.customer_details.name,
+                    nome=item.description,
+                    valor=item.amount_total/100,
+                    email=session.customer_details.email,
+                    user_id=user_id  # Atribui o ID do usuário logado à coluna user_id
+                )
+
+                db.session.add(produto)
+                db.session.commit()
+
+                # Atualiza o saldo do usuário após adicionar o pagamento
+                user = User.query.filter_by(id=user_id).first()
+                user.atualiza_saldo(item.amount_total/100)
+                db.session.commit()
+
+
+            except Exception as e:
+                resp = str(e)
+                return {'success': False, 'resposta': f'{resp}'}
+
+    return {'success': True,'resposta': 'ok'}
 
