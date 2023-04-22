@@ -1,47 +1,200 @@
-
-
 {% extends "base.html" %}
 {% import 'bootstrap/wtf.html' as wtf %}
 
-{% block app_content %}
-<form method="post" enctype="multipart/form-data">
-    {{ form.csrf_token }}
-    <div class="form-group">
-      {{ form.username.label(class="form-control-label") }}
-      {{ form.username(class="form-control") }}
-      {% if form.username.errors %}
-        <ul class="errors">
-          {% for error in form.username.errors %}
+{% block navbar %}
+{% include 'nav.html' %}
+{% endblock %}
+{% block content %}
+<script src="https://cdn.tailwindcss.com"></script>
+
+<body class="bg-gray-900 text-white dark:bg-gray-800 dark:text-gray-100 mt-50">
+ 
+  <div class="flex justify-center">
+    <div class="w-1/2 bg-white dark:bg-gray-700 shadow-md rounded-md p-8">
+      <h1
+      class="text-4xl font-bold tracking-wider text-center  text-gray-200 dark:text-gray-100 transform hover:scale-10 ">
+      {{ _('Editar Perfil') }}</h1>
+
+
+      <div class="profile-container">
+        <div class="profile-image">
+          {% if user.profile_photo %}
+          <img class="image-post img-responsive" src="{{ url_for('main.show_post_image', username=user.username) }}"
+            type="image/png">
+          {% else %}
+          <img src="{{ user.avatar(256) }}">
+          {% endif %}
+        </div>
+      </div>
+
+      <form method="post" enctype="multipart/form-data">
+        {{ form.csrf_token }}
+        <div class="form-group">
+          {{ form.username.label(class="form-control-label") }}
+          {{ form.username(class="form-control") }}
+          {% if form.username.errors %}
+          <ul class="errors">
+            {% for error in form.username.errors %}
             <li>{{ error }}</li>
-          {% endfor %}
-        </ul>
-      {% endif %}
-    </div>
-    <div class="form-group">
-      {{ form.about_me.label(class="form-control-label") }}
-      {{ form.about_me(class="form-control") }}
-      {% if form.about_me.errors %}
-        <ul class="errors">
-          {% for error in form.about_me.errors %}
+            {% endfor %}
+          </ul>
+          {% endif %}
+        </div>
+        <div class="form-group">
+          {{ form.about_me.label(class="form-control-label") }}
+          {{ form.about_me(class="form-control") }}
+          {% if form.about_me.errors %}
+          <ul class="errors">
+            {% for error in form.about_me.errors %}
             <li>{{ error }}</li>
-          {% endfor %}
-        </ul>
-      {% endif %}
-    </div>
-    <div class="form-group">
-      {{ form.profile_photo.label(class="form-control-label") }}
-      {{ form.profile_photo(class="form-control") }}
-      {% if form.profile_photo.errors %}
-        <ul class="errors">
-          {% for error in form.profile_photo.errors %}
+            {% endfor %}
+          </ul>
+          {% endif %}
+        </div>
+        <div class="form-group">
+          {{ form.profile_photo.label(class="form-control-label") }}
+          {{ form.profile_photo(class="form-control") }}
+          {% if form.profile_photo.errors %}
+          <ul class="errors">
+            {% for error in form.profile_photo.errors %}
             <li>{{ error }}</li>
-          {% endfor %}
-        </ul>
-      {% endif %}
+            {% endfor %}
+          </ul>
+          {% endif %}
+        </div>
+        
+          <div class="form-group">
+            {{ form.submit(class="btn btn-primary") }}
+
+            <div class="relative">
+            <!-- Botão em forma de seta na parte inferior direita do painel -->
+            <input type="button" value="←"
+              class="fixed right-3 bottom-4 bg-orange-500 hover:bg-black-600 text-white py-2 px-4 rounded-full shadow text-xl font-bold">
+          </div>
+
+
+        </div>
+      </form>
+
     </div>
-    <div class="form-group">
-      {{ form.submit(class="btn btn-primary") }}
-    </div>
-  </form>
-  
+  </div>
+  <style>
+    /* Estilos personalizados */
+    .upload-btn-container {
+      position: relative;
+      overflow: hidden;
+      display: inline-block;
+    }
+
+    .upload-btn {
+      background-color: #1c2331;
+      color: #ffa500;
+      padding: 12px 24px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .upload-btn:hover {
+      background-color: #ffa500;
+      color: #1c2331;
+    }
+
+    /* Estilos adicionais para ocultar o input[type="file"] */
+    .form-control[type="file"] {
+      display: none;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100px;
+      height: 100px;
+    }
+
+    input#submit,
+    div#custom_label {
+      background: rgb(249 115 22 / var(--tw-bg-opacity));
+      color: black;
+      font-weight: 600;
+      transition: all 0.5s ease-out;
+    }
+
+    .profile-image {
+      width: 100px;
+      height: 100px;
+      margin-right: 20px;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+
+    .profile-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    div#custom_label {
+      cursor: pointer;
+    }
+
+    input#submit:hover,
+    div#custom_label:hover {
+      background: black;
+      color: rgb(249 115 22 / var(--tw-bg-opacity));
+      transform: scale(1.2);
+      transition: all 0.5s ease-out;
+    }
+  </style>
+  <script>
+    const labelElement = document.querySelector('.form-control-label[for="profile_photo"]');
+
+    labelElement.innerHTML = `<div id="custom_label" class="bg-orange-500 text-black flex justify-center items-center py-2 px-4 rounded-md">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 12.79V4a2 2 0 00-2-2H5a2 2 0 00-2 2v8.79M12 19a3 3 0 00-3 3h6a3 3 0 00-3-3z"></path>
+    </svg>
+    <span>Escolher arquivo</span>
+  </div>`
+    // Selecionar o elemento com id "profile_photo"
+    const profilePhotoElement = document.getElementById('profile_photo');
+
+
+
+
+    window.onload = function () {
+      // Selecionar o elemento com id "profile_photo"
+      const profilePhotoElement = document.getElementById('profile_photo');
+
+      // Selecionar o elemento <img> com a classe ".image-post"
+      const imagePostElement = document.querySelector('.image-post');
+
+      // Adicionar um ouvinte de eventos de mudança ao elemento profilePhotoElement
+      profilePhotoElement.addEventListener('change', function (event) {
+        // Obter o arquivo selecionado pelo usuário
+        const file = event.target.files[0];
+
+        // Criar um objeto FileReader para ler o conteúdo do arquivo
+        const reader = new FileReader();
+
+        // Definir uma função de retorno de chamada para ser executada quando a leitura estiver concluída
+        reader.onload = function (e) {
+          // Atualizar a src do elemento imagePostElement com o conteúdo do arquivo
+          imagePostElement.src = e.target.result;
+        };
+
+        // Ler o conteúdo do arquivo como uma URL de dados (base64)
+        reader.readAsDataURL(file);
+
+        // Imprimir o nome do arquivo no console
+        console.log('Nome do arquivo: ' + file.name);
+      });
+    }
+
+
+
+
+
+
+
+  </script>
+</body>
+
 {% endblock %}

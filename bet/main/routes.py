@@ -76,7 +76,7 @@ def explore():
 @bp.route('/user/<username>')
 @login_required
 def user(username):
-    user = User.query.filter_by(username=username).first_or_404()
+    user = User.query.filter_by(username= username).first_or_404()
     page = request.args.get('page', 1, type=int)
     posts = user.posts.order_by(Post.timestamp.desc()).paginate(
         page=page, per_page=current_app.config['POSTS_PER_PAGE'],
@@ -94,7 +94,7 @@ def user(username):
 @bp.route('/edit_profile', methods=['GET', 'POST'])
 @login_required
 def edit_profile():
-
+    user = User.query.filter_by(username=current_user.username).first_or_404()
     form = EditProfileForm(current_user.username)
     if form.validate_on_submit():
         # Convert the image to PNG format
@@ -117,14 +117,18 @@ def edit_profile():
         current_user.username = form.username.data
         current_user.about_me = form.about_me.data
         current_user.profile_photo = img_data
-        db.session.commit()
+        db.session.commit()        
         flash(_('Suas alterações foram salvas.'))
-        return redirect(url_for('main.index'))
+        return redirect(url_for('main.user', username=current_user.username))
+ 
+    
+
     elif request.method == 'GET':
         form.username.data = current_user.username
         form.about_me.data = current_user.about_me
+
     return render_template('edit_profile.html', title=_('Editar Perfil'),
-                           form=form, username=User.username)
+                           form=form, username=User.username, user=user )
 
 
 @bp.route('/follow/<username>', methods=['POST'])
@@ -404,7 +408,7 @@ def mercado_pago():
    return render_template('mercado_pago.html', public_key=os.getenv('MP_PUBLIC_KEY'))
 
 
-@bp.route('/mercadopago/process_payment', methods=['POST'])
+@bp.route('/process_payment', methods=['POST'])
 def MP_add_income():
     request_values = request.get_json()
     
@@ -422,6 +426,7 @@ def MP_add_income():
             }
         }
     }
+    print(payment_data)
 
     payment_response = sdk.payment().create(payment_data)
     payment = payment_response["response"]
