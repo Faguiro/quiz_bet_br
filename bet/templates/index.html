@@ -1,26 +1,18 @@
 {% extends "base.html" %}
 {% import 'bootstrap/wtf.html' as wtf %}
 
-
-
-
-
-
-
-
-{% block app_content %}
-
+{% block content %}
 
 <h1>{{ _('Olá, %(username)s!', username=current_user.username) }}</h1>
 <br><br><br><br>
 
 <div style="display:flex">
-{% include 'cards_3d.html' %}
+    {% include 'cards_3d.html' %}
 </div>
 <br><br><br><br>
 {% include 'contador.html' %}
 
-    <!--   {% if form %}
+<!--   {% if form %}
     {{ wtf.quick_form(form) }}
     <br>
     {% endif %}
@@ -28,4 +20,4 @@
         {% include '_post.html' %}
     {% endfor %} -->
 
-    {% endblock %}
+{% endblock %}

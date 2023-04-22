@@ -13,10 +13,11 @@ import io
 from io import BytesIO
 from PIL import Image
 import  stripe
+import mercadopago
 from bet import db, Config
 import os
 
-
+sdk = mercadopago.SDK(os.getenv('MP_ACCESS_TOKEN'))
 
 
 @bp.before_app_request
@@ -388,7 +389,45 @@ def new_event():
 
             except Exception as e:
                 resp = str(e)
-                return {'success': False, 'resposta': f'{resp}'}
+                abort(500)
+                return redirect(url_for('main.stripe_cancel'))
 
     return {'success': True,'resposta': 'ok'}
 
+
+
+#####################################################################
+
+
+@bp.route('/pagamento/mercado_pago/')
+def mercado_pago():
+   return render_template('mercado_pago.html', public_key=os.getenv('MP_PUBLIC_KEY'))
+
+
+@bp.route('/mercadopago/process_payment', methods=['POST'])
+def MP_add_income():
+    request_values = request.get_json()
+    
+    payment_data = {
+        "transaction_amount": float(request_values["transaction_amount"]),
+        "token": request_values["token"],
+        "installments": int(request_values["installments"]),
+        "payment_method_id": request_values["payment_method_id"],
+        "issuer_id": request_values["issuer_id"],
+        "payer": {
+            "email": request_values["payer"]["email"],
+            "identification": {
+                "type": request_values["payer"]["identification"]["type"], 
+                "number": request_values["payer"]["identification"]["number"]
+            }
+        }
+    }
+
+    payment_response = sdk.payment().create(payment_data)
+    payment = payment_response["response"]
+
+    print("status =>", payment["status"])
+    print("status_detail =>", payment["status_detail"])
+    print("id=>", payment["id"])
+
+    return jsonify(payment), 200

@@ -1,0 +1,56 @@
+body {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #191c29;
+}
+
+h1 {
+    color: #ff8c00;
+    /* laranja */
+}
+
+.form-group label {
+    color: white;
+}
+
+.form-control {
+    background-color: #ffffff;
+    /* branco */
+    color: #000000;
+    /* preto */
+    border: 1px solid #ff8c00;
+    /* laranja */
+}
+
+.checkbox label {
+    color: white;
+}
+
+.btn-default {
+    background-color: #ff8c00;
+    /* laranja */
+    color: #ffffff;
+    /* branco */
+    border: 1px solid #ff8c00;
+    /* laranja */
+}
+
+.btn-default:hover {
+    background-color: #ff4500;
+    /* tom mais escuro de laranja */
+    border: 1px solid #ff4500;
+    /* tom mais escuro de laranja */
+}
+
+a {
+    color: #ff8c00;
+    /* laranja */
+}
+.container p {
+color: white;
+}
+

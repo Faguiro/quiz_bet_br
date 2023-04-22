@@ -1,93 +1,76 @@
 
-
-
 {% extends 'bootstrap/base.html' %}
 
-{% block title %}
+
+<!--  -->
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     {% if title %}{{ title }} - Bet Brasileirão{% else %}{{ _('Welcome to Bet Brasileirão') }}{% endif %}
-{% endblock %}
+     <!-- Importação do Bootstrap 3 -->
+    
+     
+    {% block title %} {% endblock %}
+    <meta name="description" content="Quiz Bet Brasileirão">
+    <meta name="keywords" content="template flask, renda extra online, apostas esportivas, ">
+    <meta name="author" content="Faguiro">
+    <link rel="stylesheet" href="/static/css/base.css">
+    <!-- Outros estilos CSS padrão que você deseja incluir -->
+    {% block extra_css %}{% endblock %}
+    <!-- Favicons -->
+    <link rel="icon" type="image/ico" sizes="32x32" href="/static/images/favico/favicon-32x32.ico">
+    <link rel="icon" type="image/ico" sizes="16x16" href="/static/images/favicon/favicon-16x16.ico">
+    <!-- Google Fonts 
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nome+da+Fonte:wght@400;700&display=swap" rel="stylesheet">
+    -->
+</head>
+  
+
 
 
 {% block navbar %}
 {% include 'nav.html' %}
 {% endblock %}
 
+
 {% block content %}
-<style>
 
-    body {
-  width: 100vw;
-  height: 100vh;
-  margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #191c29;
-}
-         h1 {
-             color: #ff8c00; /* laranja */
-         }
-         .form-group label {
-             color: #000000; /* preto */
-         }
-         .form-control {
-             background-color: #ffffff; /* branco */
-             color: #000000; /* preto */
-             border: 1px solid #ff8c00; /* laranja */
-         }
-         .checkbox label {
-             color: #000000; /* preto */
-         }
-         .btn-default {
-             background-color: #ff8c00; /* laranja */
-             color: #ffffff; /* branco */
-             border: 1px solid #ff8c00; /* laranja */
-         }
-         .btn-default:hover {
-             background-color: #ff4500; /* tom mais escuro de laranja */
-             border: 1px solid #ff4500; /* tom mais escuro de laranja */
-         }
-         a {
-             color: #ff8c00; /* laranja */
-         }
- </style>
-    <div class="container">
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            {% for message in messages %}
-            <div class="alert alert-info" role="alert">{{ message }}</div>
-            {% endfor %}
-        {% endif %}
-        {% endwith %}
+<body>
+    <!-- Conteúdo da página -->
+   
 
-        {# application content needs to be provided in the app_content block #}
-        {% block app_content %}{% endblock %}
-    </div>
+   
+
+    
+    <!-- Scripts específicos da página que podem depender de elementos HTML da página -->
+    {% block scripts %}
+        {{ super() }}
+        {{ moment.include_moment() }}
+        {{ moment.lang(g.locale) }}
+        <script>
+            function translate(sourceElem, destElem, sourceLang, destLang) {
+                $(destElem).html('<img src="{{ url_for('static', filename='loading.gif') }}">');
+                $.post('/translate', {
+                    text: $(sourceElem).text(),
+                    source_language: sourceLang,
+                    dest_language: destLang
+                }).done(function (response) {
+                    $(destElem).text(response['text'])
+                }).fail(function () {
+                    $(destElem).text("{{ _('Error: Could not contact server.') }}");
+                });
+            }
+        </script>
 {% endblock %}
+       
 
-{% block scripts %}
-    {{ super() }}
-    {{ moment.include_moment() }}
-    {{ moment.lang(g.locale) }}
-    <script>
-        function translate(sourceElem, destElem, sourceLang, destLang) {
-            $(destElem).html('<img src="{{ url_for('static', filename='loading.gif') }}">');
-            $.post('/translate', {
-                text: $(sourceElem).text(),
-                source_language: sourceLang,
-                dest_language: destLang
-            }).done(function(response) {
-                $(destElem).text(response['text'])
-            }).fail(function() {
-                $(destElem).text("{{ _('Error: Could not contact server.') }}");
-            });
-        }
-    </script>
-
+    {% block extra_js %}{% endblock %}
+</body>
 {% endblock %}
-
-
-
-
-
-
+</html>
+<!--  -->
