@@ -1,18 +1,18 @@
-<div class='jumbotron card-gane' style="display:flex">
+<div class='jumbotron card-game' style="display:flex">
 
 
     <a href="https://www.mythrillfiction.com/the-dark-rider" alt="Mythrill" target="_blank">
         <p class="card-titulo">Mais jogados</p>
-      <div class="card">
-        <div class="wrapper">
-          <img src="https://ggayane.github.io/css-experiments/cards/dark_rider-cover.jpg" class="cover-image" />
-        </div>
-        <img src="https://ggayane.github.io/css-experiments/cards/dark_rider-title.png" class="title" />
-        <img src="https://ggayane.github.io/css-experiments/cards/dark_rider-character.webp" class="character" />
+        <div class="card">
+          <div class="wrapper">
+              <img src="{{ url_for('static', filename='images/cards_3d/dark_rider-cover.jpg') }}" class="cover-image" />
+          </div>
+          <img src="{{ url_for('static', filename='images/cards_3d/dark_rider-title.png') }}" class="title" />
+          <img src="{{ url_for('static', filename='images/cards_3d/dark_rider-character.webp') }}" class="character" />
       </div>
     </a>
 
-    <a href="https://www.mythrillfiction.com/force-mage" alt="Mythrill" target="_blank">
+    <!-- <a href="https://www.mythrillfiction.com/force-mage" alt="Mythrill" target="_blank">
         <p class="card-titulo">Novidade!</p>
       <div class="card">
         <div class="wrapper">
@@ -21,7 +21,7 @@
         <img src="https://ggayane.github.io/css-experiments/cards/force_mage-title.png" class="title" />
         <img src="https://ggayane.github.io/css-experiments/cards/force_mage-character.webp" class="character" />
       </div>
-    </a>
+    </a> -->
 
 </div>
 
@@ -34,6 +34,11 @@
 }
 * {
   box-sizing: border-box;
+}
+
+.jumbotron.card-game{
+  width: max-content;
+  margin-top: 20px;
 }
 
 .jumbotron.card-game a:link{

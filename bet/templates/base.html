@@ -1,26 +1,28 @@
 
-{% extends 'bootstrap/base.html' %}
 
 
-<!--  -->
+<!--Bem-vindos ao Bet Brasileirão Template -  base 23/04/2023  -->
 <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    {% if title %}{{ title }} - Bet Brasileirão{% else %}{{ _('Welcome to Bet Brasileirão') }}{% endif %}
-     <!-- Importação do Bootstrap 3 -->
-    
-     
-    {% block title %} {% endblock %}
-    <meta name="description" content="Quiz Bet Brasileirão">
+
+    {% block title %}
+   <title> {% if title %}{{ title }} - Bet Brasileirão{% else %}{{ _('Bem-vindos ao Bet Brasileirão') }}{% endif %}</title>
+    {% endblock %}
+  
+    <!-- <meta name="description" content="Quiz Bet Brasileirão"> -->
     <meta name="keywords" content="template flask, renda extra online, apostas esportivas, ">
     <meta name="author" content="Faguiro">
     <link rel="stylesheet" href="/static/css/base.css">
-    <!-- Outros estilos CSS padrão que você deseja incluir -->
-    {% block extra_css %}{% endblock %}
+    <link rel="stylesheet" href="{{url_for('static',filename='css/main.css')}}" />    
+    
+    <!-- Outros estilos CSS padrão que você deseja incluir -->    
+    {% block extra_css %}  {% endblock %}
+
+    <script src="https://cdn.tailwindcss.com"></script>
     <!-- Favicons -->
     <link rel="icon" type="image/ico" sizes="32x32" href="/static/images/favico/favicon-32x32.ico">
     <link rel="icon" type="image/ico" sizes="16x16" href="/static/images/favicon/favicon-16x16.ico">
@@ -29,48 +31,38 @@
     <link href="https://fonts.googleapis.com/css2?family=Nome+da+Fonte:wght@400;700&display=swap" rel="stylesheet">
     -->
 </head>
-  
-
-
-
-{% block navbar %}
-{% include 'nav.html' %}
-{% endblock %}
-
-
-{% block content %}
 
 <body>
-    <!-- Conteúdo da página -->
    
-
    
+    <!-- Inclui o template de navegação de acordo com o tamanho da tela -->
+    {% if mobile %}
+    {% include 'nav_mobile.html' %}
+    {% else %}
+    {% include 'nav_desk.html' %}
+    {% endif %}
 
+    <!-- Conteúdo do site -->
+    {% block content %}
+
+    {% endblock %}
+
+    {%  block painel_lateral %}
+    {% include 'painel-lateral.html' %}
+    {% endblock %}
     
-    <!-- Scripts específicos da página que podem depender de elementos HTML da página -->
-    {% block scripts %}
-        {{ super() }}
-        {{ moment.include_moment() }}
-        {{ moment.lang(g.locale) }}
-        <script>
-            function translate(sourceElem, destElem, sourceLang, destLang) {
-                $(destElem).html('<img src="{{ url_for('static', filename='loading.gif') }}">');
-                $.post('/translate', {
-                    text: $(sourceElem).text(),
-                    source_language: sourceLang,
-                    dest_language: destLang
-                }).done(function (response) {
-                    $(destElem).text(response['text'])
-                }).fail(function () {
-                    $(destElem).text("{{ _('Error: Could not contact server.') }}");
-                });
-            }
-        </script>
-{% endblock %}
-       
+    
 
+
+
+    <!-- Rodapé do site -->
+    {% include 'footer.html' %} 
+
+    <!-- Scripts específicos da página que podem depender de elementos HTML da página --> 
     {% block extra_js %}{% endblock %}
+
+ 
 </body>
-{% endblock %}
+
+
 </html>
-<!--  -->

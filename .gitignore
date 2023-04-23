@@ -43,6 +43,7 @@ microblog.log*
 migrations
 .env
 logs
+node_modules
 
 *.db
 app.db

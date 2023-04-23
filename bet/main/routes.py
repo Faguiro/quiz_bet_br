@@ -17,7 +17,10 @@ import mercadopago
 from bet import db, Config
 import os
 
+
+
 sdk = mercadopago.SDK(os.getenv('MP_ACCESS_TOKEN'))
+
 
 
 @bp.before_app_request

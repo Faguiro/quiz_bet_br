@@ -4,7 +4,7 @@
 <title>Mercado Pago Checkout Integration</title>
 
 
-{% block extra_css %} 
+{% block extra_css %}
 <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='quiz.css') }}" /> -->
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='mercado_pago.css') }}" />
 {% endblock %}
@@ -12,56 +12,56 @@
 
 
 {% block bootstrap3 %}
-    {# Não incluir nada para suprimir o Bootstrap 3 #}
+{# Não incluir nada para suprimir o Bootstrap 3 #}
 {% endblock %}
 
 
 {% block navbar %}
 <div id='bet--nav'>
   <nav class="navbar navbar-expand-lg navbar-light bg-orange">
-      <div class="container">
-          <a class="navbar-brand" href="{{ url_for('main.index') }}">Bet Brasileirão</a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-              aria-controls="bs-example-navbar-collapse-1" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-              <ul class="navbar-nav mr-auto">
-                  <li class="nav-item">
-                      <a class="nav-link" href="{{ url_for('main.quiz') }}">{{ _('Apostar') }}</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="{{ url_for('main.result') }}">{{ _('Resultado') }}</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="{{ url_for('main.comprar_creditos') }}">{{
-                          _('Comprar Créditos') }}</a>
-                  </li>
-              </ul>
-              <ul class="navbar-nav ml-auto">
-                  {% if current_user.is_anonymous %}
-                  <li class="nav-item">
-                      <a class="nav-link" href="{{ url_for('auth.login') }}">{{ _('Entrar') }}</a>
-                  </li>
-                  {% else %}
-                  {% if current_user.saldo %}
-                  <li class="nav-item">
-                      <a class="nav-link" href="{{ url_for('main.user',
+    <div class="container">
+      <a class="navbar-brand" href="{{ url_for('main.index') }}">Bet Brasileirão</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+        aria-controls="bs-example-navbar-collapse-1" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('main.quiz') }}">{{ _('Apostar') }}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('main.result') }}">{{ _('Resultado') }}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('main.comprar_creditos') }}">{{
+              _('Comprar Créditos') }}</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+          {% if current_user.is_anonymous %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('auth.login') }}">{{ _('Entrar') }}</a>
+          </li>
+          {% else %}
+          {% if current_user.saldo %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('main.user',
                           username=current_user.username) }}">Saldo: R$
-                          {{current_user.saldo}}</a>
-                  </li>
-                  {% endif %}
-                  <li class="nav-item">
-                      <a class="nav-link" href="{{ url_for('main.user',
+              {{current_user.saldo}}</a>
+          </li>
+          {% endif %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('main.user',
                           username=current_user.username) }}">{{ _('Perfil') }}</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="{{ url_for('auth.logout') }}">{{ _('Sair') }}</a>
-                  </li>
-                  {% endif %}
-              </ul>
-          </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('auth.logout') }}">{{ _('Sair') }}</a>
+          </li>
+          {% endif %}
+        </ul>
       </div>
+    </div>
   </nav>
 </div>
 <style>
@@ -70,27 +70,29 @@
     padding: 15px 15px;
     font-size: 1.5rem;
     font-weight: 600;
-}
+  }
 
 
   a.nav-link {
     margin-top: 0px;
     margin-bottom: 0;
     font-size: 1.3rem;
-}
+  }
+
   nav.navbar.navbar-expand-lg.navbar-light.bg-orange {
     background: #ff8c00;
     margin: 0;
     padding: 0;
-}
-  #bet--nav .navbar-nav > li > a {
-      color: black;
   }
 
-  #bet--nav .navbar-nav > li > a:hover,
-  #bet--nav .navbar-nav > li > a:focus {
-      background-color: black;
-      color: white;
+  #bet--nav .navbar-nav>li>a {
+    color: black;
+  }
+
+  #bet--nav .navbar-nav>li>a:hover,
+  #bet--nav .navbar-nav>li>a:focus {
+    background-color: black;
+    color: white;
   }
 </style>
 {% endblock %}
@@ -103,424 +105,429 @@
 
 <body>
   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
-    
-<style>
-   body {
-    background-color:gray;
-    size: 100%;
-    width: auto;
-    height: auto;
-    font-family: "Helvetica Neue",Helvetica,sans-serif;
-    color: white;
-} 
 
- main {
-    margin: 4px 0 0px 0;
-    background-color: white;
-    min-height: 90%;
-    padding-bottom: 100px;
-}
-.block-heading h2 {
-    font-weight:800
-}
+  <style>
+    body {
+      background-color: gray;
+      size: 100%;
+      width: auto;
+      height: auto;
+      font-family: "Helvetica Neue", Helvetica, sans-serif;
+      color: white;
+    }
 
-.hidden {
-    display: none
-}
+    main {
+      margin: 4px 0 0px 0;
+      background-color: white;
+      min-height: 90%;
+      padding-bottom: 100px;
+    }
 
-/* Shopping Cart Section - Start */
-.shopping-cart {
-    padding-bottom: 10px;
-    overflow:hidden;
-    transition: max-height 5s ease-in-out;
-}
+    .block-heading h2 {
+      font-weight: 800
+    }
 
-.shopping-cart.hide {
-    max-height: 0;
-    pointer-events: none;
-}
+    .hidden {
+      display: none
+    }
 
-.shopping-cart .content {
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
-    background:linear-gradient(to right, #ff8c00, rgb(250 181 0));
-}
+    /* Shopping Cart Section - Start */
+    .shopping-cart {
+      padding-bottom: 10px;
+      overflow: hidden;
+      transition: max-height 5s ease-in-out;
+    }
 
-.shopping-cart .block-heading {
-    padding-top: 40px;
-    margin-bottom: 30px;
-    text-align: center;
-}
+    .shopping-cart.hide {
+      max-height: 0;
+      pointer-events: none;
+    }
 
-.shopping-cart .block-heading p {
-    text-align: center;
-    max-width: 600px;
-    margin: auto;
-    color: white;
-}
+    .shopping-cart .content {
+      box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
+      background: linear-gradient(to right, #ff8c00, rgb(250 181 0));
+    }
 
-.shopping-cart .block-heading h1,
-.shopping-cart .block-heading h2,
-.shopping-cart .block-heading h3 {
-    margin-bottom: 1.2rem;
-    color: black;
-}
+    .shopping-cart .block-heading {
+      padding-top: 40px;
+      margin-bottom: 30px;
+      text-align: center;
+    }
 
-.shopping-cart .items {
-    margin: auto;
-}
+    .shopping-cart .block-heading p {
+      text-align: center;
+      max-width: 600px;
+      margin: auto;
+      color: white;
+    }
 
-.shopping-cart .items .product {
-    margin-bottom: 0px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-}
+    .shopping-cart .block-heading h1,
+    .shopping-cart .block-heading h2,
+    .shopping-cart .block-heading h3 {
+      margin-bottom: 1.2rem;
+      color: black;
+    }
 
-.shopping-cart .items .product .info {
-    padding-top: 0px;
-    text-align: left;
-}
+    .shopping-cart .items {
+      margin: auto;
+    }
 
-.shopping-cart .items .product .info .product-details .product-detail {
-    padding-top: 40px;
-    padding-left: 40px;
-}
+    .shopping-cart .items .product {
+      margin-bottom: 0px;
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
 
-.shopping-cart .items .product .info .product-details h5 {
-    color: black;
-    font-size: 19px;
-}
-
-.shopping-cart .items .product .info .product-details .product-info {
-    font-size: 15px;
-    margin-top: 15px;
-}
-
-.shopping-cart .items .product .info .product-details label {
-    width: 50px;
-    color: black;
-    font-size: 19px;
-}
-
-.shopping-cart .items .product .info .product-details input {
-    width: 80px;
-}
-
-.shopping-cart .items .product .info .price {
-    margin-top: 15px;
-    font-weight: bold;
-    font-size: 22px;
-}
-
-.shopping-cart .summary {
-    
-    background-color:rgb(0, 0, 0);
-    height: 100%;
-    padding: 30px;
-}
-
-.shopping-cart .summary h3 {
-    text-align: center;
-    font-size: 1.3em;
-    font-weight: 400;
-    padding-top: 20px;
-    padding-bottom: 20px;
-}
-
-.shopping-cart .summary .summary-item:not(:last-of-type) {
-    padding-bottom: 10px;
-    padding-top: 10px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.shopping-cart .summary .text {
-    font-size: 1em;
-    font-weight: 400;
-}
-
-.shopping-cart .summary .price {
-    font-size: 1em;
-    float: right;
-}
-
-.shopping-cart .summary button {
-    margin-top: 20px;
-    background-color: black;
-    color:gray;
-    border-color: white;
-}
-
-@media (min-width: 768px) {
+    .shopping-cart .items .product .info {
+      padding-top: 0px;
+      text-align: left;
+    }
 
     .shopping-cart .items .product .info .product-details .product-detail {
-        padding-top: 40px;
-        padding-left: 40px;
+      padding-top: 40px;
+      padding-left: 40px;
+    }
+
+    .shopping-cart .items .product .info .product-details h5 {
+      color: black;
+      font-size: 19px;
+    }
+
+    .shopping-cart .items .product .info .product-details .product-info {
+      font-size: 15px;
+      margin-top: 15px;
+    }
+
+    .shopping-cart .items .product .info .product-details label {
+      width: 50px;
+      color: black;
+      font-size: 19px;
+    }
+
+    .shopping-cart .items .product .info .product-details input {
+      width: 80px;
     }
 
     .shopping-cart .items .product .info .price {
+      margin-top: 15px;
+      font-weight: bold;
+      font-size: 22px;
+    }
+
+    .shopping-cart .summary {
+
+      background-color: rgb(0, 0, 0);
+      height: 100%;
+      padding: 30px;
+    }
+
+    .shopping-cart .summary h3 {
+      text-align: center;
+      font-size: 1.3em;
+      font-weight: 400;
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+
+    .shopping-cart .summary .summary-item:not(:last-of-type) {
+      padding-bottom: 10px;
+      padding-top: 10px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .shopping-cart .summary .text {
+      font-size: 1em;
+      font-weight: 400;
+    }
+
+    .shopping-cart .summary .price {
+      font-size: 1em;
+      float: right;
+    }
+
+    .shopping-cart .summary button {
+      margin-top: 20px;
+      background-color: black;
+      color: gray;
+      border-color: white;
+    }
+
+    @media (min-width: 768px) {
+
+      .shopping-cart .items .product .info .product-details .product-detail {
+        padding-top: 40px;
+        padding-left: 40px;
+      }
+
+      .shopping-cart .items .product .info .price {
         font-weight: 500;
         font-size: 22px;
         top: 17px;
-    }
+      }
 
-    .shopping-cart .items .product .info .quantity {
+      .shopping-cart .items .product .info .quantity {
         text-align: center;
-    }
+      }
 
-    .shopping-cart .items .product .info .quantity .quantity-input {
+      .shopping-cart .items .product .info .quantity .quantity-input {
         padding: 4px 10px;
         text-align: center;
+      }
     }
-}
 
-/* Card Payment Section - Start */
-.container__payment {
-    display: none;
-}
+    /* Card Payment Section - Start */
+    .container__payment {
+      display: none;
+    }
 
-.payment-form {
-    padding-bottom: 10px;
-    margin-right: 15px;
-    margin-left: 15px;
-    font-family: "Helvetica Neue",Helvetica,sans-serif;
-}
+    .payment-form {
+      padding-bottom: 10px;
+      margin-right: 15px;
+      margin-left: 15px;
+      font-family: "Helvetica Neue", Helvetica, sans-serif;
+    }
 
-.payment-form.dark {
-    background-color:gray;
-}
+    .payment-form.dark {
+      background-color: gray;
+    }
 
-.payment-form .content {
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
-    background-color:gray;
-}
+    .payment-form .content {
+      box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
+      background-color: gray;
+    }
 
-.payment-form .block-heading {
-    padding-top: 40px;
-    margin-bottom: 30px;
-    text-align: center;
-}
+    .payment-form .block-heading {
+      padding-top: 40px;
+      margin-bottom: 30px;
+      text-align: center;
+    }
 
-.payment-form .block-heading p {
-    text-align: center;
-    max-width: 420px;
-    margin: auto;
-    color: white;
-}
+    .payment-form .block-heading p {
+      text-align: center;
+      max-width: 420px;
+      margin: auto;
+      color: white;
+    }
 
-.payment-form .block-heading h1,
-.payment-form .block-heading h2,
-.payment-form .block-heading h3 {
-    margin-bottom: 1.2rem;
-    color: black;
-}
+    .payment-form .block-heading h1,
+    .payment-form .block-heading h2,
+    .payment-form .block-heading h3 {
+      margin-bottom: 1.2rem;
+      color: black;
+    }
 
-.payment-form .form-payment {
-    border-top: 2px solid grey;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
-    background-color:gray;
-    padding: 0;
-    max-width: 600px;
-    margin: auto;
-}
+    .payment-form .form-payment {
+      border-top: 2px solid grey;
+      box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
+      background-color: gray;
+      padding: 0;
+      max-width: 600px;
+      margin: auto;
+    }
 
-.payment-form .title {
-    font-size: 1em;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    margin-bottom: 0.8em;
-    font-weight: 400;
-    padding-bottom: 8px;
-}
-
-.payment-form .products {
-    background-color:gray;
-    padding: 25px;
-}
-
-.payment-form .products .item {
-    margin-bottom: 1em;
-}
-
-.payment-form .products .item-name {
-    font-weight: 500;
-    font-size: 0.9em;
-}
-
-.payment-form .products .item-description {
-    font-size: 0.8em;
-    opacity: 0.6;
-}
-
-.payment-form .products .item p {
-    margin-bottom: 0.2em;
-}
-
-.payment-form .products .price {
-    float: right;
-    font-weight: 500;
-    font-size: 0.9em;
-}
-
-.payment-form .products .total {
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    margin-top: 10px;
-    padding-top: 19px;
-    font-weight: 500;
-    line-height: 1;
-}
-
-.payment-form .payment-details {
-    padding: 25px 25px 15px;
-    height: 100%;
-}
-
-.payment-form .payment-details label {
-    font-size: 12px;
-    font-weight: 600;
-    margin-bottom: 15px;
-    color: grey;
-    text-transform: uppercase;
-}
-
-.payment-form .payment-details button {
-    margin-top: 0.6em;
-    padding: 12px 0;
-    font-weight: 500;
-    background-color: black;
-    margin-bottom: 10px;
-}
-
-.payment-form .date-separator {
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-top: 5px;
-}
-
-.payment-form a, .payment-form a:not([href]) {
-    margin: 0;
-    padding: 0;
-    font-size: 13px;
-    color: black;
-    cursor:pointer;
-}
-
-.payment-form a:not([href]):hover{
-    color: black;
-    cursor:pointer;
-}
-
-#loading-message {
-    display: none;
-    text-align: center;
-    font-weight: 700;
-}
-
-footer {
-    padding: 2% 10% 6% 10%;
-    margin: 0 auto;
-    position: relative;
-}
-
-#horizontal_logo {
-    width: 150px;
-    margin: 0;
-}
-
-footer p a {
-    color: black;
-    text-decoration: none;
-}
-
-footer p a:hover {
-    color: black;
-    text-decoration: none;
-}
-
-@media (min-width: 576px) {
     .payment-form .title {
-        font-size: 1.2em;
+      font-size: 1em;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      margin-bottom: 0.8em;
+      font-weight: 400;
+      padding-bottom: 8px;
     }
 
     .payment-form .products {
+      background-color: gray;
+      padding: 25px;
+    }
+
+    .payment-form .products .item {
+      margin-bottom: 1em;
+    }
+
+    .payment-form .products .item-name {
+      font-weight: 500;
+      font-size: 0.9em;
+    }
+
+    .payment-form .products .item-description {
+      font-size: 0.8em;
+      opacity: 0.6;
+    }
+
+    .payment-form .products .item p {
+      margin-bottom: 0.2em;
+    }
+
+    .payment-form .products .price {
+      float: right;
+      font-weight: 500;
+      font-size: 0.9em;
+    }
+
+    .payment-form .products .total {
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+      margin-top: 10px;
+      padding-top: 19px;
+      font-weight: 500;
+      line-height: 1;
+    }
+
+    .payment-form .payment-details {
+      padding: 25px 25px 15px;
+      height: 100%;
+    }
+
+    .payment-form .payment-details label {
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: grey;
+      text-transform: uppercase;
+    }
+
+    .payment-form .payment-details button {
+      margin-top: 0.6em;
+      padding: 12px 0;
+      font-weight: 500;
+      background-color: black;
+      margin-bottom: 10px;
+    }
+
+    .payment-form .date-separator {
+      margin-left: 10px;
+      margin-right: 10px;
+      margin-top: 5px;
+    }
+
+    .payment-form a,
+    .payment-form a:not([href]) {
+      margin: 0;
+      padding: 0;
+      font-size: 13px;
+      color: black;
+      cursor: pointer;
+    }
+
+    .payment-form a:not([href]):hover {
+      color: black;
+      cursor: pointer;
+    }
+
+    #loading-message {
+      display: none;
+      text-align: center;
+      font-weight: 700;
+    }
+
+    footer {
+      padding: 2% 10% 6% 10%;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    #horizontal_logo {
+      width: 150px;
+      margin: 0;
+    }
+
+    footer p a {
+      color: black;
+      text-decoration: none;
+    }
+
+    footer p a:hover {
+      color: black;
+      text-decoration: none;
+    }
+
+    @media (min-width: 576px) {
+      .payment-form .title {
+        font-size: 1.2em;
+      }
+
+      .payment-form .products {
         padding: 28px;
         margin: 15px 0;
         background-color: orange;
         border-radius: 20px;
-    }
+      }
 
-    .payment-form .products .item-name {
+      .payment-form .products .item-name {
         font-size: 1em;
-    }
+      }
 
-    .payment-form .products .price {
+      .payment-form .products .price {
         font-size: 1em;
-    }
+      }
 
-    .payment-form .payment-details {
+      .payment-form .payment-details {
         padding: 40px 40px 30px;
-    }
+      }
 
-    .payment-form .payment-details button {
+      .payment-form .payment-details button {
         margin-top: 1em;
         margin-bottom: 15px;
-    }
+      }
 
-    .footer_logo {
+      .footer_logo {
         margin: 0 0 0 0;
         width: 20%;
         text-align: left;
         position: absolute;
-    }
+      }
 
-    .footer_text {
+      .footer_text {
         margin: 0 0 0 65%;
         width: 200px;
         text-align: left;
         position: absolute
-    }
+      }
 
-    footer p {
+      footer p {
         padding: 1px;
         font-size: 13px;
         color: white;
         margin-bottom: 0;
+      }
     }
-}
 
-@media (max-width: 576px) {
-    footer {
+    @media (max-width: 576px) {
+      footer {
         padding: 5% 1% 15% 1%;
         height: 55px;
-    }
+      }
 
-    footer p {
+      footer p {
         padding: 1px;
         font-size: 11px;
         margin-bottom: 0;
-    }
-    .footer_text {
+      }
+
+      .footer_text {
         margin: 0 0 0 45%;
         width: 180px;
         position: absolute
-    }
+      }
 
-    .footer_logo {
+      .footer_logo {
         margin: 0 0 0 0;
         position: absolute;
+      }
+
     }
 
-}
+    /* Payment Result Section - Start */
+    .container__result {
+      display: none;
+    }
 
-/* Payment Result Section - Start */
-.container__result {
-    display: none;
-}
+    #fail-response,
+    #success-response {
+      display: none;
+    }
 
-#fail-response, #success-response {
-    display: none;
-} 
-.summary-item {
-    display: flex;
-    justify-content: space-around;
-}
+    .summary-item {
+      display: flex;
+      justify-content: space-around;
+    }
   </style>
 
   <input id="mercado-pago-public-key" value="{{public_key}}" type="hidden" />

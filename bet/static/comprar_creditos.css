@@ -11,12 +11,14 @@ body {
 }
 
 .metodo {
+    display:grid;
     min-width: 150px;
     margin: 20px;
     text-align: center;
 }
 
 .metodo img {
+    margin:auto;
     width: 100px;
     height: 100px;
     border-radius: 50%;
@@ -32,7 +34,6 @@ body {
 }
 .metodo:hover h2 {
     font-size: 18px;
-    transform: scale(1.2);
     color:orange;
     transition: all 0.5s ease-out;
 }
