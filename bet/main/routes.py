@@ -6,7 +6,7 @@ from flask_babel import _, get_locale
 from langdetect import detect, LangDetectException
 from bet import db
 from bet.main.forms import EditProfileForm, EmptyForm, PostForm, QuizForm
-from bet.models import User, Post, Quiz, Pagamento
+from bet.models import User, Post, Quiz, Pagamento, Produto
 from bet.translate import translate
 from bet.main import bp
 import io
@@ -292,51 +292,40 @@ def comprar_creditos():
 ####################### PAGAMENTOS  stripe configurações #################
 stripe.api_key = Config.STRIPE_SECRET_KEY
 
-products = {
-    'Suporte total': {
-        'codigo': 'full',
-        'name': 'Todas as rodadas do Brasileirão',
-        'price': 5000,
-    },
-    'Suporte por rodada': {
-        'codigo': 'unidade',
-        'name': 'Rodadas  avulsas do Brasileirão',
-        'price': 500,
-        'por': 'rodada',
-        'adjustable_quantity': {
-            'enabled': True,
-            'minimum': 1,
-            'maximum': 15,
-        },
-    },
-}
 
 ####################### PAGAMENTOS  stripe #################
 
 @bp.route('/pagamento/stripe')
 @login_required
 def pagamento_stripe():
-    return render_template('stripe_pagamentos.html', products=products)
+    # Buscar os produtos do banco de dados
+    produtos = Produto.query.all()
+    # Passar os produtos para o template renderizar
+    return render_template('stripe_pagamentos.html', produtos=produtos)
 
 
 @bp.route('/stripe_pagamento/<codigo>', methods=['POST'])
 @login_required
 def stripe_order_codigo(codigo):
-    codigo_escolhido = codigo
-    produto_encontrado = None
-    for produto in products.values():
-        if 'codigo' in produto and produto['codigo'] == codigo_escolhido:
-            produto_encontrado = produto
-            break
+    produto_encontrado = Produto.query.filter_by(codigo=codigo).first()
 
     # Verificar se o produto foi encontrado e imprimir seu nome
     if not produto_encontrado:
-        print('abortado', codigo)
+        print('Produto não encontrado para o código:', codigo)
         abort(404)
     else:
-        product =  produto_encontrado
-        print(product)
+        product = {
+            'name': produto_encontrado.nome,
+            'price': int( float(produto_encontrado.preco)*100),  # Converter para float,
+            'adjustable_quantity': {
+                'enabled': produto_encontrado.ajustavel_quantidade,
+                'minimum': produto_encontrado.quantidade_minima,
+                'maximum': produto_encontrado.quantidade_maxima,
+            },
+        }
 
+        print(product)
+ 
         line_item = {
             'price_data': {
                 'product_data': {
@@ -348,7 +337,7 @@ def stripe_order_codigo(codigo):
             'quantity': 1,
             'adjustable_quantity': product.get('adjustable_quantity', {'enabled': False}),
         }
-        print (line_item)
+        print(line_item)
 
 
         checkout_session = stripe.checkout.Session.create(

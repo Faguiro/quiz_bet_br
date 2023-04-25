@@ -126,3 +126,14 @@ class Pagamento(db.Model):
     email = db.Column(db.String(100), nullable=False)
     data = db.Column(db.DateTime, nullable=False, default=datetime.now())
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+class Produto(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    nome = db.Column(db.String(100), nullable=False)
+    codigo = db.Column(db.String(50), nullable=False)
+    descricao = db.Column(db.String(200))
+    preco = db.Column(db.Numeric(precision=10, scale=2), nullable=False)
+    por = db.Column(db.String(50))
+    ajustavel_quantidade = db.Column(db.Boolean)
+    quantidade_minima = db.Column(db.Integer)
+    quantidade_maxima = db.Column(db.Integer)

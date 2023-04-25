@@ -21,27 +21,22 @@
           <th class="py-2 px-4">Pedido</th>
         </tr>
 
-        <tr class="bg-gray-700 text-white">
-          <td class="py-2 px-4">Todas as rodadas do Brasileirão</td>
-          <td class="py-2 px-4">50.00 R$</td>
-          <td class="py-2 px-4">
-            <form method="POST" action="/stripe_pagamento/full">
-              <input type="submit" value="Comprar"
-                class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md cursor-pointer">
-            </form>
-          </td>
-        </tr>
+        {% for produto in produtos %}
+        
+      <tr>
+        <td class="py-2 px-4">{{ produto.nome }}</td>
+        <td class="py-2 px-4">R$ {{ '{:,.2f}'.format(produto.preco).replace('.', ',') }}</td>
 
-        <tr class="bg-gray-600 text-white">
-          <td class="py-2 px-4">Rodadas avulsas do Brasileirão</td>
-          <td class="py-2 px-4">5.00 R$ por rodada</td>
-          <td class="py-2 px-4">
-            <form method="POST" action="/stripe_pagamento/unidade">
-              <input type="submit" value="Comprar"
-                class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md cursor-pointer">
-            </form>
-          </td>
-        </tr>
+
+        <td class="py-2 px-4">
+          <form method="POST" action="/stripe_pagamento/{{ produto.codigo }}">
+            <input type="submit" value="Comprar"
+              class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md cursor-pointer">
+          </form>
+        </td>
+      </tr>
+    {% endfor %}
+
       </table>
 
     </div>
