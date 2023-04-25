@@ -13,9 +13,14 @@ import io
 from io import BytesIO
 from PIL import Image
 import  stripe
+import mercadopago
 from bet import db, Config
 import os
+from jinja2 import Template, UndefinedError
 
+
+
+sdk = mercadopago.SDK(os.getenv('MP_ACCESS_TOKEN'))
 
 
 
@@ -73,27 +78,31 @@ def explore():
 
 
 @bp.route('/user/<username>')
-@login_required
+#@login_required
 def user(username):
-    user = User.query.filter_by(username=username).first_or_404()
+    if current_user.is_authenticated:
+        user = User.query.filter_by(username= username).first_or_404()
+    else:
+        user = User.query.filter_by(username= "fabio").first_or_404()
     page = request.args.get('page', 1, type=int)
     posts = user.posts.order_by(Post.timestamp.desc()).paginate(
         page=page, per_page=current_app.config['POSTS_PER_PAGE'],
         error_out=False)
     next_url = url_for('main.user', username=user.username,
-                       page=posts.next_num) if posts.has_next else None
+                    page=posts.next_num) if posts.has_next else None
     prev_url = url_for('main.user', username=user.username,
-                       page=posts.prev_num) if posts.has_prev else None
+                    page=posts.prev_num) if posts.has_prev else None
     form = EmptyForm()
+    
     saldo = str(user.saldo) # obtém o saldo do usuário
     return render_template('user.html', user=user, posts=posts.items,
-                           next_url=next_url, prev_url=prev_url, form=form, saldo=saldo)
+                        next_url=next_url, prev_url=prev_url, form=form, saldo=saldo)
 
-
+ 
 @bp.route('/edit_profile', methods=['GET', 'POST'])
 @login_required
 def edit_profile():
-
+    user = User.query.filter_by(username=current_user.username).first_or_404()
     form = EditProfileForm(current_user.username)
     if form.validate_on_submit():
         # Convert the image to PNG format
@@ -116,14 +125,18 @@ def edit_profile():
         current_user.username = form.username.data
         current_user.about_me = form.about_me.data
         current_user.profile_photo = img_data
-        db.session.commit()
+        db.session.commit()        
         flash(_('Suas alterações foram salvas.'))
-        return redirect(url_for('main.index'))
+        return redirect(url_for('main.user', username=current_user.username))
+ 
+    
+
     elif request.method == 'GET':
         form.username.data = current_user.username
         form.about_me.data = current_user.about_me
+
     return render_template('edit_profile.html', title=_('Editar Perfil'),
-                           form=form, username=User.username)
+                           form=form, username=User.username, user=user )
 
 
 @bp.route('/follow/<username>', methods=['POST'])
@@ -224,22 +237,30 @@ def quiz():
 
 
 @bp.route('/result')
+@login_required
 def result():
     try:
         answers = Quiz.query.filter_by(user_id=current_user.id).first()
-        answer1 = answers.answer1
-        answer2 = answers.answer2
-        answer3 = answers.answer3
-        answer4 = answers.answer4
-        answer5 = answers.answer5
-        answer6 = answers.answer6
-        answer7 = answers.answer7
-        answer8 = answers.answer8
-        answer9 = answers.answer9
-        answer10 = answers.answer10
-        return render_template('result.html', answer1=answer1, answer2=answer2, answer3=answer3, answer4=answer4, answer5=answer5, answer6=answer6,answer7=answer7,answer8=answer8,answer9=answer9,answer10=answer10)
-    except:
-        return redirect(url_for('main.index'))
+
+        quiz_dict = {
+            'resposta1': answers.answer1,
+            'resposta2': answers.answer2,
+            'resposta3': answers.answer3,
+            'resposta4': answers.answer4,
+            'resposta5': answers.answer5,
+            'resposta6': answers.answer6,
+            'resposta7': answers.answer7,
+            'resposta8': answers.answer8,
+            'resposta9': answers.answer9,
+            'resposta10': answers.answer10
+        }
+
+        return render_template('result.html', answers=quiz_dict)
+   
+    except Exception as e:
+        print(str(e))
+        return (str(e))
+  
 
 
 @bp.route('/user/<username>/image')
@@ -388,7 +409,46 @@ def new_event():
 
             except Exception as e:
                 resp = str(e)
-                return {'success': False, 'resposta': f'{resp}'}
+                abort(500)
+                return redirect(url_for('main.stripe_cancel'))
 
     return {'success': True,'resposta': 'ok'}
 
+
+
+#####################################################################
+
+
+@bp.route('/pagamento/mercado_pago/')
+def mercado_pago():
+   return render_template('mercado_pago.html', public_key=os.getenv('MP_PUBLIC_KEY'))
+
+
+@bp.route('/process_payment', methods=['POST'])
+def MP_add_income():
+    request_values = request.get_json()
+    
+    payment_data = {
+        "transaction_amount": float(request_values["transaction_amount"]),
+        "token": request_values["token"],
+        "installments": int(request_values["installments"]),
+        "payment_method_id": request_values["payment_method_id"],
+        "issuer_id": request_values["issuer_id"],
+        "payer": {
+            "email": request_values["payer"]["email"],
+            "identification": {
+                "type": request_values["payer"]["identification"]["type"], 
+                "number": request_values["payer"]["identification"]["number"]
+            }
+        }
+    }
+    print(payment_data)
+
+    payment_response = sdk.payment().create(payment_data)
+    payment = payment_response["response"]
+
+    print("status =>", payment["status"])
+    print("status_detail =>", payment["status_detail"])
+    print("id=>", payment["id"])
+
+    return jsonify(payment), 200

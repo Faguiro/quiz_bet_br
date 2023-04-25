@@ -1,0 +1,17 @@
+{
+  "name": "quiz_bet_br",
+  "version": "1.0.0",
+  "description": "Este é um sistema completo desenvolvido em Python, utilizando Flask como framework web, SQLAlchemy para lidar com o banco de dados, Blueprints para estruturar a aplicação, Pagamentos Stripe para processar pagamentos, Jinja como template engine e Flask Login para gerenciamento de autenticação.",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "bet_br"
+  ],
+  "author": "Faguiro",
+  "license": "MIT",
+  "dependencies": {
+    "tailwindcss": "^3.3.1"
+  }
+}

@@ -10,13 +10,13 @@ from flask_wtf.file import FileField, FileAllowed
 
 
 class EditProfileForm(FlaskForm):
-    username = StringField(_l('Username'), validators=[DataRequired()])
-    about_me = TextAreaField(_l('About me'),
+    username = StringField(_l('Nome de usuário'), validators=[DataRequired()])
+    about_me = TextAreaField(_l('Sobre mim'),
                              validators=[Length(min=0, max=140)])
-    profile_photo = FileField(_l('Profile Photo'), validators=[
+    profile_photo = FileField(_l('Foto de perfil'), validators=[
         FileAllowed(['jpg', 'jpeg', 'png'], _l('Only JPEG and PNG images are allowed.'))
     ])
-    submit = SubmitField(_l('Submit'))
+    submit = SubmitField(_l('Salvar'))
 
     def __init__(self, original_username, *args, **kwargs):
         super(EditProfileForm, self).__init__(*args, **kwargs)
@@ -26,20 +26,20 @@ class EditProfileForm(FlaskForm):
         if username.data != self.original_username:
             user = User.query.filter_by(username=self.username.data).first()
             if user is not None:
-                raise ValidationError(_('Please use a different username.'))
+                raise ValidationError(_('Use um nome diferente.'))
 
 
 class EmptyForm(FlaskForm):
-    submit = SubmitField('Submit')
+    submit = SubmitField('Salvar')
 
 
 class PostForm(FlaskForm):
-    post = TextAreaField(_l('Say something'), validators=[DataRequired()])
-    submit = SubmitField(_l('Submit'))
+    post = TextAreaField(_l('Diga algo'), validators=[DataRequired()])
+    submit = SubmitField(_l('Enviar'))
 
 
 class QuizForm(FlaskForm):
-    answer1 = RadioField('answer1', choices=[('1', 'Palmeiras'), ('2', 'Empate'), ('3', 'Cuiabá')], validators=[DataRequired()])
+    answer1 = RadioField('Palmeira e Cuiabá', choices=[('1', 'Palmeiras'), ('2', 'Empate'), ('3', 'Cuiabá')], validators=[DataRequired()])
     answer2 = RadioField('answer2', choices=[('1', 'América'), ('2', 'Empate'), ('3', 'Fluminense')], validators=[DataRequired()])
     answer3 = RadioField('answer3', choices=[('1', 'Botafogo'), ('2', 'Empate'), ('3', 'São Paulo')], validators=[DataRequired()])
     answer4 = RadioField('answer4', choices=[('1', 'Bragantino'), ('2', 'Empate'), ('3', 'Bahia')], validators=[DataRequired()])

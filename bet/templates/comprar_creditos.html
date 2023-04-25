@@ -1,24 +1,27 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Página de Pagamentos</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='comprar_creditos.css') }}">
-</head>
-<body>
-    <h1>Métodos de Pagamento</h1>
-    <div class="container">
+{% extends "base.html" %}
+
+{% block extra_css %}
+<title>Página de Pagamentos</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='comprar_creditos.css') }}">
+{% endblock %}
+
+
+{% block content %}
+
+<body class="bg-gray-900  text-white dark:bg-gray-800 dark:text-gray-100">
+    <div class="container min-h-[90vh]">
         {% for metodo in metodos_pagamento %}
-            <div class="metodo">
-                <img src="{{ url_for('static', filename='images/cards/' + metodo.imagem) }}" alt="{{ metodo.nome }}">
-                <h2>{{ metodo.nome }}</h2>
-            </div>
+        <div class="metodo">
+            <img src="{{ url_for('static', filename='images/cards/' + metodo.imagem) }}" alt="{{ metodo.nome }}">
+            <h2>{{ metodo.nome }}</h2>
+        </div>
         {% endfor %}
     </div>
-</body>
 
-<script>
 
-         // Captura os elementos com a classe .metodo
+    <script>
+
+        // Captura os elementos com a classe .metodo
         const metodosPagamento = document.querySelectorAll('.metodo');
 
         // Adiciona o evento de clique a cada elemento .metodo
@@ -35,5 +38,6 @@
             });
         });
 
-</script>
-</html>
+    </script>
+</body>
+{% endblock %}
