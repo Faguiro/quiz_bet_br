@@ -278,11 +278,11 @@ def show_post_image(username):
 def comprar_creditos():
     # Dados dos métodos de pagamento
     metodos_pagamento = [
-        {'nome': 'Pix', 'imagem': 'pix.png'},
-        {'nome': 'Mercado Pago', 'imagem': 'mercadopago.png'},
-        {'nome': 'PicPay', 'imagem': 'picpay.png'},
-        {'nome': 'Stripe', 'imagem': 'stripe.png'},
-        {'nome': 'PayPal', 'imagem': 'paypal.png'}
+    #  {'nome': 'Pix', 'imagem': 'pix.png'},
+    #  {'nome': 'Mercado Pago', 'imagem': 'mercadopago.png'},
+    #  {'nome': 'PicPay', 'imagem': 'picpay.png'},
+    {'nome': 'Stripe', 'imagem': 'stripe.png'},
+    #  {'nome': 'PayPal', 'imagem': 'paypal.png'}
     ]
     # Renderizando o template com os dados
     return render_template('comprar_creditos.html', metodos_pagamento=metodos_pagamento)
