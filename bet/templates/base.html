@@ -1,6 +1,3 @@
-
-
-
 <!--Bem-vindos ao Bet Brasileirão Template -  base 23/04/2023  -->
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -10,19 +7,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     {% block title %}
-   <title> {% if title %}{{ title }} - Bet Brasileirão{% else %}{{ _('Bem-vindos ao Bet Brasileirão') }}{% endif %}</title>
+    <title> {% if title %}{{ title }} - Bet Brasileirão{% else %}{{ _('Bem-vindos ao Bet Brasileirão') }}{% endif %}
+    </title>
     {% endblock %}
-  
+
     <!-- <meta name="description" content="Quiz Bet Brasileirão"> -->
     <meta name="keywords" content="template flask, renda extra online, apostas esportivas, ">
     <meta name="author" content="Faguiro">
-    <link rel="stylesheet" href="/static/css/base.css">
-    <link rel="stylesheet" href="{{url_for('static',filename='css/main.css')}}" />    
-    
-    <!-- Outros estilos CSS padrão que você deseja incluir -->    
-    {% block extra_css %}  {% endblock %}
 
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/static/css/main.css">
+
+
+    <!-- Outros estilos CSS padrão que você deseja incluir -->
+    {% block extra_css %} {% endblock %}
+
+
     <!-- Favicons -->
     <link rel="icon" type="image/ico" sizes="32x32" href="/static/images/favico/favicon-32x32.ico">
     <link rel="icon" type="image/ico" sizes="16x16" href="/static/images/favicon/favicon-16x16.ico">
@@ -32,37 +31,30 @@
     -->
 </head>
 
-<body>
-   
-   
+<body> <!--   inicio body base -->
+
     <!-- Inclui o template de navegação de acordo com o tamanho da tela -->
-    {% if mobile %}
-    {% include 'nav_mobile.html' %}
-    {% else %}
+    <!-- Conteúdo da barra de navegação para telas grandes (desktop) -->
+    {% block navbar %}
     {% include 'nav_desk.html' %}
-    {% endif %}
+    {% endblock %}
+
 
     <!-- Conteúdo do site -->
     {% block content %}
 
     {% endblock %}
-
-    {%  block painel_lateral %}
+    {% block painel_lateral %}
     {% include 'painel-lateral.html' %}
     {% endblock %}
-    
-    
 
 
-
-    <!-- Rodapé do site -->
-    {% include 'footer.html' %} 
-
-    <!-- Scripts específicos da página que podem depender de elementos HTML da página --> 
+    <!-- Scripts específicos da página que podem depender de elementos HTML da página -->
     {% block extra_js %}{% endblock %}
 
- 
-</body>
+</body> <!-- fim body base -->
 
+<!-- Rodapé do site -->
+{% include 'footer.html' %}
 
 </html>

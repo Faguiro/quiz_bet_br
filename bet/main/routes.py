@@ -237,22 +237,30 @@ def quiz():
 
 
 @bp.route('/result')
+@login_required
 def result():
     try:
         answers = Quiz.query.filter_by(user_id=current_user.id).first()
-        answer1 = answers.answer1
-        answer2 = answers.answer2
-        answer3 = answers.answer3
-        answer4 = answers.answer4
-        answer5 = answers.answer5
-        answer6 = answers.answer6
-        answer7 = answers.answer7
-        answer8 = answers.answer8
-        answer9 = answers.answer9
-        answer10 = answers.answer10
-        return render_template('result.html', answer1=answer1, answer2=answer2, answer3=answer3, answer4=answer4, answer5=answer5, answer6=answer6,answer7=answer7,answer8=answer8,answer9=answer9,answer10=answer10)
-    except:
-        return redirect(url_for('main.index'))
+
+        quiz_dict = {
+            'resposta1': answers.answer1,
+            'resposta2': answers.answer2,
+            'resposta3': answers.answer3,
+            'resposta4': answers.answer4,
+            'resposta5': answers.answer5,
+            'resposta6': answers.answer6,
+            'resposta7': answers.answer7,
+            'resposta8': answers.answer8,
+            'resposta9': answers.answer9,
+            'resposta10': answers.answer10
+        }
+
+        return render_template('result.html', answers=quiz_dict)
+   
+    except Exception as e:
+        print(str(e))
+        return (str(e))
+  
 
 
 @bp.route('/user/<username>/image')
