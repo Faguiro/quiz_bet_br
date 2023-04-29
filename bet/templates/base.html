@@ -1,6 +1,6 @@
 <!--Bem-vindos ao Bet Brasileirão Template -  base 23/04/2023  -->
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" id="html">
 
 <head>
     <meta charset="utf-8">
@@ -51,10 +51,19 @@
 
     <!-- Scripts específicos da página que podem depender de elementos HTML da página -->
     {% block extra_js %}{% endblock %}
+    <script>
+        const myDiv = document.getElementById("html");
+        myDiv.addEventListener("contextmenu", function (event) {
+            event.preventDefault();
+       
+            // código a ser executado quando o botão direito é clicado
+            alert("OK!")
+            
+        });
+    </script>
 
-</body> <!-- fim body base -->
-
+</body> 
 <!-- Rodapé do site -->
-{% include 'footer.html' %}
+            {% include 'footer.html' %}
 
 </html>

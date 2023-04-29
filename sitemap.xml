@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+        
+    <!-- URL 1 com imagem associada -->
+    <url>
+        <loc>https://www.example.com/pagina1</loc>
+        <image:image>
+            <image:loc>https://www.example.com/imagem1.jpg</image:loc>
+            <image:title>Imagem 1</image:title>
+            <image:caption>Descrição da Imagem 1</image:caption>
+        </image:image>
+    </url>
+    
+    <!-- URL 2 com imagem associada -->
+    <url>
+        <loc>https://www.example.com/pagina2</loc>
+        <image:image>
+            <image:loc>https://www.example.com/imagem2.jpg</image:loc>
+            <image:title>Imagem 2</image:title>
+            <image:caption>Descrição da Imagem 2</image:caption>
+        </image:image>
+    </url>
+    
+    <!-- Adicione mais URLs e imagens conforme necessário -->
+    
+</urlset>

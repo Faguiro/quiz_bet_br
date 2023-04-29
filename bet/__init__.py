@@ -10,6 +10,8 @@ from flask_bootstrap import Bootstrap
 from flask_moment import Moment
 from flask_babel import Babel, lazy_gettext as _l
 from config import Config
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -36,6 +38,10 @@ def create_app(config_class=Config):
 
     from bet.errors import bp as errors_bp
     app.register_blueprint(errors_bp)
+    
+    from bet.dashboard import bp as dashboard_bp
+    app.register_blueprint(dashboard_bp)
+
 
     from bet.auth import bp as auth_bp
     app.register_blueprint(auth_bp, url_prefix='/auth')
