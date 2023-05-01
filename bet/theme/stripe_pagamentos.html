@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block title %}<title>Stripe e Flask Demo</title>{% endblock %}
+
+<!-- Outros estilos CSS padrão que você deseja incluir -->
+{% block extra_css %}
+
+{% endblock %}
+
+{% block content %}
+
+<body class="bg-gray-900 text-white dark:bg-gray-800 dark:text-gray-100 mt-50">
+  <div class="flex justify-center my-12 ">
+    <div class="w-1/2 bg-white dark:bg-gray-700 shadow-md rounded-md p-8">
+
+      <h1 class="text-3xl font-bold mb-8 text-white">Integração Stripe e Flask Demo</h1>
+      <table class="w-full">
+        <tr class="bg-gray-800 text-white">
+          <th class="py-2 px-4">Produto</th>
+          <th class="py-2 px-4">Preço</th>
+          <th class="py-2 px-4">Pedido</th>
+        </tr>
+
+        {% for produto in produtos %}
+        
+      <tr>
+        <td class="py-2 px-4">{{ produto.nome }}</td>
+        <td class="py-2 px-4">R$ {{ '{:,.2f}'.format(produto.preco).replace('.', ',') }}</td>
+
+
+        <td class="py-2 px-4">
+          <form method="POST" action="/stripe_pagamento/{{ produto.codigo }}">
+            <input type="submit" value="Comprar"
+              class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md cursor-pointer">
+          </form>
+        </td>
+      </tr>
+    {% endfor %}
+
+      </table>
+
+    </div>
+  </div>
+</body>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 80%;
+  }
+
+  h1 {
+    background-color: #ff8c00;
+    color: #ffffff;
+    padding: 20px;
+    margin: 0;
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto;
+  }
+
+  table th {
+    padding: 10px;
+    background-color: rgba(12, 13, 19, 0.8);
+    color: #ffffff;
+    text-align: left;
+  }
+
+  table td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  table td:last-child {
+    text-align: center;
+  }
+
+  form {
+    display: inline;
+  }
+
+  form input[type="submit"] {
+    background-color: #ff8c00;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  form input[type="submit"]:hover {
+    background-color: #ffa533;
+  }
+
+  div#bet--nav {
+    display: none;
+  }
+</style>
+{% endblock %}

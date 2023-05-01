@@ -1,0 +1,85 @@
+<!--Bem-vindos ao Bet Brasileirão Template -  base 23/04/2023  -->
+<!DOCTYPE html>
+<html lang="pt-br" id="html">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% block title %}
+    <title> {% if title %}{{ title }} - Bet Brasileirão{% else %}{{ _('Bem-vindos ao Bet Brasileirão') }}{% endif %}
+    </title>
+    {% endblock %}
+
+    <!-- <meta name="description" content="Quiz Bet Brasileirão"> -->
+    <meta name="keywords" content="template flask, renda extra online, apostas esportivas, ">
+    <meta name="author" content="Faguiro">
+
+    <link rel="stylesheet" href="/static/css/main.css">
+
+
+    <!-- Outros estilos CSS padrão que você deseja incluir -->
+    {% block extra_css %} {% endblock %}
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+    
+        main {
+            flex: 1;
+        }
+    
+        footer {
+            margin-top: auto;
+        }
+    </style>
+
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/ico" sizes="32x32" href="/static/images/favico/favicon-32x32.ico">
+    <link rel="icon" type="image/ico" sizes="16x16" href="/static/images/favicon/favicon-16x16.ico">
+    <!-- Google Fonts 
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nome+da+Fonte:wght@400;700&display=swap" rel="stylesheet">
+    -->
+</head>
+
+<body > <!--   inicio body base -->
+    <main>
+        <!-- Inclui o template de navegação de acordo com o tamanho da tela -->
+        <!-- Conteúdo da barra de navegação para telas grandes (desktop) -->
+        {% block navbar %}
+        {% include 'nav_desk.html' %}
+        {% endblock %}
+
+
+        <!-- Conteúdo do site -->
+        {% block content %}
+
+        {% endblock %}
+        {% block painel_lateral %}
+        {% include 'painel-lateral.html' %}
+        {% endblock %}
+
+
+        <!-- Scripts específicos da página que podem depender de elementos HTML da página -->
+        {% block extra_js %}{% endblock %}
+        <script>
+            const myDiv = document.getElementById("html");
+            myDiv.addEventListener("contextmenu", function (event) {
+                event.preventDefault();
+
+                // código a ser executado quando o botão direito é clicado
+                alert("OK!")
+
+            });
+        </script>
+    </main>
+    {% include 'footer.html' %}
+</body>
+<!-- Rodapé do site -->
+
+
+</html>

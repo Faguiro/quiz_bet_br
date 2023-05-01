@@ -1,0 +1,677 @@
+{% extends "base.html" %}
+
+
+<title>Mercado Pago Checkout Integration</title>
+
+
+{% block extra_css %}
+<!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='quiz.css') }}" /> -->
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='mercado_pago.css') }}" />
+{% endblock %}
+
+
+
+{% block bootstrap3 %}
+{# Não incluir nada para suprimir o Bootstrap 3 #}
+{% endblock %}
+
+
+{% block navbar %}
+<div id='bet--nav'>
+  <nav class="navbar navbar-expand-lg navbar-light bg-orange">
+    <div class="container">
+      <a class="navbar-brand" href="{{ url_for('main.index') }}">Bet Brasileirão</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+        aria-controls="bs-example-navbar-collapse-1" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('main.quiz') }}">{{ _('Apostar') }}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('main.result') }}">{{ _('Resultado') }}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('main.comprar_creditos') }}">{{
+              _('Comprar Créditos') }}</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+          {% if current_user.is_anonymous %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('auth.login') }}">{{ _('Entrar') }}</a>
+          </li>
+          {% else %}
+          {% if current_user.saldo %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('main.user',
+                          username=current_user.username) }}">Saldo: R$
+              {{current_user.saldo}}</a>
+          </li>
+          {% endif %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('main.user',
+                          username=current_user.username) }}">{{ _('Perfil') }}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('auth.logout') }}">{{ _('Sair') }}</a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>
+<style>
+  a.navbar-brand {
+    color: white !important;
+    padding: 15px 15px;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+
+  a.nav-link {
+    margin-top: 0px;
+    margin-bottom: 0;
+    font-size: 1.3rem;
+  }
+
+  nav.navbar.navbar-expand-lg.navbar-light.bg-orange {
+    background: #ff8c00;
+    margin: 0;
+    padding: 0;
+  }
+
+  #bet--nav .navbar-nav>li>a {
+    color: black;
+  }
+
+  #bet--nav .navbar-nav>li>a:hover,
+  #bet--nav .navbar-nav>li>a:focus {
+    background-color: black;
+    color: white;
+  }
+</style>
+{% endblock %}
+
+
+
+{% block content %}
+
+
+
+<body>
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+
+  <style>
+    body {
+      background-color: gray;
+      size: 100%;
+      width: auto;
+      height: auto;
+      font-family: "Helvetica Neue", Helvetica, sans-serif;
+      color: white;
+    }
+
+    main {
+      margin: 4px 0 0px 0;
+      background-color: white;
+      min-height: 90%;
+      padding-bottom: 100px;
+    }
+
+    .block-heading h2 {
+      font-weight: 800
+    }
+
+    .hidden {
+      display: none
+    }
+
+    /* Shopping Cart Section - Start */
+    .shopping-cart {
+      padding-bottom: 10px;
+      overflow: hidden;
+      transition: max-height 5s ease-in-out;
+    }
+
+    .shopping-cart.hide {
+      max-height: 0;
+      pointer-events: none;
+    }
+
+    .shopping-cart .content {
+      box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
+      background: linear-gradient(to right, #ff8c00, rgb(250 181 0));
+    }
+
+    .shopping-cart .block-heading {
+      padding-top: 40px;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .shopping-cart .block-heading p {
+      text-align: center;
+      max-width: 600px;
+      margin: auto;
+      color: white;
+    }
+
+    .shopping-cart .block-heading h1,
+    .shopping-cart .block-heading h2,
+    .shopping-cart .block-heading h3 {
+      margin-bottom: 1.2rem;
+      color: black;
+    }
+
+    .shopping-cart .items {
+      margin: auto;
+    }
+
+    .shopping-cart .items .product {
+      margin-bottom: 0px;
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+
+    .shopping-cart .items .product .info {
+      padding-top: 0px;
+      text-align: left;
+    }
+
+    .shopping-cart .items .product .info .product-details .product-detail {
+      padding-top: 40px;
+      padding-left: 40px;
+    }
+
+    .shopping-cart .items .product .info .product-details h5 {
+      color: black;
+      font-size: 19px;
+    }
+
+    .shopping-cart .items .product .info .product-details .product-info {
+      font-size: 15px;
+      margin-top: 15px;
+    }
+
+    .shopping-cart .items .product .info .product-details label {
+      width: 50px;
+      color: black;
+      font-size: 19px;
+    }
+
+    .shopping-cart .items .product .info .product-details input {
+      width: 80px;
+    }
+
+    .shopping-cart .items .product .info .price {
+      margin-top: 15px;
+      font-weight: bold;
+      font-size: 22px;
+    }
+
+    .shopping-cart .summary {
+
+      background-color: rgb(0, 0, 0);
+      height: 100%;
+      padding: 30px;
+    }
+
+    .shopping-cart .summary h3 {
+      text-align: center;
+      font-size: 1.3em;
+      font-weight: 400;
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+
+    .shopping-cart .summary .summary-item:not(:last-of-type) {
+      padding-bottom: 10px;
+      padding-top: 10px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .shopping-cart .summary .text {
+      font-size: 1em;
+      font-weight: 400;
+    }
+
+    .shopping-cart .summary .price {
+      font-size: 1em;
+      float: right;
+    }
+
+    .shopping-cart .summary button {
+      margin-top: 20px;
+      background-color: black;
+      color: gray;
+      border-color: white;
+    }
+
+    @media (min-width: 768px) {
+
+      .shopping-cart .items .product .info .product-details .product-detail {
+        padding-top: 40px;
+        padding-left: 40px;
+      }
+
+      .shopping-cart .items .product .info .price {
+        font-weight: 500;
+        font-size: 22px;
+        top: 17px;
+      }
+
+      .shopping-cart .items .product .info .quantity {
+        text-align: center;
+      }
+
+      .shopping-cart .items .product .info .quantity .quantity-input {
+        padding: 4px 10px;
+        text-align: center;
+      }
+    }
+
+    /* Card Payment Section - Start */
+    .container__payment {
+      display: none;
+    }
+
+    .payment-form {
+      padding-bottom: 10px;
+      margin-right: 15px;
+      margin-left: 15px;
+      font-family: "Helvetica Neue", Helvetica, sans-serif;
+    }
+
+    .payment-form.dark {
+      background-color: gray;
+    }
+
+    .payment-form .content {
+      box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
+      background-color: gray;
+    }
+
+    .payment-form .block-heading {
+      padding-top: 40px;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .payment-form .block-heading p {
+      text-align: center;
+      max-width: 420px;
+      margin: auto;
+      color: white;
+    }
+
+    .payment-form .block-heading h1,
+    .payment-form .block-heading h2,
+    .payment-form .block-heading h3 {
+      margin-bottom: 1.2rem;
+      color: black;
+    }
+
+    .payment-form .form-payment {
+      border-top: 2px solid grey;
+      box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
+      background-color: gray;
+      padding: 0;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    .payment-form .title {
+      font-size: 1em;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      margin-bottom: 0.8em;
+      font-weight: 400;
+      padding-bottom: 8px;
+    }
+
+    .payment-form .products {
+      background-color: gray;
+      padding: 25px;
+    }
+
+    .payment-form .products .item {
+      margin-bottom: 1em;
+    }
+
+    .payment-form .products .item-name {
+      font-weight: 500;
+      font-size: 0.9em;
+    }
+
+    .payment-form .products .item-description {
+      font-size: 0.8em;
+      opacity: 0.6;
+    }
+
+    .payment-form .products .item p {
+      margin-bottom: 0.2em;
+    }
+
+    .payment-form .products .price {
+      float: right;
+      font-weight: 500;
+      font-size: 0.9em;
+    }
+
+    .payment-form .products .total {
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+      margin-top: 10px;
+      padding-top: 19px;
+      font-weight: 500;
+      line-height: 1;
+    }
+
+    .payment-form .payment-details {
+      padding: 25px 25px 15px;
+      height: 100%;
+    }
+
+    .payment-form .payment-details label {
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: grey;
+      text-transform: uppercase;
+    }
+
+    .payment-form .payment-details button {
+      margin-top: 0.6em;
+      padding: 12px 0;
+      font-weight: 500;
+      background-color: black;
+      margin-bottom: 10px;
+    }
+
+    .payment-form .date-separator {
+      margin-left: 10px;
+      margin-right: 10px;
+      margin-top: 5px;
+    }
+
+    .payment-form a,
+    .payment-form a:not([href]) {
+      margin: 0;
+      padding: 0;
+      font-size: 13px;
+      color: black;
+      cursor: pointer;
+    }
+
+    .payment-form a:not([href]):hover {
+      color: black;
+      cursor: pointer;
+    }
+
+    #loading-message {
+      display: none;
+      text-align: center;
+      font-weight: 700;
+    }
+
+    footer {
+      padding: 2% 10% 6% 10%;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    #horizontal_logo {
+      width: 150px;
+      margin: 0;
+    }
+
+    footer p a {
+      color: black;
+      text-decoration: none;
+    }
+
+    footer p a:hover {
+      color: black;
+      text-decoration: none;
+    }
+
+    @media (min-width: 576px) {
+      .payment-form .title {
+        font-size: 1.2em;
+      }
+
+      .payment-form .products {
+        padding: 28px;
+        margin: 15px 0;
+        background-color: orange;
+        border-radius: 20px;
+      }
+
+      .payment-form .products .item-name {
+        font-size: 1em;
+      }
+
+      .payment-form .products .price {
+        font-size: 1em;
+      }
+
+      .payment-form .payment-details {
+        padding: 40px 40px 30px;
+      }
+
+      .payment-form .payment-details button {
+        margin-top: 1em;
+        margin-bottom: 15px;
+      }
+
+      .footer_logo {
+        margin: 0 0 0 0;
+        width: 20%;
+        text-align: left;
+        position: absolute;
+      }
+
+      .footer_text {
+        margin: 0 0 0 65%;
+        width: 200px;
+        text-align: left;
+        position: absolute
+      }
+
+      footer p {
+        padding: 1px;
+        font-size: 13px;
+        color: white;
+        margin-bottom: 0;
+      }
+    }
+
+    @media (max-width: 576px) {
+      footer {
+        padding: 5% 1% 15% 1%;
+        height: 55px;
+      }
+
+      footer p {
+        padding: 1px;
+        font-size: 11px;
+        margin-bottom: 0;
+      }
+
+      .footer_text {
+        margin: 0 0 0 45%;
+        width: 180px;
+        position: absolute
+      }
+
+      .footer_logo {
+        margin: 0 0 0 0;
+        position: absolute;
+      }
+
+    }
+
+    /* Payment Result Section - Start */
+    .container__result {
+      display: none;
+    }
+
+    #fail-response,
+    #success-response {
+      display: none;
+    }
+
+    .summary-item {
+      display: flex;
+      justify-content: space-around;
+    }
+  </style>
+
+  <input id="mercado-pago-public-key" value="{{public_key}}" type="hidden" />
+  <main>
+    <!-- Shopping Cart -->
+    <section class="shopping-cart dark">
+      <div class="container container__cart">
+        <div class="block-heading">
+          <h2>Shopping Cart</h2>
+        </div>
+        <div class="content">
+          <div class="row">
+            <div class="col-md-12 col-lg-8">
+              <div class="items">
+                <div class="product">
+                  <div class="info">
+                    <div class="product-details">
+                      <div class="row justify-content-md-center">
+                        <div class="col-md-3">
+                          <img class="img-fluid mx-auto d-block image"
+                            src="{{ url_for('static', filename='img/product.png') }}" />
+                        </div>
+                        <div class="col-md-4 product-detail">
+                          <h5>Produto</h5>
+                          <div class="product-info">
+                            <p>
+                              <b>Descrição:</b><span>Camisa branca promocional</span><br />
+                              <b>Price:</b> $ <span id="unit-price">50,00</span>
+                            </p>
+                          </div>
+                        </div>
+                        <div class="col-md-3 product-detail">
+                          <label for="quantity">
+                            <h5>Quantidade</h5>
+                          </label>
+                          <input type="number" id="quantity" value="1" min="1" class="form-control" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12 col-lg-4">
+              <div class="summary">
+                <h3>Carrinho de Compras</h3>
+                <div class="summary-item">
+                  <span class="text">Subtotal</span><span class="price" id="cart-total"></span>
+                </div>
+                <button class="btn btn-primary btn-lg btn-block" id="checkout-btn">
+                  Checkout
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Payment -->
+    <section class="payment-form dark">
+      <div class="container__payment">
+        <div class="block-heading">
+          <h2>Pagamento com cartão</h2>
+          <p>
+            Este é um exemplo de Integração do Bloco de Pagamento
+            com Cartão Mercado Pago
+          </p>
+        </div>
+        <div class="form-payment">
+          <div class="products">
+            <h2 class="title">Summary</h2>
+            <div class="item">
+              <span class="price" id="summary-price"></span>
+              <p class="item-name">
+                Book x <span id="summary-quantity"></span>
+              </p>
+            </div>
+            <div class="total">
+              Total<span class="price" id="summary-total"></span>
+            </div>
+            <input type="hidden" id="amount" />
+            <input type="hidden" id="description" />
+          </div>
+          <!-- TODO: Add payment form here -->
+          <div id="mercadopago-bricks-contaner__PaymentCard"></div>
+          <a id="go-back">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 10 10" class="chevron-left">
+              <path fill="#009EE3" fill-rule="nonzero" id="chevron_left"
+                d="M7.05 1.4L6.2.552 1.756 4.997l4.449 4.448.849-.848-3.6-3.6z"></path>
+            </svg>
+            Voltar ao Carrinho de Compras
+          </a>
+        </div>
+      </div>
+    </section>
+    <!-- Result -->
+    <section class="shopping-cart dark">
+      <div class="container container__result">
+        <div class="block-heading">
+          <h2>Resultado do Pagamento</h2>
+          <p>
+            Este é um exemplo de Integração do Bloco de Pagamento
+            com Cartão Mercado Pago
+          </p>
+        </div>
+        <div class="content">
+          <div class="row">
+            <div class="col-md-12 col-lg-12">
+              <div class="items product info product-details">
+                <div class="row justify-content-md-center">
+                  <div class="col-md-4 product-detail">
+                    <div class="product-info">
+                      <br />
+                      <p><b>ID: </b><span id="payment-id"></span></p>
+                      <p><b>Status: </b><span id="payment-status"></span></p>
+                      <p><b>Detalhe: </b><span id="payment-detail"></span></p>
+                      <br />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <div class="footer_logo">
+      <img id="horizontal_logo" src="{{ url_for('static', filename='img/horizontal_logo.png') }}" />
+    </div>
+    <div class="footer_text">
+      <p>Developers Site:</p>
+      <p>
+        <a href="https://snakeproject.pythonanywhere.com/">https://snakeproject.pythonanywhere.com/</a>
+      </p>
+    </div>
+  </footer>
+  {% block extra_js %}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://sdk.mercadopago.com/js/v2"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/index.js') }}" defer></script>
+
+  {% endblock %}
+</body>
+
+{% endblock %}

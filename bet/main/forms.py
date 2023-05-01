@@ -1,11 +1,12 @@
 from flask import request
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, TextAreaField
-from wtforms.validators import ValidationError, DataRequired, Length
+from wtforms import StringField, SubmitField, TextAreaField, SelectField
+from wtforms.validators import ValidationError, DataRequired, Length, ValidationError
 from flask_babel import _, lazy_gettext as _l
 from bet.models import User
 from wtforms import RadioField
 from flask_wtf.file import FileField, FileAllowed
+
 
 
 
@@ -16,6 +17,33 @@ class EditProfileForm(FlaskForm):
     profile_photo = FileField(_l('Foto de perfil'), validators=[
         FileAllowed(['jpg', 'jpeg', 'png'], _l('Only JPEG and PNG images are allowed.'))
     ])
+    theme = SelectField('Theme', choices=[
+        ('cerulean', 'Cerulean'),
+        ('cosmo', 'Cosmo'),
+        ('cyborg', 'Cyborg'),
+        ('flatly', 'Flatly'),
+        ('journal', 'Journal'),
+        ('litera', 'Litera'),
+        ('lumen', 'Lumen'),
+        ('lux', 'Lux'),
+        ('materia', 'Materia'),
+        ('minty', 'Minty'),
+        ('morph', 'Morph'),
+        ('pulse', 'Pulse'),
+        ('quartz', 'Quartz'),
+        ('sandstone', 'Sandstone'),
+        ('simplex', 'Simplex'),
+        ('sketchy', 'Sketchy'),
+        ('slate', 'Slate'),
+        ('solar', 'Solar'),
+        ('spacelab', 'Spacelab'),
+        ('superhero', 'Superhero'),
+        ('united', 'United'),
+        ('vapor', 'Vapor'),
+        ('yeti', 'Yeti'),
+        ('zephyr', 'Zephyr')
+     ], default='darkly')
+
     submit = SubmitField(_l('Salvar'))
 
     def __init__(self, original_username, *args, **kwargs):
@@ -29,6 +57,36 @@ class EditProfileForm(FlaskForm):
                 raise ValidationError(_('Use um nome diferente.'))
 
 
+class ThemeForm(FlaskForm):
+    theme = SelectField('Theme', choices=[
+        ('cerulean', 'Cerulean'),
+        ('cosmo', 'Cosmo'),
+        ('cyborg', 'Cyborg'),
+        ('flatly', 'Flatly'),
+        ('journal', 'Journal'),
+        ('litera', 'Litera'),
+        ('lumen', 'Lumen'),
+        ('lux', 'Lux'),
+        ('materia', 'Materia'),
+        ('minty', 'Minty'),
+        ('morph', 'Morph'),
+        ('pulse', 'Pulse'),
+        ('quartz', 'Quartz'),
+        ('sandstone', 'Sandstone'),
+        ('simplex', 'Simplex'),
+        ('sketchy', 'Sketchy'),
+        ('slate', 'Slate'),
+        ('solar', 'Solar'),
+        ('spacelab', 'Spacelab'),
+        ('superhero', 'Superhero'),
+        ('united', 'United'),
+        ('vapor', 'Vapor'),
+        ('yeti', 'Yeti'),
+        ('zephyr', 'Zephyr')
+    ], default='darkly')
+
+    submit = SubmitField('Save')
+    
 class EmptyForm(FlaskForm):
     submit = SubmitField('Salvar')
 

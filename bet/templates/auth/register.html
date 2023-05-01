@@ -51,6 +51,12 @@
           {{ form.password2(class="w-full px-4 py-2 rounded-md  text-black focus:outline-none focus:ring focus:border-blue-500
           appearance-none", placeholder="Repita a senha") }}
         </div>
+
+        <div class="mb-4">
+          <label for="{{ form.theme.id }}" class="block text-orange-500 text-sm font-bold mb-2">Tema</label>
+          {{ form.theme(class="w-full px-4 py-2 rounded-md  text-black focus:outline-none focus:ring focus:border-blue-500
+          appearance-none") }}
+        </div>
         
         <button type="submit" class="submit">Enviar</button>
       </form>

@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<body class="bg-gray-900 text-white dark:bg-gray-800 dark:text-gray-100 mt-50 w-full">
+  <!-- Conteúdo da sua página -->
+  <h1
+    class="text-4xl font-bold tracking-wider text-center my-8 text-gray-200 dark:text-gray-100 transform hover:scale-10 ">
+    Resultado
+  </h1>
+
+  <div class="flex justify-center my-8">
+    <div class="w-1/2 bg-white dark:bg-gray-700 shadow-md rounded-md p-8">
+
+      <h3
+          class="text-3xl font-bold tracking-wider text-center my-8  text-white">
+          Sua aposta:
+        </h3>
+
+      <div class="bg-white rounded-lg shadow-lg">
+        
+        <table class="w-full">
+          <thead>
+            <tr class="bg-orange-500 text-white">
+              <th class="py-4 px-6 text-left">Pergunta</th>
+              <th class="py-4 px-6 text-left">Resposta</th>
+              <th class="py-4 px-6 text-left">Acerto</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% if answers %}
+            {% for key, value in answers.items() %}
+            <tr class="border-b border-gray-200">
+              <td class="py-4 px-6 text-black text-left">{{ key }}</td>
+              <td class="py-4 px-6 text-black text-left">{{ value }}</td>
+              <td class="py-4 px-6 text-black text-left">
+                <script>
+                  switch ({{ value }}) {
+                    case 1:
+                    document.write('acertou');
+                    break;
+                    case 2:
+                    document.write('errou');
+                    break;
+                    case 3:
+                    document.write('acertou');
+                    break;
+                    default:
+                    document.write('número inválido');
+                  }
+                </script>
+              </td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <tr>
+              <td colspan="2" class="py-4 px-6 text-black text-left">Nenhum resultado encontrado.</td>
+            </tr>
+            {% endif %}
+          </tbody>
+        </table>
+
+
+
+
+
+      </div>
+
+    </div>
+  </div>
+
+</body>
+{% endblock %}

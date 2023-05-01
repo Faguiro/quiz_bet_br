@@ -11,7 +11,7 @@ app = create_app()
 cli.register(app)
 class MyAdminIndexView(AdminIndexView):
     def is_accessible(self):
-        return current_user.is_authenticated and current_user.id == 1
+        return current_user.is_authenticated and current_user.id == 1 
 
 admin = Admin(app, index_view=MyAdminIndexView())
 
@@ -25,7 +25,7 @@ class ProductView(ModelView):
     column_filters = ['nome']
 
 class PagamentoView(ModelView):
-    column_searchable_list = ['id' ]
+    column_searchable_list = ['id','pagador','email' ]
     column_filters = ['id']
 class QuizView(ModelView):
     column_searchable_list = ['id' ]

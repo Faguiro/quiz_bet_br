@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
 from flask_babel import _, lazy_gettext as _l
 from bet.models import User
@@ -19,6 +19,7 @@ class RegistrationForm(FlaskForm):
     password2 = PasswordField(
         _l('Repita a senha'), validators=[DataRequired(),
                                            EqualTo('password')])
+    theme = SelectField('Theme', choices=[('darkly', 'Darkly'), ('sketchy', 'Sketchy'), ('morph', 'Morph'), ('main', 'Orange')], default='darkly')
     submit = SubmitField(_l('Registro'))
 
     def validate_username(self, username):

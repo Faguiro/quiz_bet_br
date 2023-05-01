@@ -39,6 +39,16 @@
                 <a class="text-black hover:bg-black hover:text-white px-3 py-2 rounded-md"
                     href="{{ url_for('auth.logout') }}">{{ _('Sair') }}</a>
             </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Temas funcionais</a>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <li><a class="dropdown-item" href="{{ url_for('main.prisma_update_theme', theme='darkly') }}">Tema darkly</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('main.prisma_update_theme', theme='sketchy') }}">Tema sketchy</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('main.prisma_update_theme', theme='morph') }}">Tema morfo</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('main.prisma_update_theme', theme='main') }}">Tema orange</a></li>
+                </ul>
+            </li>
+            
             {% endif %}
         </ul>
     </nav>

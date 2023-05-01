@@ -1,0 +1,152 @@
+<!-- Botão para abrir/fechar o painel lateral -->
+<button id="btnToggleSidebar" class="fixed top-0 left-0 z-20 bg-gray-900 text-white shadow-lg">
+    <!-- Ícone para abrir/fechar o painel lateral -->
+    <svg class="w- h-10 fill-current" viewBox="0 0 24 24">
+        <path v-if="sidebarOpen" fill-rule="evenodd" clip-rule="evenodd"
+            d="M3.414 20L20.586 3.756a.75.75 0 00-1.054-1.068L2.24 18.945a1.75 1.75 0 000 2.11l17.293-17.289a.75.75 0 10-1.068-1.054L3.414 20z" />
+        <path v-else fill-rule="evenodd" clip-rule="evenodd"
+            d="M3.46 3.765A.75.75 0 014.515 2l16.232 15.251a1.75 1.75 0 010 2.108L4.515 22a.75.75 0 11-1.054-1.062L17.638 17L3.46 3.765z" />
+    </svg>
+    
+    
+</button>
+
+
+<!-- Painel lateral -->
+<div id="sidebar"
+    class="bg-gray-900 text-white max-w-max h-full fixed top-0  left-0 z-10 transition-all duration-300">
+    <!-- Conteúdo do painel lateral com cards roláveis -->
+
+    <div class="p-4">
+        <h2 class="text-2xl font-bold mb-4">Meu Painel</h2>
+        <div class="grid grid-cols-1 gap-4">
+            <!-- Exemplo de card 1 -->
+            <div class="bg-white dark:bg-gray-700 shadow-md rounded-md p-4">
+                <!-- Conteúdo do card 1 -->
+            </div>
+
+            <!-- Exemplo de card 2 -->
+            <div class="bg-white dark:bg-gray-700 shadow-md rounded-md p-4">
+                <!-- Conteúdo do card 2 -->
+            </div>
+
+            <!-- Exemplo de card 3 -->
+            <div class="bg-white dark:bg-gray-700 shadow-md rounded-md p-4">
+                <!-- Conteúdo do card 3 -->
+            </div>
+
+            <!-- Exemplo de card 4 -->
+            <div class="bg-white dark:bg-gray-700 shadow-md rounded-md p-4">
+                <!-- Conteúdo do card 4 -->
+            </div>
+
+            <!-- Exemplo de card 5 -->
+            <div class="bg-white dark:bg-gray-700 shadow-md rounded-md p-4">
+                <!-- Conteúdo do card 5 -->
+            </div>
+
+            <!-- Exemplo de card 6 -->
+            <div class="bg-white dark:bg-gray-700 shadow-md rounded-md p-4">
+                <!-- Conteúdo do card 6 -->
+            </div>
+
+            <!-- Exemplo de card 7 -->
+            <div class="bg-white dark:bg-gray-700 shadow-md rounded-md p-4">
+                <!-- Conteúdo do card 7 -->
+            </div>
+
+            <!-- Exemplo de card 8 -->
+            <div class="bg-white dark:bg-gray-700 shadow-md rounded-md p-4">
+                <!-- Conteúdo do card 8 -->
+            </div>
+
+            <!-- Exemplo de card 9 -->
+            <div class="bg-white dark:bg-gray-700 shadow-md rounded-md p-4">
+                <!-- Conteúdo do card 9 -->
+            </div>
+
+            <!-- Exemplo de card 10 -->
+            <div class="bg-white dark:bg-gray-700 shadow-md rounded-md p-4">
+                <!-- Conteúdo do card 10 -->
+            </div>
+        </div>
+    </div>
+
+
+    <div class="flex flex-col items-center max-h-screen overflow-y-auto">
+        {% for i in range(10) %}
+        {% include 'cards_3d.html' %}
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Estilos CSS -->
+<style>
+    /* Estilos para o painel lateral */
+    #sidebar {
+        padding-top:50px;
+        z-index: 0;
+        transform: translateX(-350px);
+        /* Remover o controle deslizante da barra de rolagem */
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    #sidebar.open {
+        transform: translateX(50px);
+    }
+
+    /* Estilos para o botão de abrir/fechar o painel lateral */
+    #btnToggleSidebar {
+        transition: transform 300ms;
+    }
+
+    #btnToggleSidebar:hover {
+        transform: scale(1.1);
+    }
+
+    /* Estilos para a rotação do ícone do botão */
+    .rotate-180 {
+        transform: rotate(180deg);
+    }
+
+    /* Estilos para ocultar o controle deslizante da barra de rolagem */
+    #sidebar::-webkit-scrollbar {
+        width: 0.5em;
+    }
+
+    #sidebar::-webkit-scrollbar-thumb {
+        background-color: #718096;
+    }
+
+    #sidebar {
+        overflow-y: scroll;
+        overflow-x: hidden;
+        /* opcional: remove a barra de rolagem horizontal */
+        scrollbar-width: none;
+        /* Firefox */
+        -ms-overflow-style: none;
+
+        /* IE 10+ */
+        ::-webkit-scrollbar {
+            display: none;
+            /* Chrome, Safari, and Opera */
+        }
+    }
+</style>
+
+<!-- Script JavaScript -->
+<script>
+    // Função para abrir/fechar o painel lateral
+    function toggleSidebar() {
+        var sidebar = document.getElementById('sidebar');
+        var btnToggleSidebar = document.getElementById('btnToggleSidebar');
+        sidebar.classList.toggle('open');
+        btnToggleSidebar.classList.toggle('rotate-180');
+        
+        btnToggleSidebar.classList.toggle('open');
+    }
+
+    // Adiciona um evento de clique para o botão que irá abrir/fechar o painel lateral
+    document.getElementById('btnToggleSidebar').addEventListener('click', toggleSidebar);
+</script>

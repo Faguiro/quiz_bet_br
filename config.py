@@ -21,4 +21,5 @@ class Config(object):
     POSTS_PER_PAGE = 25
     STRIPE_SECRET_KEY = os.environ['STRIPE_SECRET_KEY']
     STRIPE_WEBHOOK_SECRET = os.environ['STRIPE_WEBHOOK_SECRET']
+    THEMES = ['THEME_DARK','THEME_LIGHT']
     FLASK_ADMIN_SWATCH = "flatly"

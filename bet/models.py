@@ -32,6 +32,7 @@ class User(db.Model, UserMixin):
     answers = db.relationship('Quiz', backref='user', lazy='dynamic')
     cateira = db.relationship('Pagamento', backref='user', lazy='dynamic')
     saldo = db.Column(db.Float, nullable=False, default=0.0)
+    theme = db.Column(db.String(64))
 
     def atualiza_saldo(self, valor):
         self.saldo += valor # Atualiza o saldo do usuário com o valor recebido
@@ -48,7 +49,7 @@ class User(db.Model, UserMixin):
 
     def avatar(self, size):
         digest = md5(self.email.lower().encode('utf-8')).hexdigest()
-        return 'https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(
+        return 'https://www.gravatar.com/avatar/{}?d=robohash&s={}'.format(
             digest, size)
 
     def follow(self, user):

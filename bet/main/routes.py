@@ -1,6 +1,7 @@
 from datetime import datetime
 from flask import render_template, flash, redirect, url_for, request, g, \
     jsonify, current_app, Response, abort
+from flask_login import login_user
 from flask_login import current_user, login_required
 from flask_babel import _, get_locale
 from langdetect import detect, LangDetectException
@@ -18,9 +19,13 @@ from bet import db, Config
 import os
 from jinja2 import Template, UndefinedError
 
-
-
 sdk = mercadopago.SDK(os.getenv('MP_ACCESS_TOKEN'))
+
+def get_theme():
+    if current_user.is_authenticated:
+        return str(current_user.theme)
+    else:
+        return "vapor"
 
 
 
@@ -30,6 +35,20 @@ def before_request():
         current_user.last_seen = datetime.utcnow()
         db.session.commit()
     g.locale = str(get_locale())
+
+
+@bp.route('/prisma', methods=['GET', 'POST'])
+@login_required
+def prisma():  
+    #theme = User.query.filter_by(teheme= current_user.theme).first_or_404()
+    theme = request.args.get('theme', 'sketchy')
+    return render_template('prisma.html', theme=theme)
+
+@bp.route('/home')
+def home():
+    theme = request.args.get('theme', 'light')
+    return render_template('home.html', theme=theme)
+
 
 
 @bp.route('/', methods=['GET', 'POST'])
@@ -58,7 +77,7 @@ def index():
         if posts.has_prev else None
     return render_template('index.html', title=_('Home'), form=form,
                            posts=posts.items, next_url=next_url,
-                           prev_url=prev_url)
+                           prev_url=prev_url,theme=current_user.theme)
 
 
 @bp.route('/explore')
@@ -81,9 +100,10 @@ def explore():
 #@login_required
 def user(username):
     if current_user.is_authenticated:
-        user = User.query.filter_by(username= username).first_or_404()
+        user = User.query.filter_by(username= current_user.username).first_or_404()
     else:
-        user = User.query.filter_by(username= "fabio").first_or_404()
+        user = User.query.filter_by(id= "1").first_or_404()
+        login_user(user, remember=form.remember_me.data)
     page = request.args.get('page', 1, type=int)
     posts = user.posts.order_by(Post.timestamp.desc()).paginate(
         page=page, per_page=current_app.config['POSTS_PER_PAGE'],
@@ -96,7 +116,7 @@ def user(username):
     
     saldo = str(user.saldo) # obtém o saldo do usuário
     return render_template('user.html', user=user, posts=posts.items,
-                        next_url=next_url, prev_url=prev_url, form=form, saldo=saldo)
+                        next_url=next_url, prev_url=prev_url, form=form, saldo=saldo, teme=get_theme())
 
  
 @bp.route('/edit_profile', methods=['GET', 'POST'])
@@ -104,39 +124,39 @@ def user(username):
 def edit_profile():
     user = User.query.filter_by(username=current_user.username).first_or_404()
     form = EditProfileForm(current_user.username)
+    theme = get_theme()
     if form.validate_on_submit():
-        # Convert the image to PNG format
+        if user != current_user:
+            abort(403)
         img_data = form.profile_photo.data
         if img_data:
             img_data = img_data.read()
             img = Image.open(io.BytesIO(img_data))
             img = img.convert('RGBA')
-
-            # Redimensionar a imagem para que o tamanho do arquivo não ultrapasse 150KB
             max_size = (150, 150)
             img.thumbnail(max_size)
-
             img_file = io.BytesIO()
             img.save(img_file, format='PNG')
             img_data = img_file.getvalue()
         else:
             img_data = current_user.profile_photo
-
         current_user.username = form.username.data
         current_user.about_me = form.about_me.data
         current_user.profile_photo = img_data
-        db.session.commit()        
-        flash(_('Suas alterações foram salvas.'))
-        return redirect(url_for('main.user', username=current_user.username))
- 
-    
-
+        current_user.theme = form.theme.data
+        try:
+            db.session.commit()
+            flash(_('Suas alterações foram salvas.'))
+            return redirect(url_for('main.user', username=current_user.username, theme=theme))
+        except db.exc.SQLAlchemyError:
+            db.session.rollback()
+            flash(_('Não foi possível salvar suas alterações. Tente novamente mais tarde.'))
+            return redirect(url_for('main.user', username=current_user.username, theme=theme))
     elif request.method == 'GET':
         form.username.data = current_user.username
         form.about_me.data = current_user.about_me
+    return render_template('edit_profile.html', title=_('Editar Perfil'), form=form, user=user)
 
-    return render_template('edit_profile.html', title=_('Editar Perfil'),
-                           form=form, username=User.username, user=user )
 
 
 @bp.route('/follow/<username>', methods=['POST'])
@@ -239,29 +259,32 @@ def quiz():
 @bp.route('/result')
 @login_required
 def result():
-    try:
-        answers = Quiz.query.filter_by(user_id=current_user.id).first()
+    # Verificar se o usuário já respondeu o quiz
+    quiz_respondido = Quiz.query.filter_by(user_id=current_user.id, answered=True).first()
+    if quiz_respondido:
+        # Se o usuário já respondeu, redirecionar para a rota de resultado    
+        try:
+            answers = Quiz.query.filter_by(user_id=current_user.id).first()
+            quiz_dict = {
+                'resposta1': answers.answer1,
+                'resposta2': answers.answer2,
+                'resposta3': answers.answer3,
+                'resposta4': answers.answer4,
+                'resposta5': answers.answer5,
+                'resposta6': answers.answer6,
+                'resposta7': answers.answer7,
+                'resposta8': answers.answer8,
+                'resposta9': answers.answer9,
+                'resposta10': answers.answer10
+            }
 
-        quiz_dict = {
-            'resposta1': answers.answer1,
-            'resposta2': answers.answer2,
-            'resposta3': answers.answer3,
-            'resposta4': answers.answer4,
-            'resposta5': answers.answer5,
-            'resposta6': answers.answer6,
-            'resposta7': answers.answer7,
-            'resposta8': answers.answer8,
-            'resposta9': answers.answer9,
-            'resposta10': answers.answer10
-        }
-
-        return render_template('result.html', answers=quiz_dict)
+            return render_template('result.html', answers=quiz_dict)
    
-    except Exception as e:
-        print(str(e))
-        return (str(e))
+        except Exception as e:
+            print(str(e))
+            return (str(e))
   
-
+    return render_template('_quiz.html', form = QuizForm())
 
 @bp.route('/user/<username>/image')
 def show_post_image(username):
