@@ -1,33 +1,47 @@
-    <table class="table table-hover">
-        <tr>
+   
+    <!-- START THE FEATURETTES -->
+<style>
+    .row.featurette {
+    margin: 0 2%;
+}
+    </style>
+    <hr class="featurette-divider">
 
-            
-            <td width="70px">
-                <a href="{{ url_for('main.user', username=post.author.username) }}">
-                    {% if post.author.avatar(70)  %}
-                         <img src="{{ user.avatar(70) }}">             
-                </a>
-            </td>
-            <td>
-                {% set user_link %}
+    <div class="row featurette">
+      <div class="col-md-7">
+        <table class="table table-hover">
+            <tr>            
+                <td width="70px">
                     <a href="{{ url_for('main.user', username=post.author.username) }}">
-                        {{ post.author.username }}
+                        {% if post.author.avatar(70)  %}
+                             <img src="{{ current_user.avatar(70) }}">             
                     </a>
-                {% endset %}
-                {{ _('%(username)s said %(when)s',
-                    username=user_link, when=moment(post.timestamp).fromNow()) }}
-                <br>
-                <span id="post{{ post.id }}">{{ post.body }}</span>
-                {% if post.language and post.language != g.locale %}
-                <br><br>
-                <span id="translation{{ post.id }}">
-                    <a href="javascript:translate(
-                                '#post{{ post.id }}',
-                                '#translation{{ post.id }}',
-                                '{{ post.language }}',
-                                '{{ g.locale }}');">{{ _('Translate') }}</a>
-                </span>
-                {% endif %}
-            </td>
-        </tr>
-    </table>
+                    {% endif %}
+                </td>
+                <td>
+                    {% set user_link %}
+                        <a href="{{ url_for('main.user', username=post.author.username) }}">
+                            {{ post.author.username }}
+                        </a>
+                    {% endset %}
+    
+                    {{ _('%(username)s said %(when)s',
+                        username=user_link, when=moment(post.timestamp).fromNow()) }}
+                    <br>
+                               
+                </td>
+            </tr>
+        </table>
+        <h2 class="featurette-heading fw-normal lh-1">O que é o TRG?<span class="text-body-secondary"></span></h2>
+            <span id="post{{ post.id }}">{{ post.body }}</span>
+            {% if post.language and post.language != g.locale %}
+            
+            <br><br>
+            {% endif %}
+      </div>
+      <div class="col-md-5">
+        <img src="https://picsum.photos/500/500" class="bd-placeholder-img" alt="...">
+      </div>
+    </div>
+
+   

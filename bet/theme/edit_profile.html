@@ -1,77 +1,133 @@
 {% extends "base.html" %}
-{% import 'bootstrap/wtf.html' as wtf %}
 
-{% block navbar %}{% endblock %}
 {% block extra_css %}
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/' ~ user.theme ~ '.css') }}">
 {% endblock %}
+
 {% block content %}
+<div class="profile-image">
+    {% if user.profile_photo %}
+    <img class="img-profile-top" src="{{ url_for('main.show_post_image', username=user.username) }}" type="image/png">
+    {% else %}
+    <img class="img-profile-top" src="{{ user.avatar(256) }}">
+    {% endif %}
+  <span class="badge bg-info">{{ user.username }}</span>  
+</div>
 
+<div class="card mb-3">    
+    
+    <img src="https://picsum.photos/1200/200" class="card-img-top" alt="...">
+    <div class="card-body principal">
 
-<section class="bg-dark text-white mt-5" style="height: 150vh;">
-  <div class="d-flex justify-content-center my-8">
-    <div class="w-50 bg-light shadow rounded p-5">
-      <h2>{{ _('Editar Perfil') }}</h2>
-      <div class="profile-container">
-        <div class="profile-image">
-          {% if user.profile_photo %}
-          <img class="img-fluid" src="{{ url_for('main.show_post_image', username=user.username) }}" type="image/png">
-          {% else %}
-          <img src="{{ user.avatar(256) }}">
-          {% endif %}
+        <div class="card text-white bg-primary mb-3" style="max-width: 30rem;">
+            
+            <div class="card-header"></div>
+            <div class="card-body">
+              <form method="post" enctype="multipart/form-data">
+                {{ form.csrf_token }}
+                <div class="mb-3">
+                  {{ form.username.label(class="form-label text-orange-500 fw-bold mb-2") }}
+                  {{ form.username(class="form-control") }}
+                  {% if form.username.errors %}
+                  <ul class="errors">
+                    {% for error in form.username.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                  </ul>
+                  {% endif %}
+                </div>
+                <div class="mb-3">
+                  {{ form.about_me.label(class="form-label text-orange-500 fw-bold mb-2") }}
+                  {{ form.about_me(class="form-control") }}
+                  {% if form.about_me.errors %}
+                  <ul class="errors">
+                    {% for error in form.about_me.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                  </ul>
+                  {% endif %}
+                </div>
+                <div class="mb-3">
+                  {{ form.profile_photo.label(class="form-label") }}
+                  {{ form.profile_photo(class="form-control") }}
+                  {% if form.profile_photo.errors %}
+                  <ul class="errors">
+                    {% for error in form.profile_photo.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                  </ul>
+                  {% endif %}
+                </div>
+            
+            
+                <div class="mb-3">
+                  {{ form.theme.label(class="form-label") }}
+                  {{ form.theme(class="form-control") }}
+                </div>
+
+                <div class="form-group">
+                  {{ form.submit(class="btn btn-danger ") }}
+      
+                 </div>
+      
+            
+            </div>            
         </div>
-      </div>
-      <form method="post" enctype="multipart/form-data">
-        {{ form.csrf_token }}
-        <div class="mb-3">
-          {{ form.username.label(class="form-label text-orange-500 fw-bold mb-2") }}
-          {{ form.username(class="form-control") }}
-          {% if form.username.errors %}
-          <ul class="errors">
-            {% for error in form.username.errors %}
-            <li>{{ error }}</li>
-            {% endfor %}
-          </ul>
-          {% endif %}
+        <div class="col">
+        <div class="card border-primary mb-3" style="max-width: 20rem;">
+            <div class="card-header">Estilos</div>
+            <div class="card-body">
+                <h4 class="card-title">Tema</h4>
+                <p class="card-text">
+                    Voce está usando o tema 
+                    <span class="badge bg-primary">
+                        {{ current_user.theme }}
+                    </span>.
+                </p>
+            </div>
         </div>
-        <div class="mb-3">
-          {{ form.about_me.label(class="form-label text-orange-500 fw-bold mb-2") }}
-          {{ form.about_me(class="form-control") }}
-          {% if form.about_me.errors %}
-          <ul class="errors">
-            {% for error in form.about_me.errors %}
-            <li>{{ error }}</li>
-            {% endfor %}
-          </ul>
-          {% endif %}
+        <div class="card border-primary mb-3" style="max-width: 20rem;">
+            <div class="card-header">Finanças</div>
+            <div class="card-body">
+                <h4 class="card-title">Saldo</h4>
+                <p class="card-text">Voce possui  
+                <span class="badge bg-primary">
+                    {{ current_user.saldo }}
+                </span>
+                de saldo em sua conta.</p>
+            </div>
         </div>
-        <div class="mb-3">
-          {{ form.profile_photo.label(class="form-label") }}
-          {{ form.profile_photo(class="form-control") }}
-          {% if form.profile_photo.errors %}
-          <ul class="errors">
-            {% for error in form.profile_photo.errors %}
-            <li>{{ error }}</li>
-            {% endfor %}
-          </ul>
-          {% endif %}
+        <div class="card border-primary mb-3" style="max-width: 20rem;">
+            <div class="card-header">Header</div>
+            <div class="card-body">
+                <h4 class="card-title">Primary card title</h4>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                    card's content.</p>
+            </div>
         </div>
 
-
-        <div class="mb-3">
-          {{ form.theme.label(class="form-label") }}
-          {{ form.theme(class="form-control") }}
-        </div>
-
-
-        <div class="d-grid gap-2">
-          {{ form.submit(class="btn btn-lg btn-primary") }}
-          <input type="button" value="←" class="btn btn-primary"> </div>
-
-        
-      </form>
     </div>
-  </div>
-</section>
 
+    </div>
+</div>
+
+
+
+{% for post in posts %}
+{% include '_post.html' %}
+{% endfor %}
+<!-- <nav aria-label="...">
+    <ul class="pager">
+        <li class="previous{% if not prev_url %} disabled{% endif %}">
+            <a href="{{ prev_url or '#' }}">
+                <span aria-hidden="true">&larr;</span> {{ _('Newer posts') }}
+            </a>
+        </li>
+        <li class="next{% if not next_url %} disabled{% endif %}">
+            <a href="{{ next_url or '#' }}">
+                {{ _('Older posts') }} <span aria-hidden="true">&rarr;</span>
+            </a>
+        </li>
+    </ul>
+</nav> -->
 {% endblock %}

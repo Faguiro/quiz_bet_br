@@ -20,6 +20,11 @@ admin = Admin(app, index_view=MyAdminIndexView())
 class UserView(ModelView):
     column_searchable_list = ['username', 'email']
     column_filters = ['username']
+
+class PostView(ModelView):
+    column_searchable_list = ['user_id', 'body']
+    column_filters = ['id']
+
 class ProductView(ModelView):
     column_searchable_list = ['nome', 'preco','descricao','por' ]
     column_filters = ['nome']
@@ -36,6 +41,7 @@ admin.add_view(UserView(User, db.session))
 admin.add_view(QuizView(Quiz, db.session))
 admin.add_view(PagamentoView(Pagamento, db.session))
 admin.add_view(ProductView(Produto, db.session))
+admin.add_view(PostView(Post, db.session))
 
 
 @app.shell_context_processor

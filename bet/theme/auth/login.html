@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
 {% block extra_css %}
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/darkly.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/vapor.css') }}">
 {% endblock %}
 
 {% block content %}
 <div class="container">
-  <h1 class="text-center">Sign In</h1>
+  <h1 class="text-center">Entrar</h1>
   <div class="row justify-content-center">
     <div class="col-md-4">
 
@@ -33,10 +33,8 @@
   </div>
   <div class="row justify-content-center mt-3">
     <div class="col-md-4">
-      <p>New User? <a href="{{ url_for('auth.register') }}">Click to Register!</a></p>
-      <p>
-        Forgot Your Password?
-        <a href="{{ url_for('auth.reset_password_request') }}">Click to Reset It</a>
+      <p><a href="{{ url_for('auth.register') }}">Criar conta</a></p>
+      <p> <a href="{{ url_for('auth.reset_password_request') }}">Recuperar senha</a>
       </p>
     </div>
   </div>

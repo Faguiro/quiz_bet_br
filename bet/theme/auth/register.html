@@ -1,77 +1,121 @@
-{% extends 'base.html' %}
-{% import 'bootstrap/wtf.html' as wtf %}
+{% extends "base.html" %}
+
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/vapor.css') }}">
+{% endblock %}
 
 {% block content %}
 
-<style>
-  button.submit {
-    padding: 6px 43px;
-    border-radius: 8px;
-    background: orange;
-    color: black;
-    font-weight: 600;
-    transition: all 0.5s ease-out;
-  }
 
-  button.submit:hover {
-    background: black;
-    color: orange;
-    transform: scale(1.2);
-    transition: all 0.5s ease-out;
-  }
-</style>
-<!-- Adicione a classe 'dark' ao body para ativar o tema escuro -->
+  <img src="https://picsum.photos/1200/200" class="card-img-top" alt="...">
+  <div class="card-body principal  mt-4 ">
 
-<body class="bg-gray-900 text-white dark:bg-gray-800 dark:text-gray-100">
-  <h1
-    class="text-4xl font-bold tracking-wider text-center my-8 text-gray-200 dark:text-gray-100 transform hover:scale-10 ">
-    {{ _('Criar Conta') }}</h1>
-  <div class="flex justify-center my-12">
-    <div class="w-1/2 bg-white dark:bg-gray-700 shadow-md rounded-md p-8">
-      <form  method="POST">
-        {{ form.csrf_token }}
-        <div class="mb-4">
-          <label for="{{ form.username.id }}" class="block text-orange-500 text-sm font-bold mb-2">Nome de
-            usuário</label>
-          {{ form.username(class="w-full px-4 py-2 text-black rounded-md focus:outline-none focus:ring focus:border-blue-500
-          appearance-none", placeholder="Nome de usuário") }}
-        </div>
-        <div class="mb-4">
-          <label for="{{ form.username.id }}" class="block text-orange-500 text-sm font-bold mb-2">Seu e-mail</label>
-          {{ form.email(class="w-full px-4 py-2 text-black rounded-md focus:outline-none focus:ring focus:border-blue-500
-          appearance-none", placeholder="email") }}
-        </div>
-        <div class="mb-4">
-          <label for="{{ form.password.id }}" class="block text-orange-500 text-sm font-bold mb-2">Digite uma senha</label>
-          {{ form.password(class="w-full px-4 py-2 rounded-md  text-black focus:outline-none focus:ring focus:border-blue-500
-          appearance-none", placeholder="Senha") }}
-        </div>
-        <div class="mb-4">
-          <label for="{{ form.password.id }}" class="block text-orange-500 text-sm font-bold mb-2">Repita a senha</label>
-          {{ form.password2(class="w-full px-4 py-2 rounded-md  text-black focus:outline-none focus:ring focus:border-blue-500
-          appearance-none", placeholder="Repita a senha") }}
-        </div>
-        
-        <button type="submit" class="submit">Enviar</button>
-      </form>
+    <div class="card text-white bg-primary mb-3" style="max-width: 30rem;">
 
-      <div class="mt-4">
-        <p>{{ _('Já tem uma conta?') }}
-          <a class="text-orange-500 hover:font-semibold hover:text-orange-500" href="{{ url_for('auth.register') }}">{{
-            _('Entrar!') }}</a>
-        </p>
-        <p>
-          {{ _('Esqueceu sua senha?') }}
-          <a class="text-orange-500 hover:font-semibold hover:text-orange-500"
-            href="{{ url_for('auth.reset_password_request') }}">{{ _('Clique para redefini-la') }}</a>
-        </p>
+      <div class="card-header"></div>
+      <div class="card-body">
+        <form method="post" enctype="multipart/form-data">
+          {{ form.csrf_token }}
+          <fieldset>
+            <div class="mb-3">
+              {{ form.username.label(class="form-label text-orange-500 fw-bold mb-2") }}
+              {{ form.username(class="form-control") }}
+              {% if form.username.errors %}
+              <ul class="errors">
+                {% for error in form.username.errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+              </ul>
+              {% endif %}
+            </div>
+
+            <div class="form-group">
+              <label for="{{ form.username.id }}" class="form-label mt-4">Email address</label>
+              {{ form.email(class="form-control", placeholder="email") }}
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+
+            <div class="form-group">
+              <label for="{{ form.password.id }}" class="form-label mt-4">Digite uma
+                senha</label>
+              {{ form.password(class="form-control", placeholder="Senha") }}
+            </div>
+            <div class="form-group">
+              <label for="{{ form.password.id }}" class="form-label mt-4">Repita a
+                senha</label>
+              {{ form.password2(class="form-control", placeholder="Repita a senha") }}
+            </div>
+           
+              <div class="form-group">
+                <label for="{{ form.theme.id }}" class="form-label mt-4">Selecione um tema</label>
+                {{ form.theme(class="form-control") }}
+              </div>
+            </fieldset>
+            <div class="form-group">
+             
+              {{ form.submit(class="btn btn-warning  mt-4") }}
+
+            </div>
+          </fieldset>
+        </form>
       </div>
     </div>
+    <div class="col">
+      <div class="card border-primary mb-3" style="max-width: 20rem;">
+        <div class="card-header">Estilos</div>
+        <div class="card-body">
+          <h4 class="card-title">Tema</h4>
+          <p class="card-text">
+            Voce está usando o tema
+            <span class="badge bg-primary">
+
+            </span>.
+          </p>
+        </div>
+      </div>
+      <div class="card border-primary mb-3" style="max-width: 20rem;">
+        <div class="card-header">Finanças</div>
+        <div class="card-body">
+          <h4 class="card-title">Saldo</h4>
+          <p class="card-text">Voce possui
+            <span class="badge bg-primary">
+
+            </span>
+            de saldo em sua conta.
+          </p>
+        </div>
+      </div>
+      <div class="card border-primary mb-3" style="max-width: 20rem;">
+        <div class="card-header">Header</div>
+        <div class="card-body">
+          <h4 class="card-title">Primary card title</h4>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+            card's content.</p>
+        </div>
+      </div>
+
+    </div>
+
   </div>
+</div>
 
 
-  {% block painel_lateral %}
 
-  {% endblock %}
-</body>
+{% for post in posts %}
+{% include '_post.html' %}
+{% endfor %}
+<!-- <nav aria-label="...">
+    <ul class="pager">
+        <li class="previous{% if not prev_url %} disabled{% endif %}">
+            <a href="{{ prev_url or '#' }}">
+                <span aria-hidden="true">&larr;</span> {{ _('Newer posts') }}
+            </a>
+        </li>
+        <li class="next{% if not next_url %} disabled{% endif %}">
+            <a href="{{ next_url or '#' }}">
+                {{ _('Older posts') }} <span aria-hidden="true">&rarr;</span>
+            </a>
+        </li>
+    </ul>
+</nav> -->
 {% endblock %}

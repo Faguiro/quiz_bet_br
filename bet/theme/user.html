@@ -5,7 +5,14 @@
 {% endblock %}
 
 {% block content %}
-<img style="width:256px" src="{{ user.avatar(256) }}" class="img-profile-top" alt="...">
+ <div class="profile-image">
+                {% if user.profile_photo %}
+                <img class="img-profile-top"
+                    src="{{ url_for('main.show_post_image', username=user.username) }}" type="image/png">
+                {% else %}
+                         <img  class="img-profile-top" src="{{ user.avatar(256) }}">
+                {% endif %}
+            </div>
 <div class="card mb-3">    
     
     <img src="https://picsum.photos/1200/200" class="card-img-top" alt="...">

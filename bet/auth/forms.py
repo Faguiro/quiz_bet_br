@@ -19,7 +19,32 @@ class RegistrationForm(FlaskForm):
     password2 = PasswordField(
         _l('Repita a senha'), validators=[DataRequired(),
                                            EqualTo('password')])
-    theme = SelectField('Theme', choices=[('darkly', 'Darkly'), ('sketchy', 'Sketchy'), ('morph', 'Morph'), ('main', 'Orange')], default='darkly')
+    theme = SelectField('Theme', choices=[
+        ('cerulean', 'Cerulean'),
+        ('cosmo', 'Cosmo'),
+        ('cyborg', 'Cyborg'),
+        ('flatly', 'Flatly'),
+        ('journal', 'Journal'),
+        ('litera', 'Litera'),
+        ('lumen', 'Lumen'),
+        ('lux', 'Lux'),
+        ('materia', 'Materia'),
+        ('minty', 'Minty'),
+        ('morph', 'Morph'),
+        ('pulse', 'Pulse'),
+        ('quartz', 'Quartz'),
+        ('sandstone', 'Sandstone'),
+        ('simplex', 'Simplex'),
+        ('sketchy', 'Sketchy'),
+        ('slate', 'Slate'),
+        ('solar', 'Solar'),
+        ('spacelab', 'Spacelab'),
+        ('superhero', 'Superhero'),
+        ('united', 'United'),
+        ('vapor', 'Vapor'),
+        ('yeti', 'Yeti'),
+        ('zephyr', 'Zephyr')
+    ], default='darkly')
     submit = SubmitField(_l('Registro'))
 
     def validate_username(self, username):
