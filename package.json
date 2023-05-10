@@ -4,14 +4,16 @@
   "description": "Este é um sistema completo desenvolvido em Python, utilizando Flask como framework web, SQLAlchemy para lidar com o banco de dados, Blueprints para estruturar a aplicação, Pagamentos Stripe para processar pagamentos, Jinja como template engine e Flask Login para gerenciamento de autenticação.",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "create-css": "npx tailwindcss -i bet/static/src/styles.css -o bet/static/css/main.css --watch "
   },
   "keywords": [
     "bet_br"
   ],
   "author": "Faguiro",
   "license": "MIT",
-  "dependencies": {
-    "tailwindcss": "^3.3.1"
+  "devDependencies": {
+    "autoprefixer": "^10.4.14",
+    "postcss": "^8.4.23",
+    "tailwindcss": "^3.3.2"
   }
 }
