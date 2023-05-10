@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<style>
+<!-- <style>
     /*  */
     .profile-edit-link {
         width: 15rem;
@@ -92,29 +92,28 @@
     .profile-unfollow-btn {
         margin-top: 5px;
     }
-</style>
+</style> -->
 
 <body class="bg-gray-900 text-white dark:bg-gray-800 dark:text-gray-100 ">
    
     <div class="flex justify-center my-8">
-        <div class="w-1/2 bg-white dark:bg-gray-700 shadow-md rounded-md p-8">
-            <div class="profile-image">
+        <div class="w-1/2 flex flex-row-reverse dark:bg-gray-700 shadow-md rounded-md p-8">
+            <div class="w-full h-96 bg-gray-300 flex flex-col justify-center items-center">
                 {% if user.profile_photo %}
-                <img class="image-post img-responsive"
+                <img class="w-full h-full"
                     src="{{ url_for('main.show_post_image', username=user.username) }}" type="image/png">
                 {% else %}
-                         <img src="{{ user.avatar(256) }}">
+                         <img class="w-full h-full" src="{{ user.avatar(256) }}">
                 {% endif %}
             </div>
 
-            <div class="profile-info">
-                <h1 class="profile-username">{{ _('Usuário') }}: {{ user.username }}</h1>
+            <div class="w-full flex flex-col justify-center items-start px-5 gap-5">
+                <h1 class="text-2xl font-semibold tracking-wide">{{ _('Usuário') }}: {{ user.username }}</h1>
                 {% if user.about_me %}
-                <p class="profile-about">{{ user.about_me }}</p>
+                <p class="text-xl">{{ user.about_me }}</p>
                 {% endif %}
                 {% if user.last_seen %}
-                <p class="profile-last-seen">{{ _('Última vez online') }}: {{ moment(user.last_seen).format('LLL') }}
-                </p>
+                <p class="text-xl font-medium tracking-wide">{{ _('Última vez online') }}: {{ moment(user.last_seen).format('LLL') }}                </p>
                 {% endif %}
 
             {% if current_user.is_anonymous %}
@@ -125,7 +124,7 @@
                     <p class="profile-followers">{{ _('%(count)d seguidores', count=user.followers.count()) }}, {{
                         _('%(count)d seguindo', count=user.followed.count()) }}</p>
                     {% if user == current_user %}
-                    <p><a href="{{ url_for('main.edit_profile') }}" class="profile-edit-link">{{ _('Edite seu perfil')
+                    <p><a href="{{ url_for('main.edit_profile') }}" class="bg-green-600 text-center h-12 px-10 py-3 rounded-md">{{ _('Edite seu perfil')
                             }}</a></p>
                     {% elif not current_user.is_following(user) %}
                     <form action="{{ url_for('main.follow', username=user.username) }}" method="post">

@@ -39,13 +39,13 @@ class PostForm(FlaskForm):
 
 
 class QuizForm(FlaskForm):
-    answer1 = RadioField('Palmeira e Cuiabá', choices=[('1', 'Palmeiras'), ('2', 'Empate'), ('3', 'Cuiabá')], validators=[DataRequired()])
-    answer2 = RadioField('answer2', choices=[('1', 'América'), ('2', 'Empate'), ('3', 'Fluminense')], validators=[DataRequired()])
-    answer3 = RadioField('answer3', choices=[('1', 'Botafogo'), ('2', 'Empate'), ('3', 'São Paulo')], validators=[DataRequired()])
-    answer4 = RadioField('answer4', choices=[('1', 'Bragantino'), ('2', 'Empate'), ('3', 'Bahia')], validators=[DataRequired()])
-    answer5 = RadioField('answer5', choices=[('1', 'Atlétio-PR'), ('2', 'Empate'), ('3', 'Goiás')], validators=[DataRequired()])
-    answer6 = RadioField('answer6', choices=[('1', 'Fortaleza'), ('2', 'Empate'), ('3', 'Internacional')], validators=[DataRequired()])
-    answer7 = RadioField('answer6', choices=[('1', 'Atético-MG'), ('2', 'Empate'), ('3', 'Vasco da Gama')], validators=[DataRequired()])
-    answer8 = RadioField('answer6', choices=[('1', 'Corinthians'), ('2', 'Empate'), ('3', 'Cruzeiro')], validators=[DataRequired()])
-    answer9 = RadioField('answer6', choices=[('1', 'Flamengo'), ('2', 'Empate'), ('3', 'Coritiba')], validators=[DataRequired()])
-    answer10 = RadioField('answer6',choices=[('1', 'Gêmio'), ('2', 'Empate'), ('3', 'Santos')], validators=[DataRequired()])
+    answer1 = RadioField('Palmeiras e Cuiabá', choices=[('1', 'Palmeiras'), ('2', 'Empate'), ('3', 'Cuiabá')], validators=[DataRequired()])
+    answer2 = RadioField('América e Fluminense', choices=[('1', 'América'), ('2', 'Empate'), ('3', 'Fluminense')], validators=[DataRequired()])
+    answer3 = RadioField('Botafogo e São Paulo', choices=[('1', 'Botafogo'), ('2', 'Empate'), ('3', 'São Paulo')], validators=[DataRequired()])
+    answer4 = RadioField('Bragantino e Bahia', choices=[('1', 'Bragantino'), ('2', 'Empate'), ('3', 'Bahia')], validators=[DataRequired()])
+    answer5 = RadioField('Atlético-PR e Goiás', choices=[('1', 'Atlétio-PR'), ('2', 'Empate'), ('3', 'Goiás')], validators=[DataRequired()])
+    answer6 = RadioField('Fortaleza e Internacional', choices=[('1', 'Fortaleza'), ('2', 'Empate'), ('3', 'Internacional')], validators=[DataRequired()])
+    answer7 = RadioField('Atlético-MG e Casco', choices=[('1', 'Atlético-MG'), ('2', 'Empate'), ('3', 'Vasco')], validators=[DataRequired()])
+    answer8 = RadioField('Corinthians e Cruzeiro', choices=[('1', 'Corinthians'), ('2', 'Empate'), ('3', 'Cruzeiro')], validators=[DataRequired()])
+    answer9 = RadioField('Flamento e Coritiba', choices=[('1', 'Flamengo'), ('2', 'Empate'), ('3', 'Coritiba')], validators=[DataRequired()])
+    answer10 = RadioField('Grêmio e Santos',choices=[('1', 'Gêmio'), ('2', 'Empate'), ('3', 'Santos')], validators=[DataRequired()])

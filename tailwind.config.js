@@ -17,6 +17,12 @@ module.exports = {
       sans: ['Graphik', 'sans-serif'],
       serif: ['Merriweather', 'serif'],
     },
+    screens: {
+      sm: { min: "50px", max: "767px" },
+      md: { min: "441px", max: "1023px" },
+      lg: { min: "1024px", max: "1279px" },
+      xl: { min: "1280px" },
+    },
     extend: {
       spacing: {
         '8xl': '96rem',
