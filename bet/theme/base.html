@@ -1,4 +1,5 @@
 <!--Bem-vindos ao Bet Brasileirão Template -  base 23/04/2023  -->
+{{ fontawesome_html() }}
 <!DOCTYPE html>
 <html lang="pt-br" id="html">
 
@@ -43,7 +44,7 @@
 </head>
 
 <body class="wrapper"> <!--   inicio body base -->
-    <main class="bg-dark">
+    <main>
         <!-- Inclui o template de navegação de acordo com o tamanho da tela -->
         <!-- Conteúdo da barra de navegação para telas grandes (desktop) -->
         {% block navbar %}
@@ -69,6 +70,7 @@
             <div class="offcanvas-body">
                 <h5 class="offcanvas-title">Olá, Visitante!</h5>
                 <div>
+                   
 
                     <a class="dropdown-item" href="{{ url_for('auth.login') }}">{{ _('Entrar') }}</a>
                     {% else %}
@@ -85,6 +87,8 @@
                                     _('Perfil') }}</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ url_for('auth.logout') }}">{{ _('Sair') }}</a>
+
+
                                 {% endif %}
                         </div>
                     </div>
@@ -111,30 +115,14 @@
                 <!-- Scripts específicos da página que podem depender de elementos HTML da página -->
                 {% block extra_js %}{% endblock %}
                 <script>
-                    const themeSelect = document.getElementById("theme");
-
-                    themeSelect.addEventListener("change", function () {
-                        const selectedTheme = getSelectedTheme();
-                        document.querySelector("head > link:nth-child(8)").href = `http://127.0.0.1:5000/static/css/${selectedTheme}.css`;
-                    });
 
 
-                    function getSelectedTheme() {
-                        const selectedIndex = themeSelect.selectedIndex;
-                        const selectedOption = themeSelect.options[selectedIndex];
-                        return selectedOption.value;
-                    }
+
 
                 </script>
-                <!-- <script>
-        myDiv.addEventListener("contextmenu", function (event) {
-            event.preventDefault();
-            document.querySelector("head > link:nth-child(8)").href='http://127.0.0.1:5000/static/css/sketchy.css'
-            // código a ser executado quando o botão direito é clicado
-            //alert("OK!")
 
-        });
-    </script>  -->
+
+
     </main>
     {% include 'footer.html' %}
 </body>

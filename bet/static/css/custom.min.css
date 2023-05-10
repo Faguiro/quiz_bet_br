@@ -429,10 +429,14 @@ div#sidebar {
     z-index: 100;
 }
 
+.profile-image {
+    position: relative;
+}
+
 
 
 .card.text-white.bg-primary.mb-3 {
-    width: 25%;
+    width: 50%;
 }
 
 .card-body.principal {
@@ -440,7 +444,9 @@ div#sidebar {
     gap: 5%;
 }
 
+
 img.img-profile-top {
+    width: 240px;
     padding: 6px;
     position: absolute;
     top: 14%;
@@ -450,8 +456,9 @@ img.img-profile-top {
     border: 8px solid;
     background-color: #1c0d10;
 }
-.badge.bg-info{
-    position: absolute;
+
+.badge.bg-info {
+   /*  position: absolute; */
     top: 10%;
     left: 6%;
     z-index: 100;
@@ -460,4 +467,48 @@ img.img-profile-top {
 
 img.card-img-top {
     min-height: 200px;
+}
+
+
+@media screen and (max-width: 1200px) {
+    img.img-profile-top {
+        width: 200px;
+        top: 28%;
+    }
+
+}
+@media screen and (max-width: 968px) {
+
+    .card.text-white.bg-primary.mb-3 {
+        max-width: 100% !important;
+        width: 100%;
+        margin: auto;
+    }
+
+    card.text-white.bg-primary.mb-3 {
+        width: 100%;
+        margin: auto;
+    }
+
+    .card-body.principal {
+        display: grid;
+        gap: 5%;
+        height: 100%;
+        width: 100%;
+        padding: 20px 20px 100px 20px;
+    }
+
+    .col-md-5 img {
+        width: 90vw;
+        height: auto;
+    }
+
+    .card.border-primary.mb-3 {
+        max-width: 100% !important;
+    }
+    img.img-profile-top {
+        width: 160px;
+        top: 28%;
+    }
+
 }

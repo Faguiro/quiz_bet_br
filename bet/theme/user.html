@@ -5,21 +5,21 @@
 {% endblock %}
 
 {% block content %}
- <div class="profile-image">
-                {% if user.profile_photo %}
-                <img class="img-profile-top"
-                    src="{{ url_for('main.show_post_image', username=user.username) }}" type="image/png">
-                {% else %}
-                         <img  class="img-profile-top" src="{{ user.avatar(256) }}">
-                {% endif %}
-            </div>
-<div class="card mb-3">    
-    
+<div class="profile-image">
     <img src="https://picsum.photos/1200/200" class="card-img-top" alt="...">
+    {% if user.profile_photo %}
+    <img class="img-profile-top" src="{{ url_for('main.show_user_image', username=user.username) }}" type="image/png">
+    {% else %}
+    <img class="img-profile-top" src="{{ user.avatar(256) }}">
+    {% endif %}
+</div>
+
+<div class="card mb-3">
+
     <div class="card-body principal">
 
         <div class="card text-white bg-primary mb-3" style="max-width: 30rem;">
-            
+
             <div class="card-header"></div>
             <div class="card-body">
                 <h4 class="card-title">{{ _('Usuário') }}: {{ user.username }}</h4>
@@ -30,7 +30,8 @@
                 <p>{{ _('%(count)d seguidores', count=user.followers.count()) }}, {{ _('%(count)d seguindo',
                     count=user.followed.count()) }}</p>
                 {% if user == current_user %}
-                <button type="button" class="btn btn-success" ><a  class="nav-link" href="{{ url_for('main.edit_profile') }}">{{ _('Editar Perfil') }}</a></button>
+                <button type="button" class="btn btn-success"><a class="nav-link"
+                        href="{{ url_for('main.edit_profile') }}">{{ _('Editar Perfil') }}</a></button>
 
                 {% elif not current_user.is_following(user) %}
                 <p>
@@ -51,44 +52,48 @@
                 <p><a href="{{ url_for('main.send_message', recipient=user.username) }}">{{ _('Send private message')
                         }}</a></p>
                 {% endif %}
-            </div>            
+            </div>
         </div>
+
         <div class="col">
-        <div class="card border-primary mb-3" style="max-width: 20rem;">
-            <div class="card-header">Estilos</div>
-            <div class="card-body">
-                <h4 class="card-title">Tema</h4>
-                <p class="card-text">
-                    Voce está usando o tema 
-                    <span class="badge bg-primary">
-                        {{ current_user.theme }}
-                    </span>.
-                </p>
+
+            <div class="card border-primary mb-3" style="max-width: 20rem;">
+                <div class="card-header">Estilos</div>
+                <div class="card-body">
+                    <h4 class="card-title">Tema</h4>
+                    <p class="card-text">
+                        Voce está usando o tema
+                        <span class="badge bg-primary">
+                            {{ current_user.theme }}
+                        </span>.
+                    </p>
+                </div>
             </div>
-        </div>
-        <div class="card border-primary mb-3" style="max-width: 20rem;">
-            <div class="card-header">Finanças</div>
-            <div class="card-body">
-                <h4 class="card-title">Saldo</h4>
-                <p class="card-text">Voce possui  
-                <span class="badge bg-primary">
-                    {{ current_user.saldo }}
-                </span>
-                de saldo em sua conta.</p>
+            <div class="card border-primary mb-3" style="max-width: 20rem;">
+                <div class="card-header">Finanças</div>
+                <div class="card-body">
+                    <h4 class="card-title">Saldo</h4>
+                    <p class="card-text">Voce possui
+                        <span class="badge bg-primary">
+                            {{ current_user.saldo }}
+                        </span>
+                        de saldo em sua conta.
+                    </p>
+                </div>
             </div>
-        </div>
-        <div class="card border-primary mb-3" style="max-width: 20rem;">
-            <div class="card-header">Header</div>
-            <div class="card-body">
-                <h4 class="card-title">Primary card title</h4>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                    card's content.</p>
+            <div class="card border-primary mb-3" style="max-width: 20rem;">
+                <div class="card-header">Header</div>
+                <div class="card-body">
+                    <h4 class="card-title">Primary card title</h4>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                        card's content.</p>
+                </div>
             </div>
+
         </div>
 
     </div>
 
-    </div>
 </div>
 
 

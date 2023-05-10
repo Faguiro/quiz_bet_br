@@ -13,20 +13,21 @@ from bet.main import bp
 import io
 from io import BytesIO
 from PIL import Image
-import  stripe
+import stripe
 import mercadopago
 from bet import db, Config
 import os
 from jinja2 import Template, UndefinedError
 
+
 sdk = mercadopago.SDK(os.getenv('MP_ACCESS_TOKEN'))
+
 
 def get_theme():
     if current_user.is_authenticated:
         return str(current_user.theme)
     else:
-        return "vapor"
-
+        return "zephyr"
 
 
 @bp.before_app_request
@@ -39,10 +40,11 @@ def before_request():
 
 @bp.route('/prisma', methods=['GET', 'POST'])
 @login_required
-def prisma():  
-    #theme = User.query.filter_by(teheme= current_user.theme).first_or_404()
+def prisma():
+    # theme = User.query.filter_by(teheme= current_user.theme).first_or_404()
     theme = request.args.get('theme', 'sketchy')
     return render_template('prisma.html', theme=theme)
+
 
 @bp.route('/home')
 def home():
@@ -50,34 +52,80 @@ def home():
     return render_template('home.html', theme=theme)
 
 
-
-@bp.route('/', methods=['GET', 'POST'])
-@bp.route('/index', methods=['GET', 'POST'])
+@bp.route('/criar_publicacao', methods=['GET', 'POST'])
 @login_required
-def index():
+def criar_pub():
     form = PostForm()
     if form.validate_on_submit():
         try:
             language = detect(form.post.data)
         except LangDetectException:
             language = ''
+
+        # Convert the image to PNG format
+        img_data = form.post_photo.data
+        if (img_data):
+            img_data = img_data.read()
+            img = Image.open(io.BytesIO(img_data))
+            img = img.convert('RGBA')
+            img_file = io.BytesIO()
+            img.save(img_file, format='PNG')
+            img_data = img_file.getvalue()
+        else:
+            img_data = None
+
+        video_data = form.video.data
+        if (video_data):
+            video_data = form.video.data.read()
+        else:
+            video_data = None
+
         post = Post(body=form.post.data, author=current_user,
-                    language=language)
+                    language=language, img=memoryview(img_data), video=video_data)
         db.session.add(post)
         db.session.commit()
-        flash(_('Your post is now live!'))
+        flash(_('Sua publicação está ao vivo!'))
         return redirect(url_for('main.index'))
+
+    return render_template('criar_pub.html', title=_('Criar publicação'), form=form)
+
+
+@bp.route('/', methods=['GET'])
+@bp.route('/index', methods=['GET'])
+@login_required
+def index():
     page = request.args.get('page', 1, type=int)
     posts = current_user.followed_posts().paginate(
         page=page, per_page=current_app.config['POSTS_PER_PAGE'],
         error_out=False)
+
     next_url = url_for('main.index', page=posts.next_num) \
         if posts.has_next else None
+
     prev_url = url_for('main.index', page=posts.prev_num) \
         if posts.has_prev else None
-    return render_template('index.html', title=_('Home'), form=form,
+    return render_template('index.html', title=_('Home'),
                            posts=posts.items, next_url=next_url,
-                           prev_url=prev_url,theme=current_user.theme)
+                           prev_url=prev_url)
+
+
+@bp.route('/posts/<int:post_id>/image')
+def show_post_image(post_id):
+    post = Post.query.get(post_id)
+    if post:
+        return Response(post.img, content_type='image/png')
+    return 'Post not found', 404
+
+
+@bp.route('/posts/<int:post_id>/video')
+def post_video(post_id):
+    post = Post.query.get_or_404(post_id)
+    video_data = post.video
+
+    response = Response(video_data, content_type='video/mp4')
+    response.headers.set(
+        'Content-Disposition', 'inline', filename='video.mp4')
+    return response
 
 
 @bp.route('/explore')
@@ -97,28 +145,29 @@ def explore():
 
 
 @bp.route('/user/<username>')
-#@login_required
+@login_required
 def user(username):
     if current_user.is_authenticated:
-        user = User.query.filter_by(username= current_user.username).first_or_404()
+        user = User.query.filter_by(
+            username=current_user.username).first_or_404()
     else:
-        user = User.query.filter_by(id= "1").first_or_404()
+        user = User.query.filter_by(id="1").first_or_404()
         login_user(user, remember=form.remember_me.data)
     page = request.args.get('page', 1, type=int)
     posts = user.posts.order_by(Post.timestamp.desc()).paginate(
         page=page, per_page=current_app.config['POSTS_PER_PAGE'],
         error_out=False)
     next_url = url_for('main.user', username=user.username,
-                    page=posts.next_num) if posts.has_next else None
+                       page=posts.next_num) if posts.has_next else None
     prev_url = url_for('main.user', username=user.username,
-                    page=posts.prev_num) if posts.has_prev else None
+                       page=posts.prev_num) if posts.has_prev else None
     form = EmptyForm()
-    
-    saldo = str(user.saldo) # obtém o saldo do usuário
-    return render_template('user.html', user=user, posts=posts.items,
-                        next_url=next_url, prev_url=prev_url, form=form, saldo=saldo, teme=get_theme())
 
- 
+    saldo = str(user.saldo)  # obtém o saldo do usuário
+    return render_template('user.html', user=user, posts=posts.items,
+                           next_url=next_url, prev_url=prev_url, form=form, saldo=saldo, teme=get_theme())
+
+
 @bp.route('/edit_profile', methods=['GET', 'POST'])
 @login_required
 def edit_profile():
@@ -140,6 +189,7 @@ def edit_profile():
             img_data = img_file.getvalue()
         else:
             img_data = current_user.profile_photo
+
         current_user.username = form.username.data
         current_user.about_me = form.about_me.data
         current_user.profile_photo = img_data
@@ -150,13 +200,13 @@ def edit_profile():
             return redirect(url_for('main.user', username=current_user.username, theme=theme))
         except db.exc.SQLAlchemyError:
             db.session.rollback()
-            flash(_('Não foi possível salvar suas alterações. Tente novamente mais tarde.'))
+            flash(
+                _('Não foi possível salvar suas alterações. Tente novamente mais tarde.'))
             return redirect(url_for('main.user', username=current_user.username, theme=theme))
     elif request.method == 'GET':
         form.username.data = current_user.username
         form.about_me.data = current_user.about_me
     return render_template('edit_profile.html', title=_('Editar Perfil'), form=form, user=user)
-
 
 
 @bp.route('/follow/<username>', methods=['POST'])
@@ -211,7 +261,8 @@ def translate_text():
 @login_required
 def quiz():
     # Verificar se o usuário já respondeu o quiz
-    quiz_respondido = Quiz.query.filter_by(user_id=current_user.id, answered=True).first()
+    quiz_respondido = Quiz.query.filter_by(
+        user_id=current_user.id, answered=True).first()
 
     if quiz_respondido:
         # Se o usuário já respondeu, redirecionar para a rota de resultado
@@ -260,9 +311,10 @@ def quiz():
 @login_required
 def result():
     # Verificar se o usuário já respondeu o quiz
-    quiz_respondido = Quiz.query.filter_by(user_id=current_user.id, answered=True).first()
+    quiz_respondido = Quiz.query.filter_by(
+        user_id=current_user.id, answered=True).first()
     if quiz_respondido:
-        # Se o usuário já respondeu, redirecionar para a rota de resultado    
+        # Se o usuário já respondeu, redirecionar para a rota de resultado
         try:
             answers = Quiz.query.filter_by(user_id=current_user.id).first()
             quiz_dict = {
@@ -279,21 +331,20 @@ def result():
             }
 
             return render_template('result.html', answers=quiz_dict)
-   
+
         except Exception as e:
             print(str(e))
             return (str(e))
-  
-    return render_template('_quiz.html', form = QuizForm())
+
+    return render_template('_quiz.html', form=QuizForm())
+
 
 @bp.route('/user/<username>/image')
-def show_post_image(username):
+def show_user_image(username):
     user = User.query.filter_by(username=username).first()
-    if user and user.profile_photo: # Verifica se o usuário existe e possui uma foto de perfil
+    if user and user.profile_photo:  # Verifica se o usuário existe e possui uma foto de perfil
         return Response(user.profile_photo, content_type='image/png')
     return 'Image not found', 404
-
-
 
 
 ####################### PAGAMENTOS #################
@@ -301,15 +352,14 @@ def show_post_image(username):
 def comprar_creditos():
     # Dados dos métodos de pagamento
     metodos_pagamento = [
-    #  {'nome': 'Pix', 'imagem': 'pix.png'},
-    #  {'nome': 'Mercado Pago', 'imagem': 'mercadopago.png'},
-    #  {'nome': 'PicPay', 'imagem': 'picpay.png'},
-    {'nome': 'Stripe', 'imagem': 'stripe.png'},
-    #  {'nome': 'PayPal', 'imagem': 'paypal.png'}
+        #  {'nome': 'Pix', 'imagem': 'pix.png'},
+        #  {'nome': 'Mercado Pago', 'imagem': 'mercadopago.png'},
+        #  {'nome': 'PicPay', 'imagem': 'picpay.png'},
+        {'nome': 'Stripe', 'imagem': 'stripe.png'},
+        #  {'nome': 'PayPal', 'imagem': 'paypal.png'}
     ]
     # Renderizando o template com os dados
     return render_template('comprar_creditos.html', metodos_pagamento=metodos_pagamento)
-
 
 
 ####################### PAGAMENTOS  stripe configurações #################
@@ -331,7 +381,6 @@ def pagamento_stripe():
 @login_required
 def stripe_order_codigo(codigo):
     produto_encontrado = Produto.query.filter_by(codigo=codigo).first()
-
     # Verificar se o produto foi encontrado e imprimir seu nome
     if not produto_encontrado:
         print('Produto não encontrado para o código:', codigo)
@@ -339,7 +388,8 @@ def stripe_order_codigo(codigo):
     else:
         product = {
             'name': produto_encontrado.nome,
-            'price': int( float(produto_encontrado.preco)*100),  # Converter para float,
+            # Converter para float,
+            'price': int(float(produto_encontrado.preco)*100),
             'adjustable_quantity': {
                 'enabled': produto_encontrado.ajustavel_quantidade,
                 'minimum': produto_encontrado.quantidade_minima,
@@ -348,7 +398,7 @@ def stripe_order_codigo(codigo):
         }
 
         print(product)
- 
+
         line_item = {
             'price_data': {
                 'product_data': {
@@ -362,7 +412,6 @@ def stripe_order_codigo(codigo):
         }
         print(line_item)
 
-
         checkout_session = stripe.checkout.Session.create(
             line_items=[line_item],
             payment_method_types=['card'],
@@ -370,18 +419,22 @@ def stripe_order_codigo(codigo):
             success_url=request.host_url + 'pagamento/stripe/stripe_success',
             cancel_url=request.host_url + 'pagamento/stripe/stripe_cancel',
             metadata={
-                'user_id': current_user.id  # Adiciona o ID do usuário como metadata na sessão de checkout
+                # Adiciona o ID do usuário como metadata na sessão de checkout
+                'user_id': current_user.id
             }
         )
         return redirect(checkout_session.url)
+
 
 @bp.route('/pagamento/stripe/stripe_success')
 def stripe_success():
     return render_template('stripe_success.html')
 
+
 @bp.route('/pagamento/stripe/stripe_cancel')
 def stripe_cancel():
     return render_template('stripe_cancel.html')
+
 
 @bp.route('/stripe/event', methods=['POST'])
 def new_event():
@@ -390,15 +443,17 @@ def new_event():
     signature = request.headers['STRIPE_SIGNATURE']
 
     try:
-        event = stripe.Webhook.construct_event(payload, signature, Config.STRIPE_WEBHOOK_SECRET)
+        event = stripe.Webhook.construct_event(
+            payload, signature, Config.STRIPE_WEBHOOK_SECRET)
     except Exception as e:
         print(e)
         abort(400)
 
     if event['type'] == 'checkout.session.completed':
-        session = stripe.checkout.Session.retrieve(event['data']['object'].id, expand=['line_items'])
-        user_id = session.metadata.get('user_id')  # Obtém o ID do usuário a partir dos metadata da sessão de checkout
-
+        session = stripe.checkout.Session.retrieve(
+            event['data']['object'].id, expand=['line_items'])
+        # Obtém o ID do usuário a partir dos metadata da sessão de checkout
+        user_id = session.metadata.get('user_id')
 
         for item in session.line_items.data:
             try:
@@ -418,28 +473,25 @@ def new_event():
                 user.atualiza_saldo(item.amount_total/100)
                 db.session.commit()
 
-
             except Exception as e:
                 resp = str(e)
                 abort(500)
                 return redirect(url_for('main.stripe_cancel'))
 
-    return {'success': True,'resposta': 'ok'}
-
-
+    return {'success': True, 'resposta': 'ok'}
 
 #####################################################################
 
 
 @bp.route('/pagamento/mercado_pago/')
 def mercado_pago():
-   return render_template('mercado_pago.html', public_key=os.getenv('MP_PUBLIC_KEY'))
+    return render_template('mercado_pago.html', public_key=os.getenv('MP_PUBLIC_KEY'))
 
 
 @bp.route('/process_payment', methods=['POST'])
 def MP_add_income():
     request_values = request.get_json()
-    
+
     payment_data = {
         "transaction_amount": float(request_values["transaction_amount"]),
         "token": request_values["token"],
@@ -449,7 +501,7 @@ def MP_add_income():
         "payer": {
             "email": request_values["payer"]["email"],
             "identification": {
-                "type": request_values["payer"]["identification"]["type"], 
+                "type": request_values["payer"]["identification"]["type"],
                 "number": request_values["payer"]["identification"]["number"]
             }
         }

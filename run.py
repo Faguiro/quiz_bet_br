@@ -15,11 +15,10 @@ class MyAdminIndexView(AdminIndexView):
 
 admin = Admin(app, index_view=MyAdminIndexView())
 
-
-
 class UserView(ModelView):
     column_searchable_list = ['username', 'email']
     column_filters = ['username']
+    column_exclude_list = ['password_hash','profile_photo' ]
 
 class PostView(ModelView):
     column_searchable_list = ['user_id', 'body']

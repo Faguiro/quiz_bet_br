@@ -12,6 +12,7 @@ from flask_babel import Babel, lazy_gettext as _l
 from config import Config
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
+from flask_fontawesome import FontAwesome
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -27,7 +28,6 @@ babel = Babel()
 def create_app(config_class=Config):
     app = Flask(__name__, template_folder='theme')
     app.config.from_object(config_class)
-
     db.init_app(app)
     migrate.init_app(app, db)
     login.init_app(app)
@@ -35,6 +35,7 @@ def create_app(config_class=Config):
     bootstrap.init_app(app)
     moment.init_app(app)
     babel.init_app(app)
+    fa = FontAwesome(app)
 
     from bet.errors import bp as errors_bp
     app.register_blueprint(errors_bp)
@@ -75,7 +76,6 @@ def create_app(config_class=Config):
             '[in %(pathname)s:%(lineno)d]'))
         file_handler.setLevel(logging.INFO)
         app.logger.addHandler(file_handler)
-
         app.logger.setLevel(logging.INFO)
         app.logger.info('Bet Brasileirão startup')
 

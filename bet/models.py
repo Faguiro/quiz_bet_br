@@ -93,7 +93,10 @@ def load_user(id):
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    body = db.Column(db.String(140))
+    title = db.Column(db.String(140))
+    body = db.Column(db.String(540))
+    img = db.Column(db.LargeBinary, nullable=True)
+    video = db.Column(db.LargeBinary, nullable=True)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     language = db.Column(db.String(5))
@@ -101,6 +104,8 @@ class Post(db.Model):
     def __repr__(self):
         return '<Post {}>'.format(self.body)
 
+   
+    
 class Quiz(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     answer1 = db.Column(db.String(255), nullable=False)
