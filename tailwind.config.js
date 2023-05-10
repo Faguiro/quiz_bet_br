@@ -2,6 +2,7 @@
 module.exports = {
   content: ["./bet/templates/**/*.{html,js}"],
   theme: {
+<<<<<<< HEAD
     colors: {
       'blue': '#1fb6ff',
       'purple': '#7e5bef',
@@ -32,6 +33,9 @@ module.exports = {
         '4xl': '2rem',
       }
     }
+=======
+    extend: {},
+>>>>>>> 8261e138f1bd5ec7960e0e14359e59ef58932367
   },
   plugins: [],
 }
