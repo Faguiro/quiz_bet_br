@@ -18,9 +18,12 @@ import mercadopago
 from bet import db, Config
 import os
 from jinja2 import Template, UndefinedError
-
+import re
+from unidecode import unidecode
 
 sdk = mercadopago.SDK(os.getenv('MP_ACCESS_TOKEN'))
+
+
 
 
 def get_theme():
@@ -259,7 +262,16 @@ def translate_text():
 
 @bp.route('/quiz', methods=['GET', 'POST'])
 @login_required
-def quiz():
+def quiz():  
+
+    def format_team_name(team_name):
+        # Remove acentos e caracteres especiais
+        team_name = unidecode(team_name)
+        #team_name = re.sub('[^0-9a-zA-Z]+', '', team_name)
+        # Converte para caixa baixa e substitui espaços por underline
+        team_name = team_name.lower().replace(' ', '_')
+        return team_name
+    
     # Verificar se o usuário já respondeu o quiz
     quiz_respondido = Quiz.query.filter_by(
         user_id=current_user.id, answered=True).first()
@@ -269,6 +281,8 @@ def quiz():
         return redirect(url_for('main.result'))
 
     form = QuizForm()
+    times= form.selecao_dict
+    print(times[1]['time1'])
 
     if request.method == 'POST':
         if form.validate_on_submit():
@@ -304,7 +318,7 @@ def quiz():
             db.session.add(answer)
             db.session.commit()
             return redirect(url_for('main.result', answer1=answer1, answer2=answer2, answer3=answer3, answer4=answer4, answer5=answer5, answer6=answer6))
-    return render_template('_quiz.html', title='Quiz', form=form)
+    return render_template('_quiz.html', title='Quiz', form=form, times=times, format_team_name=format_team_name)
 
 
 @bp.route('/result')

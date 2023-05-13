@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 
+
 {% block extra_css %}
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/' ~ current_user.theme ~ '.css') }}">
 {% endblock %}
@@ -162,9 +163,10 @@
             {{ form.answer1.label }}
             <br>
             <div class="icones">
-              <img src="{{ url_for('static', filename='/images/palmeiras.png') }}" width="80" height="80">
+              <img src="{{ url_for('static', filename='/images/'+ format_team_name( times[1]['time1'])+ '.png') }}" width="80" height="80">
+
               <img src="{{ url_for('static', filename='/images/empate.png') }}" width="80" height="80">
-              <img src="{{ url_for('static', filename='/images/cuiaba.png') }}" width="80" height="80">
+              <img src="{{ url_for('static', filename='/images/'+ format_team_name( times[1]['time2'])+ '.png') }}" width="80" height="80">
             </div>
             {{ form.answer1 }}
           </div>
@@ -175,9 +177,9 @@
             {{ form.answer2.label }}
             <br>
             <div class="icones">
-              <img src="{{ url_for('static', filename='/images/america.png') }}" width="80" height="80">
+              <img src="{{ url_for('static', filename='/images/'+ format_team_name( times[2]['time1'])+ '.png') }}" width="80" height="80">
               <img src="{{ url_for('static', filename='/images/empate.png') }}" width="80" height="80">
-              <img src="{{ url_for('static', filename='/images/fluminense.png') }}" width="80" height="80">
+              <img src="{{ url_for('static', filename='/images/'+ format_team_name( times[2]['time2'])+ '.png') }}" width="80" height="80">
             </div>
             {{ form.answer2 }}
           </div>
@@ -188,9 +190,9 @@
             {{ form.answer3.label }}
             <br>
             <div class="icones">
-              <img src="{{ url_for('static', filename='/images/botafogo.png') }}" width="80" height="80">
+              <img src="{{ url_for('static', filename='/images/'+ format_team_name( times[3]['time1'])+ '.png') }}" width="80" height="80">
               <img src="{{ url_for('static', filename='/images/empate.png') }}" width="80" height="80">
-              <img src="{{ url_for('static', filename='/images/sao_paulo.png') }}" width="80" height="80">
+              <img src="{{ url_for('static', filename='/images/'+ format_team_name( times[3]['time2'])+ '.png') }}" width="80" height="80">
 
             </div>
             {{ form.answer3 }}
@@ -203,9 +205,9 @@
             {{ form.answer4.label }}
             <br>
             <div class="icones">
-              <img src="{{ url_for('static', filename='/images/bragantino.png') }}" width="80" height="80">
+              <img src="{{ url_for('static', filename='/images/'+ format_team_name( times[4]['time1'])+ '.png') }}" width="80" height="80">
               <img src="{{ url_for('static', filename='/images/empate.png') }}" width="80" height="80">
-              <img src="{{ url_for('static', filename='/images/bahia.png') }}" width="80" height="80">
+              <img src="{{ url_for('static', filename='/images/'+ format_team_name( times[4]['time2'])+ '.png') }}" width="80" height="80">
 
             </div>
             {{ form.answer4 }}
@@ -218,9 +220,9 @@
             {{ form.answer5.label }}
             <br>
             <div class="icones">
-              <img src="{{ url_for('static', filename='/images/Athletico-PR.png') }}" width="80" height="80">
+              <img src="{{ url_for('static', filename='/images/'+ format_team_name( times[5]['time1'])+ '.png') }}" width="80" height="80">
               <img src="{{ url_for('static', filename='/images/empate.png') }}" width="80" height="80">
-              <img src="{{ url_for('static', filename='/images/goias.png') }}" width="80" height="80">
+              <img src="{{ url_for('static', filename='/images/'+ format_team_name( times[5]['time2'])+ '.png') }}" width="80" height="80">
             </div>
             {{ form.answer5 }}
           </div>
@@ -232,9 +234,9 @@
             {{ form.answer6.label }}
             <br>
             <div class="icones">
-              <img src="{{ url_for('static', filename='/images/fortaleza.png') }}" width="80" height="80">
+              <img src="{{ url_for('static', filename='/images/'+ format_team_name( times[6]['time1'])+ '.png') }}" width="80" height="80">
               <img src="{{ url_for('static', filename='/images/empate.png') }}" width="80" height="80">
-              <img src="{{ url_for('static', filename='/images/inter.png') }}" width="80" height="80">
+              <img src="{{ url_for('static', filename='/images/'+ format_team_name( times[6]['time2'])+ '.png') }}" width="80" height="80">
             </div>
             {{ form.answer6 }}
           </div>
@@ -245,9 +247,9 @@
             {{ form.answer7.label }}
             <br>
             <div class="icones">
-              <img src="{{ url_for('static', filename='/images/atletico-mineiro.png') }}" width="80" height="80">
+              <img src="{{ url_for('static', filename='/images/'+ format_team_name( times[7]['time1'])+ '.png') }}" width="80" height="80">
               <img src="{{ url_for('static', filename='/images/empate.png') }}" width="80" height="80">
-              <img src="{{ url_for('static', filename='/images/vasco.png') }}" width="80" height="80">
+              <img src="{{ url_for('static', filename='/images/'+ format_team_name( times[7]['time2'])+ '.png') }}" width="80" height="80">
             </div>
             {{ form.answer7 }}
           </div>
@@ -258,9 +260,9 @@
             {{ form.answer8.label }}
             <br>
             <div class="icones">
-              <img src="{{ url_for('static', filename='/images/corinthians.png') }}" width="80" height="80">
+              <img src="{{ url_for('static', filename='/images/'+ format_team_name( times[8]['time1'])+ '.png') }}" width="80" height="80">
               <img src="{{ url_for('static', filename='/images/empate.png') }}" width="80" height="80">
-              <img src="{{ url_for('static', filename='/images/cruzeiro.png') }}" width="80" height="80">
+              <img src="{{ url_for('static', filename='/images/'+ format_team_name( times[8]['time2'])+ '.png') }}" width="80" height="80">
             </div>
             {{ form.answer8 }}
           </div>
@@ -271,9 +273,9 @@
             {{ form.answer9.label }}
             <br>
             <div class="icones">
-              <img src="{{ url_for('static', filename='/images/flamengo.png') }}" width="80" height="80">
+              <img src="{{ url_for('static', filename='/images/'+ format_team_name( times[9]['time1'])+ '.png') }}" width="80" height="80">
               <img src="{{ url_for('static', filename='/images/empate.png') }}" width="80" height="80">
-              <img src="{{ url_for('static', filename='/images/coritiba.png') }}" width="80" height="80">
+              <img src="{{ url_for('static', filename='/images/'+ format_team_name( times[9]['time2'])+ '.png') }}" width="80" height="80">
             </div>
             {{ form.answer9 }}
           </div>
@@ -284,9 +286,9 @@
             {{ form.answer10.label }}
             <br>
             <div class="icones">
-              <img src="{{ url_for('static', filename='/images/gremio.png') }}" width="80" height="80">
+              <img src="{{ url_for('static', filename='/images/'+ format_team_name( times[0]['time1'])+ '.png') }}" width="80" height="80">
               <img src="{{ url_for('static', filename='/images/empate.png') }}" width="80" height="80">
-              <img src="{{ url_for('static', filename='/images/santos.png') }}" width="80" height="80">
+              <img src="{{ url_for('static', filename='/images/'+ format_team_name( times[0]['time2'])+ '.png') }}" width="80" height="80">
             </div>
             {{ form.answer10 }}
           </div>

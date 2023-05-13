@@ -1,0 +1,381 @@
+rodada,time1,placar_time1,placar_time2,time2,data_inicio,data_fim
+1ª,Flamengo,3.0,0.0,Coritiba,2023-04-15,2023-04-17
+1ª,Botafogo,2.0,1.0,São Paulo,2023-04-15,2023-04-17
+1ª,Palmeiras,2.0,1.0,Cuiabá,2023-04-15,2023-04-17
+1ª,Corinthians,2.0,1.0,Cruzeiro,2023-04-15,2023-04-17
+1ª,Bragantino,2.0,1.0,Bahia,2023-04-15,2023-04-17
+1ª,Atlético-MG,1.0,2.0,Vasco,2023-04-15,2023-04-17
+1ª,Grêmio,1.0,0.0,Santos,2023-04-15,2023-04-17
+1ª,Athletico-PR,2.0,0.0,Goiás,2023-04-15,2023-04-17
+1ª,Fortaleza,1.0,1.0,Internacional,2023-04-15,2023-04-17
+1ª,América-MG,0.0,3.0,Fluminense,2023-04-15,2023-04-17
+2ª,Fluminense,2.0,0.0,Athletico-PR,2023-04-22,2023-04-24
+2ª,Vasco,2.0,2.0,Palmeiras,2023-04-22,2023-04-24
+2ª,São Paulo,3.0,0.0,América-MG,2023-04-22,2023-04-24
+2ª,Santos,0.0,0.0,Atlético-MG,2023-04-22,2023-04-24
+2ª,Goiás,3.0,1.0,Corinthians,2023-04-22,2023-04-24
+2ª,Cruzeiro,1.0,0.0,Grêmio,2023-04-22,2023-04-24
+2ª,Internacional,2.0,1.0,Flamengo,2023-04-22,2023-04-24
+2ª,Coritiba,0.0,3.0,Fortaleza,2023-04-22,2023-04-24
+2ª,Bahia,1.0,2.0,Botafogo,2023-04-22,2023-04-24
+2ª,Cuiabá,1.0,1.0,Bragantino,2023-04-22,2023-04-24
+3ª,Flamengo,2.0,3.0,Botafogo,2023-04-29,2023-05-01
+3ª,Vasco,0.0,1.0,Bahia,2023-04-29,2023-05-01
+3ª,Palmeiras,2.0,1.0,Corinthians,2023-04-29,2023-05-01
+3ª,Santos,3.0,2.0,América-MG,2023-04-29,2023-05-01
+3ª,Bragantino,0.0,3.0,Cruzeiro,2023-04-29,2023-05-01
+3ª,Atlético-MG,2.0,1.0,Athletico-PR,2023-04-29,2023-05-01
+3ª,Internacional,1.0,0.0,Goiás,2023-04-29,2023-05-01
+3ª,Coritiba,1.0,1.0,São Paulo,2023-04-29,2023-05-01
+3ª,Fortaleza,4.0,2.0,Fluminense,2023-04-29,2023-05-01
+3ª,Cuiabá,1.0,2.0,Grêmio,2023-04-29,2023-05-01
+4ª,Fluminense,1.0,1.0,Vasco,2023-05-06,2023-05-08
+4ª,Botafogo,2.0,0.0,Atlético-MG,2023-05-06,2023-05-08
+4ª,São Paulo,2.0,0.0,Internacional,2023-05-06,2023-05-08
+4ª,Corinthians,1.0,1.0,Fortaleza,2023-05-06,2023-05-08
+4ª,Goiás,0.0,5.0,Palmeiras,2023-05-06,2023-05-08
+4ª,Cruzeiro,2.0,1.0,Santos,2023-05-06,2023-05-08
+4ª,Grêmio,3.0,3.0,Bragantino,2023-05-06,2023-05-08
+4ª,Athletico-PR,2.0,1.0,Flamengo,2023-05-06,2023-05-08
+4ª,Bahia,3.0,1.0,Coritiba,2023-05-06,2023-05-08
+4ª,América-MG,1.0,2.0,Cuiabá,2023-05-06,2023-05-08
+5ª,Flamengo,2.0,0.0,Goiás,2023-05-10,2023-05-11
+5ª,Botafogo,3.0,0.0,Corinthians,2023-05-10,2023-05-11
+5ª,Palmeiras,4.0,1.0,Grêmio,2023-05-10,2023-05-11
+5ª,Santos,3.0,0.0,Bahia,2023-05-10,2023-05-11
+5ª,Bragantino,2.0,2.0,América-MG,2023-05-10,2023-05-11
+5ª,Cruzeiro,0.0,2.0,Fluminense,2023-05-10,2023-05-11
+5ª,Internacional,0.0,2.0,Athletico-PR,2023-05-10,2023-05-11
+5ª,Coritiba,1.0,1.0,Vasco,2023-05-10,2023-05-11
+5ª,Fortaleza,0.0,0.0,São Paulo,2023-05-10,2023-05-11
+5ª,Cuiabá,0.0,4.0,Atlético-MG,2023-05-10,2023-05-11
+6ª,Fluminense,0.0,4.0,Cuiabá,2023-05-13,2023-05-15
+6ª,Vasco,0.0,4.0,Santos,2023-05-13,2023-05-15
+6ª,Palmeiras,0.0,4.0,Bragantino,2023-05-13,2023-05-15
+6ª,Corinthians,0.0,4.0,São Paulo,2023-05-13,2023-05-15
+6ª,Goiás,0.0,4.0,Botafogo,2023-05-13,2023-05-15
+6ª,Atlético-MG,0.0,4.0,Internacional,2023-05-13,2023-05-15
+6ª,Grêmio,0.0,4.0,Fortaleza,2023-05-13,2023-05-15
+6ª,Athletico-PR,0.0,4.0,Coritiba,2023-05-13,2023-05-15
+6ª,Bahia,0.0,4.0,Flamengo,2023-05-13,2023-05-15
+6ª,América-MG,0.0,4.0,Cruzeiro,2023-05-13,2023-05-15
+7ª,Flamengo,0.0,4.0,Corinthians,2023-05-20,2023-05-22
+7ª,Botafogo,0.0,4.0,Fluminense,2023-05-20,2023-05-22
+7ª,São Paulo,0.0,4.0,Vasco,2023-05-20,2023-05-22
+7ª,Santos,0.0,4.0,Palmeiras,2023-05-20,2023-05-22
+7ª,Bragantino,0.0,4.0,Athletico-PR,2023-05-20,2023-05-22
+7ª,Cruzeiro,0.0,4.0,Cuiabá,2023-05-20,2023-05-22
+7ª,Grêmio,0.0,4.0,Internacional,2023-05-20,2023-05-22
+7ª,Coritiba,0.0,4.0,Atlético-MG,2023-05-20,2023-05-22
+7ª,Bahia,0.0,4.0,Goiás,2023-05-20,2023-05-22
+7ª,América-MG,0.0,4.0,Fortaleza,2023-05-20,2023-05-22
+8ª,Flamengo,0.0,4.0,Cruzeiro,2023-05-27,2023-05-29
+8ª,Botafogo,0.0,4.0,América-MG,2023-05-27,2023-05-29
+8ª,São Paulo,0.0,4.0,Goiás,2023-05-27,2023-05-29
+8ª,Corinthians,0.0,4.0,Fluminense,2023-05-27,2023-05-29
+8ª,Bragantino,0.0,4.0,Santos,2023-05-27,2023-05-29
+8ª,Atlético-MG,0.0,4.0,Palmeiras,2023-05-27,2023-05-29
+8ª,Internacional,0.0,4.0,Bahia,2023-05-27,2023-05-29
+8ª,Athletico-PR,0.0,4.0,Grêmio,2023-05-27,2023-05-29
+8ª,Fortaleza,0.0,4.0,Vasco,2023-05-27,2023-05-29
+8ª,Cuiabá,0.0,4.0,Coritiba,2023-05-27,2023-05-29
+9ª,Fluminense,0.0,4.0,Bragantino,2023-06-03,2023-06-05
+9ª,Vasco,0.0,4.0,Flamengo,2023-06-03,2023-06-05
+9ª,Palmeiras,0.0,4.0,Coritiba,2023-06-03,2023-06-05
+9ª,Santos,0.0,4.0,Internacional,2023-06-03,2023-06-05
+9ª,Goiás,0.0,4.0,Cuiabá,2023-06-03,2023-06-05
+9ª,Cruzeiro,0.0,4.0,Atlético-MG,2023-06-03,2023-06-05
+9ª,Grêmio,0.0,4.0,São Paulo,2023-06-03,2023-06-05
+9ª,Athletico-PR,0.0,4.0,Botafogo,2023-06-03,2023-06-05
+9ª,Fortaleza,0.0,4.0,Bahia,2023-06-03,2023-06-05
+9ª,América-MG,0.0,4.0,Corinthians,2023-06-03,2023-06-05
+10ª,Flamengo,0.0,4.0,Grêmio,2023-06-10,2023-06-11
+10ª,Botafogo,0.0,4.0,Fortaleza,2023-06-10,2023-06-11
+10ª,São Paulo,0.0,4.0,Palmeiras,2023-06-10,2023-06-11
+10ª,Corinthians,0.0,4.0,Cuiabá,2023-06-10,2023-06-11
+10ª,Goiás,0.0,4.0,Fluminense,2023-06-10,2023-06-11
+10ª,Atlético-MG,0.0,4.0,Bragantino,2023-06-10,2023-06-11
+10ª,Internacional,0.0,4.0,Vasco,2023-06-10,2023-06-11
+10ª,Coritiba,0.0,4.0,Santos,2023-06-10,2023-06-11
+10ª,Bahia,0.0,4.0,Cruzeiro,2023-06-10,2023-06-11
+10ª,América-MG,0.0,4.0,Athletico-PR,2023-06-10,2023-06-11
+11ª,Fluminense,0.0,4.0,Atlético-MG,2023-06-21,2023-06-22
+11ª,Vasco,0.0,4.0,Goiás,2023-06-21,2023-06-22
+11ª,São Paulo,0.0,4.0,Athletico-PR,2023-06-21,2023-06-22
+11ª,Santos,0.0,4.0,Corinthians,2023-06-21,2023-06-22
+11ª,Bragantino,0.0,4.0,Flamengo,2023-06-21,2023-06-22
+11ª,Cruzeiro,0.0,4.0,Fortaleza,2023-06-21,2023-06-22
+11ª,Grêmio,0.0,4.0,América-MG,2023-06-21,2023-06-22
+11ª,Coritiba,0.0,4.0,Internacional,2023-06-21,2023-06-22
+11ª,Bahia,0.0,4.0,Palmeiras,2023-06-21,2023-06-22
+11ª,Cuiabá,0.0,4.0,Botafogo,2023-06-21,2023-06-22
+12ª,Fluminense,0.0,4.0,Bahia,2023-06-24,2023-06-26
+12ª,Vasco,0.0,4.0,Cuiabá,2023-06-24,2023-06-26
+12ª,Palmeiras,0.0,4.0,Botafogo,2023-06-24,2023-06-26
+12ª,Santos,0.0,4.0,Flamengo,2023-06-24,2023-06-26
+12ª,Bragantino,0.0,4.0,Goiás,2023-06-24,2023-06-26
+12ª,Cruzeiro,0.0,4.0,São Paulo,2023-06-24,2023-06-26
+12ª,Grêmio,0.0,4.0,Coritiba,2023-06-24,2023-06-26
+12ª,Athletico-PR,0.0,4.0,Corinthians,2023-06-24,2023-06-26
+12ª,Fortaleza,0.0,4.0,Atlético-MG,2023-06-24,2023-06-26
+12ª,América-MG,0.0,4.0,Internacional,2023-06-24,2023-06-26
+13ª,Flamengo,0.0,4.0,Fortaleza,2023-07-01,2023-07-03
+13ª,Botafogo,0.0,4.0,Vasco,2023-07-01,2023-07-03
+13ª,São Paulo,0.0,4.0,Fluminense,2023-07-01,2023-07-03
+13ª,Corinthians,0.0,4.0,Bragantino,2023-07-01,2023-07-03
+13ª,Goiás,0.0,4.0,Coritiba,2023-07-01,2023-07-03
+13ª,Atlético-MG,0.0,4.0,América-MG,2023-07-01,2023-07-03
+13ª,Internacional,0.0,4.0,Cruzeiro,2023-07-01,2023-07-03
+13ª,Athletico-PR,0.0,4.0,Palmeiras,2023-07-01,2023-07-03
+13ª,Bahia,0.0,4.0,Grêmio,2023-07-01,2023-07-03
+13ª,Cuiabá,0.0,4.0,Santos,2023-07-01,2023-07-03
+14ª,Fluminense,0.0,4.0,Internacional,2023-07-08,2023-07-10
+14ª,Vasco,0.0,4.0,Cruzeiro,2023-07-08,2023-07-10
+14ª,Palmeiras,0.0,4.0,Flamengo,2023-07-08,2023-07-10
+14ª,Santos,0.0,4.0,Goiás,2023-07-08,2023-07-10
+14ª,Bragantino,0.0,4.0,São Paulo,2023-07-08,2023-07-10
+14ª,Atlético-MG,0.0,4.0,Corinthians,2023-07-08,2023-07-10
+14ª,Grêmio,0.0,4.0,Botafogo,2023-07-08,2023-07-10
+14ª,Coritiba,0.0,4.0,América-MG,2023-07-08,2023-07-10
+14ª,Fortaleza,0.0,4.0,Athletico-PR,2023-07-08,2023-07-10
+14ª,Cuiabá,0.0,4.0,Bahia,2023-07-08,2023-07-10
+15ª,Fluminense,0.0,4.0,Flamengo,2023-07-15,2023-07-17
+15ª,Botafogo,0.0,4.0,Bragantino,2023-07-15,2023-07-17
+15ª,São Paulo,0.0,4.0,Santos,2023-07-15,2023-07-17
+15ª,Corinthians,0.0,4.0,Grêmio,2023-07-15,2023-07-17
+15ª,Goiás,0.0,4.0,Atlético-MG,2023-07-15,2023-07-17
+15ª,Cruzeiro,0.0,4.0,Coritiba,2023-07-15,2023-07-17
+15ª,Internacional,0.0,4.0,Palmeiras,2023-07-15,2023-07-17
+15ª,Athletico-PR,0.0,4.0,Bahia,2023-07-15,2023-07-17
+15ª,Fortaleza,0.0,4.0,Cuiabá,2023-07-15,2023-07-17
+15ª,América-MG,0.0,4.0,Vasco,2023-07-15,2023-07-17
+16ª,Flamengo,0.0,4.0,América-MG,2023-07-22,2023-07-23
+16ª,Vasco,0.0,4.0,Athletico-PR,2023-07-22,2023-07-23
+16ª,Palmeiras,0.0,4.0,Fortaleza,2023-07-22,2023-07-23
+16ª,Santos,0.0,4.0,Botafogo,2023-07-22,2023-07-23
+16ª,Bragantino,0.0,4.0,Internacional,2023-07-22,2023-07-23
+16ª,Cruzeiro,0.0,4.0,Goiás,2023-07-22,2023-07-23
+16ª,Grêmio,0.0,4.0,Atlético-MG,2023-07-22,2023-07-23
+16ª,Coritiba,0.0,4.0,Fluminense,2023-07-22,2023-07-23
+16ª,Bahia,0.0,4.0,Corinthians,2023-07-22,2023-07-23
+16ª,Cuiabá,0.0,4.0,São Paulo,2023-07-22,2023-07-23
+17ª,Fluminense,0.0,4.0,Santos,2023-07-29,2023-07-30
+17ª,Botafogo,0.0,4.0,Coritiba,2023-07-29,2023-07-30
+17ª,São Paulo,0.0,4.0,Bahia,2023-07-29,2023-07-30
+17ª,Corinthians,0.0,4.0,Vasco,2023-07-29,2023-07-30
+17ª,Goiás,0.0,4.0,Grêmio,2023-07-29,2023-07-30
+17ª,Atlético-MG,0.0,4.0,Flamengo,2023-07-29,2023-07-30
+17ª,Internacional,0.0,4.0,Cuiabá,2023-07-29,2023-07-30
+17ª,Athletico-PR,0.0,4.0,Cruzeiro,2023-07-29,2023-07-30
+17ª,Fortaleza,0.0,4.0,Bragantino,2023-07-29,2023-07-30
+17ª,América-MG,0.0,4.0,Palmeiras,2023-07-29,2023-07-30
+18ª,Fluminense,0.0,4.0,Palmeiras,2023-08-02,2023-08-03
+18ª,Vasco,0.0,4.0,Grêmio,2023-08-02,2023-08-03
+18ª,São Paulo,0.0,4.0,Atlético-MG,2023-08-02,2023-08-03
+18ª,Santos,0.0,4.0,Athletico-PR,2023-08-02,2023-08-03
+18ª,Goiás,0.0,4.0,Fortaleza,2023-08-02,2023-08-03
+18ª,Cruzeiro,0.0,4.0,Botafogo,2023-08-02,2023-08-03
+18ª,Internacional,0.0,4.0,Corinthians,2023-08-02,2023-08-03
+18ª,Coritiba,0.0,4.0,Bragantino,2023-08-02,2023-08-03
+18ª,Bahia,0.0,4.0,América-MG,2023-08-02,2023-08-03
+18ª,Cuiabá,0.0,4.0,Flamengo,2023-08-02,2023-08-03
+19ª,Flamengo,0.0,4.0,São Paulo,2023-08-05,2023-08-07
+19ª,Botafogo,0.0,4.0,Internacional,2023-08-05,2023-08-07
+19ª,Palmeiras,0.0,4.0,Cruzeiro,2023-08-05,2023-08-07
+19ª,Corinthians,0.0,4.0,Coritiba,2023-08-05,2023-08-07
+19ª,Bragantino,0.0,4.0,Vasco,2023-08-05,2023-08-07
+19ª,Atlético-MG,0.0,4.0,Bahia,2023-08-05,2023-08-07
+19ª,Grêmio,0.0,4.0,Fluminense,2023-08-05,2023-08-07
+19ª,Athletico-PR,0.0,4.0,Cuiabá,2023-08-05,2023-08-07
+19ª,Fortaleza,0.0,4.0,Santos,2023-08-05,2023-08-07
+19ª,América-MG,0.0,4.0,Goiás,2023-08-05,2023-08-07
+20ª,Fluminense,0.0,4.0,América-MG,2023-08-12,2023-08-14
+20ª,Vasco,0.0,4.0,Atlético-MG,2023-08-12,2023-08-14
+20ª,São Paulo,0.0,4.0,Botafogo,2023-08-12,2023-08-14
+20ª,Santos,0.0,4.0,Grêmio,2023-08-12,2023-08-14
+20ª,Goiás,0.0,4.0,Athletico-PR,2023-08-12,2023-08-14
+20ª,Cruzeiro,0.0,4.0,Corinthians,2023-08-12,2023-08-14
+20ª,Internacional,0.0,4.0,Fortaleza,2023-08-12,2023-08-14
+20ª,Coritiba,0.0,4.0,Flamengo,2023-08-12,2023-08-14
+20ª,Bahia,0.0,4.0,Bragantino,2023-08-12,2023-08-14
+20ª,Cuiabá,0.0,4.0,Palmeiras,2023-08-12,2023-08-14
+21ª,Flamengo,0.0,4.0,Internacional,2023-08-19,2023-08-21
+21ª,Botafogo,0.0,4.0,Bahia,2023-08-19,2023-08-21
+21ª,Palmeiras,0.0,4.0,Vasco,2023-08-19,2023-08-21
+21ª,Corinthians,0.0,4.0,Goiás,2023-08-19,2023-08-21
+21ª,Bragantino,0.0,4.0,Cuiabá,2023-08-19,2023-08-21
+21ª,Atlético-MG,0.0,4.0,Santos,2023-08-19,2023-08-21
+21ª,Grêmio,0.0,4.0,Cruzeiro,2023-08-19,2023-08-21
+21ª,Athletico-PR,0.0,4.0,Fluminense,2023-08-19,2023-08-21
+21ª,Fortaleza,0.0,4.0,Coritiba,2023-08-19,2023-08-21
+21ª,América-MG,0.0,4.0,São Paulo,2023-08-19,2023-08-21
+22ª,Fluminense,0.0,4.0,Fortaleza,2023-08-26,2023-08-28
+22ª,Botafogo,0.0,4.0,Flamengo,2023-08-26,2023-08-28
+22ª,São Paulo,0.0,4.0,Coritiba,2023-08-26,2023-08-28
+22ª,Corinthians,0.0,4.0,Palmeiras,2023-08-26,2023-08-28
+22ª,Goiás,0.0,4.0,Internacional,2023-08-26,2023-08-28
+22ª,Cruzeiro,0.0,4.0,Bragantino,2023-08-26,2023-08-28
+22ª,Grêmio,0.0,4.0,Cuiabá,2023-08-26,2023-08-28
+22ª,Athletico-PR,0.0,4.0,Atlético-MG,2023-08-26,2023-08-28
+22ª,Bahia,0.0,4.0,Vasco,2023-08-26,2023-08-28
+22ª,América-MG,0.0,4.0,Santos,2023-08-26,2023-08-28
+23ª,Flamengo,0.0,4.0,Athletico-PR,2023-09-02,2023-09-03
+23ª,Vasco,0.0,4.0,Fluminense,2023-09-02,2023-09-03
+23ª,Palmeiras,0.0,4.0,Goiás,2023-09-02,2023-09-03
+23ª,Santos,0.0,4.0,Cruzeiro,2023-09-02,2023-09-03
+23ª,Bragantino,0.0,4.0,Grêmio,2023-09-02,2023-09-03
+23ª,Atlético-MG,0.0,4.0,Botafogo,2023-09-02,2023-09-03
+23ª,Internacional,0.0,4.0,São Paulo,2023-09-02,2023-09-03
+23ª,Coritiba,0.0,4.0,Bahia,2023-09-02,2023-09-03
+23ª,Fortaleza,0.0,4.0,Corinthians,2023-09-02,2023-09-03
+23ª,Cuiabá,0.0,4.0,América-MG,2023-09-02,2023-09-03
+24ª,Fluminense,0.0,4.0,Cruzeiro,2023-09-13,2023-09-14
+24ª,Vasco,0.0,4.0,Coritiba,2023-09-13,2023-09-14
+24ª,São Paulo,0.0,4.0,Fortaleza,2023-09-13,2023-09-14
+24ª,Corinthians,0.0,4.0,Botafogo,2023-09-13,2023-09-14
+24ª,Goiás,0.0,4.0,Flamengo,2023-09-13,2023-09-14
+24ª,Atlético-MG,0.0,4.0,Cuiabá,2023-09-13,2023-09-14
+24ª,Grêmio,0.0,4.0,Palmeiras,2023-09-13,2023-09-14
+24ª,Athletico-PR,0.0,4.0,Internacional,2023-09-13,2023-09-14
+24ª,Bahia,0.0,4.0,Santos,2023-09-13,2023-09-14
+24ª,América-MG,0.0,4.0,Bragantino,2023-09-13,2023-09-14
+25ª,Flamengo,0.0,4.0,Bahia,2023-09-20,2023-09-21
+25ª,Botafogo,0.0,4.0,Goiás,2023-09-20,2023-09-21
+25ª,São Paulo,0.0,4.0,Corinthians,2023-09-20,2023-09-21
+25ª,Santos,0.0,4.0,Vasco,2023-09-20,2023-09-21
+25ª,Bragantino,0.0,4.0,Palmeiras,2023-09-20,2023-09-21
+25ª,Cruzeiro,0.0,4.0,América-MG,2023-09-20,2023-09-21
+25ª,Internacional,0.0,4.0,Atlético-MG,2023-09-20,2023-09-21
+25ª,Coritiba,0.0,4.0,Athletico-PR,2023-09-20,2023-09-21
+25ª,Fortaleza,0.0,4.0,Grêmio,2023-09-20,2023-09-21
+25ª,Cuiabá,0.0,4.0,Fluminense,2023-09-20,2023-09-21
+26ª,Fluminense,0.0,4.0,Botafogo,2023-09-30,2023-10-02
+26ª,Vasco,0.0,4.0,São Paulo,2023-09-30,2023-10-02
+26ª,Palmeiras,0.0,4.0,Santos,2023-09-30,2023-10-02
+26ª,Corinthians,0.0,4.0,Flamengo,2023-09-30,2023-10-02
+26ª,Goiás,0.0,4.0,Bahia,2023-09-30,2023-10-02
+26ª,Atlético-MG,0.0,4.0,Coritiba,2023-09-30,2023-10-02
+26ª,Internacional,0.0,4.0,Grêmio,2023-09-30,2023-10-02
+26ª,Athletico-PR,0.0,4.0,Bragantino,2023-09-30,2023-10-02
+26ª,Fortaleza,0.0,4.0,América-MG,2023-09-30,2023-10-02
+26ª,Cuiabá,0.0,4.0,Cruzeiro,2023-09-30,2023-10-02
+27ª,Fluminense,0.0,4.0,Corinthians,2023-10-07,2023-10-08
+27ª,Vasco,0.0,4.0,Fortaleza,2023-10-07,2023-10-08
+27ª,Palmeiras,0.0,4.0,Atlético-MG,2023-10-07,2023-10-08
+27ª,Santos,0.0,4.0,Bragantino,2023-10-07,2023-10-08
+27ª,Goiás,0.0,4.0,São Paulo,2023-10-07,2023-10-08
+27ª,Cruzeiro,0.0,4.0,Flamengo,2023-10-07,2023-10-08
+27ª,Grêmio,0.0,4.0,Athletico-PR,2023-10-07,2023-10-08
+27ª,Coritiba,0.0,4.0,Cuiabá,2023-10-07,2023-10-08
+27ª,Bahia,0.0,4.0,Internacional,2023-10-07,2023-10-08
+27ª,América-MG,0.0,4.0,Botafogo,2023-10-07,2023-10-08
+28ª,Flamengo,0.0,4.0,Vasco,2023-10-18,2023-10-19
+28ª,Botafogo,0.0,4.0,Athletico-PR,2023-10-18,2023-10-19
+28ª,São Paulo,0.0,4.0,Grêmio,2023-10-18,2023-10-19
+28ª,Corinthians,0.0,4.0,América-MG,2023-10-18,2023-10-19
+28ª,Bragantino,0.0,4.0,Fluminense,2023-10-18,2023-10-19
+28ª,Atlético-MG,0.0,4.0,Cruzeiro,2023-10-18,2023-10-19
+28ª,Internacional,0.0,4.0,Santos,2023-10-18,2023-10-19
+28ª,Coritiba,0.0,4.0,Palmeiras,2023-10-18,2023-10-19
+28ª,Bahia,0.0,4.0,Fortaleza,2023-10-18,2023-10-19
+28ª,Cuiabá,0.0,4.0,Goiás,2023-10-18,2023-10-19
+29ª,Fluminense,0.0,4.0,Goiás,2023-10-21,2023-10-23
+29ª,Vasco,0.0,4.0,Internacional,2023-10-21,2023-10-23
+29ª,Palmeiras,0.0,4.0,São Paulo,2023-10-21,2023-10-23
+29ª,Santos,0.0,4.0,Coritiba,2023-10-21,2023-10-23
+29ª,Bragantino,0.0,4.0,Atlético-MG,2023-10-21,2023-10-23
+29ª,Cruzeiro,0.0,4.0,Bahia,2023-10-21,2023-10-23
+29ª,Grêmio,0.0,4.0,Flamengo,2023-10-21,2023-10-23
+29ª,Athletico-PR,0.0,4.0,América-MG,2023-10-21,2023-10-23
+29ª,Fortaleza,0.0,4.0,Botafogo,2023-10-21,2023-10-23
+29ª,Cuiabá,0.0,4.0,Corinthians,2023-10-21,2023-10-23
+30ª,Flamengo,0.0,4.0,Bragantino,2023-10-25,2023-10-26
+30ª,Botafogo,0.0,4.0,Cuiabá,2023-10-25,2023-10-26
+30ª,Palmeiras,0.0,4.0,Bahia,2023-10-25,2023-10-26
+30ª,Corinthians,0.0,4.0,Santos,2023-10-25,2023-10-26
+30ª,Goiás,0.0,4.0,Vasco,2023-10-25,2023-10-26
+30ª,Atlético-MG,0.0,4.0,Fluminense,2023-10-25,2023-10-26
+30ª,Internacional,0.0,4.0,Coritiba,2023-10-25,2023-10-26
+30ª,Athletico-PR,0.0,4.0,São Paulo,2023-10-25,2023-10-26
+30ª,Fortaleza,0.0,4.0,Cruzeiro,2023-10-25,2023-10-26
+30ª,América-MG,0.0,4.0,Grêmio,2023-10-25,2023-10-26
+31ª,Flamengo,0.0,4.0,Santos,2023-10-28,2023-10-30
+31ª,Botafogo,0.0,4.0,Palmeiras,2023-10-28,2023-10-30
+31ª,São Paulo,0.0,4.0,Cruzeiro,2023-10-28,2023-10-30
+31ª,Corinthians,0.0,4.0,Athletico-PR,2023-10-28,2023-10-30
+31ª,Goiás,0.0,4.0,Bragantino,2023-10-28,2023-10-30
+31ª,Atlético-MG,0.0,4.0,Fortaleza,2023-10-28,2023-10-30
+31ª,Internacional,0.0,4.0,América-MG,2023-10-28,2023-10-30
+31ª,Coritiba,0.0,4.0,Grêmio,2023-10-28,2023-10-30
+31ª,Bahia,0.0,4.0,Fluminense,2023-10-28,2023-10-30
+31ª,Cuiabá,0.0,4.0,Vasco,2023-10-28,2023-10-30
+32ª,Fluminense,0.0,4.0,São Paulo,2023-11-01,2023-11-02
+32ª,Vasco,0.0,4.0,Botafogo,2023-11-01,2023-11-02
+32ª,Palmeiras,0.0,4.0,Athletico-PR,2023-11-01,2023-11-02
+32ª,Santos,0.0,4.0,Cuiabá,2023-11-01,2023-11-02
+32ª,Bragantino,0.0,4.0,Corinthians,2023-11-01,2023-11-02
+32ª,Cruzeiro,0.0,4.0,Internacional,2023-11-01,2023-11-02
+32ª,Grêmio,0.0,4.0,Bahia,2023-11-01,2023-11-02
+32ª,Coritiba,0.0,4.0,Goiás,2023-11-01,2023-11-02
+32ª,Fortaleza,0.0,4.0,Flamengo,2023-11-01,2023-11-02
+32ª,América-MG,0.0,4.0,Atlético-MG,2023-11-01,2023-11-02
+33ª,Flamengo,0.0,4.0,Palmeiras,2023-11-04,2023-11-06
+33ª,Botafogo,0.0,4.0,Grêmio,2023-11-04,2023-11-06
+33ª,São Paulo,0.0,4.0,Bragantino,2023-11-04,2023-11-06
+33ª,Corinthians,0.0,4.0,Atlético-MG,2023-11-04,2023-11-06
+33ª,Goiás,0.0,4.0,Santos,2023-11-04,2023-11-06
+33ª,Cruzeiro,0.0,4.0,Vasco,2023-11-04,2023-11-06
+33ª,Internacional,0.0,4.0,Fluminense,2023-11-04,2023-11-06
+33ª,Athletico-PR,0.0,4.0,Fortaleza,2023-11-04,2023-11-06
+33ª,Bahia,0.0,4.0,Cuiabá,2023-11-04,2023-11-06
+33ª,América-MG,0.0,4.0,Coritiba,2023-11-04,2023-11-06
+34ª,Flamengo,0.0,4.0,Fluminense,2023-11-11,2023-11-12
+34ª,Vasco,0.0,4.0,América-MG,2023-11-11,2023-11-12
+34ª,Palmeiras,0.0,4.0,Internacional,2023-11-11,2023-11-12
+34ª,Santos,0.0,4.0,São Paulo,2023-11-11,2023-11-12
+34ª,Bragantino,0.0,4.0,Botafogo,2023-11-11,2023-11-12
+34ª,Atlético-MG,0.0,4.0,Goiás,2023-11-11,2023-11-12
+34ª,Grêmio,0.0,4.0,Corinthians,2023-11-11,2023-11-12
+34ª,Coritiba,0.0,4.0,Cruzeiro,2023-11-11,2023-11-12
+34ª,Bahia,0.0,4.0,Athletico-PR,2023-11-11,2023-11-12
+34ª,Cuiabá,0.0,4.0,Fortaleza,2023-11-11,2023-11-12
+35ª,Fluminense,0.0,4.0,Coritiba,2023-11-22,2023-11-23
+35ª,Botafogo,0.0,4.0,Santos,2023-11-22,2023-11-23
+35ª,São Paulo,0.0,4.0,Cuiabá,2023-11-22,2023-11-23
+35ª,Corinthians,0.0,4.0,Bahia,2023-11-22,2023-11-23
+35ª,Goiás,0.0,4.0,Cruzeiro,2023-11-22,2023-11-23
+35ª,Atlético-MG,0.0,4.0,Grêmio,2023-11-22,2023-11-23
+35ª,Internacional,0.0,4.0,Bragantino,2023-11-22,2023-11-23
+35ª,Athletico-PR,0.0,4.0,Vasco,2023-11-22,2023-11-23
+35ª,Fortaleza,0.0,4.0,Palmeiras,2023-11-22,2023-11-23
+35ª,América-MG,0.0,4.0,Flamengo,2023-11-22,2023-11-23
+36ª,Flamengo,0.0,4.0,Atlético-MG,2023-11-25,2023-11-27
+36ª,Vasco,0.0,4.0,Corinthians,2023-11-25,2023-11-27
+36ª,Palmeiras,0.0,4.0,América-MG,2023-11-25,2023-11-27
+36ª,Santos,0.0,4.0,Fluminense,2023-11-25,2023-11-27
+36ª,Bragantino,0.0,4.0,Fortaleza,2023-11-25,2023-11-27
+36ª,Cruzeiro,0.0,4.0,Athletico-PR,2023-11-25,2023-11-27
+36ª,Grêmio,0.0,4.0,Goiás,2023-11-25,2023-11-27
+36ª,Coritiba,0.0,4.0,Botafogo,2023-11-25,2023-11-27
+36ª,Bahia,0.0,4.0,São Paulo,2023-11-25,2023-11-27
+36ª,Cuiabá,0.0,4.0,Internacional,2023-11-25,2023-11-27
+37ª,Flamengo,0.0,4.0,Cuiabá,2023-11-29,2023-11-30
+37ª,Botafogo,0.0,4.0,Cruzeiro,2023-11-29,2023-11-30
+37ª,Palmeiras,0.0,4.0,Fluminense,2023-11-29,2023-11-30
+37ª,Corinthians,0.0,4.0,Internacional,2023-11-29,2023-11-30
+37ª,Bragantino,0.0,4.0,Coritiba,2023-11-29,2023-11-30
+37ª,Atlético-MG,0.0,4.0,São Paulo,2023-11-29,2023-11-30
+37ª,Grêmio,0.0,4.0,Vasco,2023-11-29,2023-11-30
+37ª,Athletico-PR,0.0,4.0,Santos,2023-11-29,2023-11-30
+37ª,Fortaleza,0.0,4.0,Goiás,2023-11-29,2023-11-30
+37ª,América-MG,0.0,4.0,Bahia,2023-11-29,2023-11-30
+38ª,Fluminense,0.0,4.0,Grêmio,2023-12-03,2023-12-05
+38ª,Vasco,0.0,4.0,Bragantino,2023-12-03,2023-12-05
+38ª,São Paulo,0.0,4.0,Flamengo,2023-12-03,2023-12-05
+38ª,Santos,0.0,4.0,Fortaleza,2023-12-03,2023-12-05
+38ª,Goiás,0.0,4.0,América-MG,2023-12-03,2023-12-05
+38ª,Cruzeiro,0.0,4.0,Palmeiras,2023-12-03,2023-12-05
+38ª,Internacional,0.0,4.0,Botafogo,2023-12-03,2023-12-05
+38ª,Coritiba,0.0,4.0,Corinthians,2023-12-03,2023-12-05
+38ª,Bahia,0.0,4.0,Atlético-MG,2023-12-03,2023-12-05
+38ª,Cuiabá,0.0,4.0,Athletico-PR,2023-12-03,2023-12-05
