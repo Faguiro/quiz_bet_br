@@ -1,0 +1,27 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}pyecharts - {{ title }}{% endblock %}
+
+{% block head %}
+    {{super()}}
+    <link rel="icon" href="{{ url_for('static', filename='images/fav.ico')}}" type="image/x-coin">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css')}}" type="text/css">
+    <title>Proudly presented by ECharts</title>
+	{% for jsfile_name in script_list %}
+        <script src="static/echarts/{{ jsfile_name }}.js"></script>
+    {% endfor %}
+{% endblock %}
+
+
+
+{% block content %}
+    
+    <div class="my-charts">
+        {{ myechart|safe }}
+    </div>
+    <footer class="container-fluid foot-wrap">
+        <p align="center" style="margin-top: 20px;color:#878B91;">
+            Copyright &copy; 2017 chenjiandongx
+        </p>
+    </footer>
+{% endblock %}
