@@ -1,0 +1,65 @@
+<!--Bem-vindos ao Bet Brasileirão Template -  base 23/04/2023  -->
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    {% block title %}
+    <title>
+      {% if title %}{{ title }} - Bet Brasileirão{% else %}{{ _('Bem-vindos ao
+      Bet Brasileirão') }}{% endif %}
+    </title>
+    {% endblock %}
+
+    <!-- <meta name="description" content="Quiz Bet Brasileirão"> -->
+    <meta
+      name="keywords"
+      content="template flask, renda extra online, apostas esportivas, "
+    />
+    <meta name="author" content="Faguiro" />
+
+    <link rel="stylesheet" href="/static/css/main.css" />
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+
+    <!-- Outros estilos CSS padrão que você deseja incluir -->
+    {% block extra_css %} {% endblock %}
+
+    <!-- Favicons -->
+    <link
+      rel="icon"
+      type="image/ico"
+      sizes="32x32"
+      href="/static/images/favico/favicon-32x32.ico"
+    />
+    <link
+      rel="icon"
+      type="image/ico"
+      sizes="16x16"
+      href="/static/images/favicon/favicon-16x16.ico"
+    />
+    <!-- Google Fonts 
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nome+da+Fonte:wght@400;700&display=swap" rel="stylesheet">
+    -->
+  </head>
+
+  <body>
+    <!--   inicio body base -->
+
+    <!-- Inclui o template de navegação de acordo com o tamanho da tela -->
+    <!-- Conteúdo da barra de navegação para telas grandes (desktop) -->
+    {% block navbar %} {% include 'nav_desk.html' %} {% endblock %}
+
+    <!-- Conteúdo do site -->
+    {% block content %} {% endblock %} {% block painel_lateral %} {% include
+    'painel-lateral.html' %} {% endblock %}
+
+    <!-- Scripts específicos da página que podem depender de elementos HTML da página -->
+    {% block extra_js %}{% endblock %}
+  </body>
+  <!-- fim body base -->
+
+  <!-- Rodapé do site -->
+  {% include 'footer.html' %}
+</html>

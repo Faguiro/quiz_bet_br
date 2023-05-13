@@ -26,7 +26,7 @@ babel = Babel()
 
 
 def create_app(config_class=Config):
-    app = Flask(__name__, template_folder='theme')
+    app = Flask(__name__, template_folder=Config.TEMPLATE)
     app.config.from_object(config_class)
     db.init_app(app)
     migrate.init_app(app, db)
@@ -42,6 +42,9 @@ def create_app(config_class=Config):
     
     from bet.dashboard import bp as dashboard_bp
     app.register_blueprint(dashboard_bp)
+    
+    from bet.pay import bp as pay_bp
+    app.register_blueprint(pay_bp)
 
 
     from bet.auth import bp as auth_bp

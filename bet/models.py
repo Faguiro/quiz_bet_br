@@ -143,3 +143,8 @@ class Produto(db.Model):
     ajustavel_quantidade = db.Column(db.Boolean)
     quantidade_minima = db.Column(db.Integer)
     quantidade_maxima = db.Column(db.Integer)
+
+class Configuracao(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    template = db.Column(db.String(100), nullable=False)
+    

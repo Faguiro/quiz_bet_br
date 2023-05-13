@@ -11,3 +11,11 @@ from flask_admin.contrib.sqla import ModelView
 
 
 
+@bp.route('/prismas', methods=['GET', 'POST'])
+
+def prismas():
+    # theme = User.query.filter_by(teheme= current_user.theme).first_or_404()
+    theme = request.args.get('theme', 'sketchy')
+    return render_template('prisma.html', theme=theme)
+
+

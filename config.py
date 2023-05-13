@@ -16,10 +16,10 @@ class Config(object):
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     ADMINS = ['your-email@example.com']
-    LANGUAGES = ['en', 'es']
+    LANGUAGES = ['en', 'pt']
     MS_TRANSLATOR_KEY = os.environ.get('MS_TRANSLATOR_KEY')
     POSTS_PER_PAGE = 25
     STRIPE_SECRET_KEY = os.environ['STRIPE_SECRET_KEY']
     STRIPE_WEBHOOK_SECRET = os.environ['STRIPE_WEBHOOK_SECRET']
-    THEMES = ['THEME_DARK','THEME_LIGHT']
     FLASK_ADMIN_SWATCH = "flatly"
+    TEMPLATE = "theme"

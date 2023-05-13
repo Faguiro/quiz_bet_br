@@ -1,0 +1,76 @@
+<!-- barra de navegação -->
+
+<div class="bg-orange-500 h-20 flex items-center">
+  <nav class="w-full flex items-center flex-row  justify-between">
+    <h1
+      class="w-full text-xl xl:text-3xl font-bold tracking-wider text-center text-white dark:text-gray-100 transform hover:scale-8 uppercase"
+    >
+      <a href="{{ url_for('main.index') }}">Bet Brasileirão</a>
+    </h1>
+
+    <ul
+      class="w-full hidden flex-row uppercase text-lg font-bold gap-5 tracking-wide xl:flex md:flex lg:flex sm:hidden justify-center items-center text-white"
+    >
+      <li>
+        <a
+          class="hover:bg-black hover:text-white px-3 py-2 rounded-md"
+          href="{{ url_for('main.quiz') }}"
+          >{{ _('Apostar') }}</a
+        >
+      </li>
+      <li>
+        <a
+          class="hover:bg-black hover:text-white px-3 py-2 rounded-md"
+          href="{{ url_for('main.result') }}"
+          >{{ _('Resultado') }}</a
+        >
+      </li>
+      <li>
+        <a
+          class="hover:bg-black hover:text-white px-3 py-2 rounded-md"
+          href="{{ url_for('pay.comprar_creditos') }}"
+          >{{ _('Comprar Créditos') }}</a
+        >
+      </li>
+      {% if current_user.is_anonymous %}
+      <li>
+        <a
+          class="hover:bg-black hover:text-white px-3 py-2 rounded-md"
+          href="{{ url_for('auth.login') }}"
+          >{{ _('Entrar') }}</a
+        >
+      </li>
+      {% else %} {% if current_user.saldo %}
+      <li>
+        <a
+          class="hover:bg-black hover:text-white px-3 py-2 rounded-md"
+          href="{{ url_for('main.user', username=current_user.username) }}"
+          >Saldo: R$ {{current_user.saldo}}</a
+        >
+      </li>
+      {% endif %}
+      <li>
+        <a
+          class="hover:bg-black hover:text-white px-3 py-2 rounded-md"
+          href="{{ url_for('main.user', username=current_user.username) }}"
+          >{{ _('Perfil') }}</a
+        >
+      </li>
+      <li>
+        <a
+          class="hover:bg-black hover:text-white px-3 py-2 rounded-md"
+          href="{{ url_for('auth.logout') }}"
+          >{{ _('Sair') }}</a
+        >
+      </li>
+      {% endif %}
+    </ul>
+  </nav>
+</div>
+<style>
+  a.text-4xl.font-bold.tracking-wider.text-center.no-underline.text-gray-200.dark\:text-gray-100.transform.hover\:scale-8.no-underline {
+    text-decoration: none;
+    margin-left: 42px;
+    z-index: 100;
+  }
+</style>
