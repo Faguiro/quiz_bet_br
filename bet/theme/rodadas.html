@@ -90,6 +90,11 @@
       text-align: center;
     }
   }
+  .rodada-select {
+    display:flex;
+    justify-content:center;
+    margin:  45px 0;
+}
 
   .bt-efect-01:hover,
   button[type="submit"]:hover {
@@ -105,11 +110,8 @@
   <div class="flex justify-center my-8">
     <div class="w-1/2 bg-white dark:bg-gray-700 shadow-md rounded-md p-8">
       <h1 class="titulo">
-        Você é um verdadeiro fã de futebol brasileiro?<br>
-        <span class="subtitle">
-          <!--   Então, prove suas habilidades no nosso quiz bet Brasileirão! <br> Faça suas escolhas com sabedoria, acumule pontos
-      e concorra a prêmios incríveis. É hora de mostrar seu conhecimento e ganhar como um verdadeiro campeão! -->
-        </span>
+        Você é um verdadeiro fã de futebol brasileiro?<br>        
+        Brasileirão 2003 serie A {{rodada}}ª rodada 
       </h1>
       <script>
         window.addEventListener("DOMContentLoaded", function () {
@@ -135,7 +137,7 @@
           {% endfor %}
         </select>
       </div>
-      <form class="text-black grid m-auto" method="POST" action="{{ url_for('main.quiz') }}">
+      <form class="text-black grid m-auto" method="POST" action="{{ url_for('main.quiz_rodada', rodada=rodada) }}">
         {{ form.csrf_token }}
 
 

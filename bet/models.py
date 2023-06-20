@@ -107,7 +107,9 @@ class Post(db.Model):
    
     
 class Quiz(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    rodada = db.Column(db.Integer, nullable=False )
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    answer0 = db.Column(db.String(255), nullable=False)
     answer1 = db.Column(db.String(255), nullable=False)
     answer2 = db.Column(db.String(255), nullable=False)
     answer3 = db.Column(db.String(255), nullable=False)
@@ -117,7 +119,6 @@ class Quiz(db.Model):
     answer7 = db.Column(db.String(255), nullable=False)
     answer8 = db.Column(db.String(255), nullable=False)
     answer9 = db.Column(db.String(255), nullable=False)
-    answer10 = db.Column(db.String(255), nullable=False)
     answered = db.Column(db.Boolean, default=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 

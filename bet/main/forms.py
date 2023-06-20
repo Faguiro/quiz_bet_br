@@ -5,8 +5,7 @@ from wtforms.validators import ValidationError, DataRequired, Length, Validation
 from flask_babel import _, lazy_gettext as _l
 from bet.models import User
 from wtforms import RadioField
-from flask_wtf.file import FileField, FileAllowed
-import pandas as pd  
+from flask_wtf.file import FileField, FileAllowed 
 import os
 
 
@@ -87,10 +86,8 @@ class ThemeForm(FlaskForm):
     ], default='darkly')
     submit = SubmitField('Save')
 
-
 class EmptyForm(FlaskForm):
     submit = SubmitField('Salvar')
-
 
 class PostForm(FlaskForm):
     titulo = StringField(_l('Título'), validators=[DataRequired()])
@@ -104,77 +101,29 @@ class PostForm(FlaskForm):
     submit = SubmitField(_l('Enviar'))
 
 
-class QuizForm(FlaskForm):      
-    current_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    csv_path = os.path.join(current_dir, 'static', 'data', 'csv', 'dados_rodada.csv')
-    df = pd.read_csv(csv_path)
 
-    df_6a_rodada = df.loc[df['rodada'] == '6ª']
-    selecao = df.loc[df['rodada'] == '6ª', ['time1', 'time2']]
 
-    # transformando a seleção em um dicionário
-    selecao_dict = selecao.to_dict(orient='records')
+
+def create_quiz_form(selecao_dict):
+    fields = {}
+
+    for i, selecao in enumerate(selecao_dict):
+        choices = [
+            ('1', 'Vitória ' + selecao['time1']),
+            ('2', 'Empate'),
+            ('3', 'Vitória ' + selecao['time2'])
+        ]
+
+        field = RadioField(
+            label=selecao['time1'] + ' e ' + selecao['time2'],
+            choices=choices,
+            validators=[DataRequired()]
+        )
+
+        fields['answer{}'.format(i)] = field
+
+    QuizForm = type('QuizForm', (FlaskForm,), fields)
+    return QuizForm()
+
+
     
-    answer1 = RadioField(selecao_dict[1]['time1'] + ' e ' + selecao_dict[1]['time2'],
-        choices=[
-            ('1', selecao_dict[1]['time1']),
-            ('2', 'Empate'),
-            ('3', selecao_dict[1]['time2'])
-        ],
-        validators=[DataRequired()])
-    answer2 = RadioField(selecao_dict[2]['time1'] + ' e ' + selecao_dict[2]['time2'],
-        choices=[
-            ('1', selecao_dict[2]['time1']),
-            ('2', 'Empate'),
-            ('3', selecao_dict[2]['time2'])
-        ],
-
-        validators=[DataRequired()])
-    answer3 = RadioField(selecao_dict[3]['time1'] + ' e ' + selecao_dict[3]['time2'],
-                         choices=[
-        ('1', selecao_dict[3]['time1']),
-        ('2', 'Empate'),
-        ('3', selecao_dict[3]['time2'])
-    ],  validators=[DataRequired()])
-    answer4 = RadioField(selecao_dict[4]['time1'] + ' e ' + selecao_dict[4]['time2'],
-                         choices=[
-        ('1', selecao_dict[4]['time1']),
-        ('2', 'Empate'),
-        ('3', selecao_dict[4]['time2'])
-    ],  validators=[DataRequired()])
-    answer5 = RadioField(selecao_dict[5]['time1'] + ' e ' + selecao_dict[5]['time2'],
-                         choices=[
-        ('1', selecao_dict[5]['time1']),
-        ('2', 'Empate'),
-        ('3', selecao_dict[5]['time2'])
-    ],  validators=[DataRequired()])
-    answer6 = RadioField(selecao_dict[6]['time1'] + ' e ' + selecao_dict[6]['time2'],
-                         choices=[
-        ('1', selecao_dict[6]['time1']),
-        ('2', 'Empate'),
-        ('3', selecao_dict[6]['time2'])
-    ],  validators=[DataRequired()])
-    answer7 = RadioField(selecao_dict[7]['time1'] + ' e ' + selecao_dict[7]['time2'],
-                         choices=[
-        ('1', selecao_dict[7]['time1']),
-        ('2', 'Empate'),
-        ('3', selecao_dict[7]['time2'])
-    ],  validators=[DataRequired()])
-    answer8 = RadioField(selecao_dict[8]['time1'] + ' e ' + selecao_dict[8]['time2'],
-                         choices=[
-        ('1', selecao_dict[8]['time1']),
-        ('2', 'Empate'),
-        ('3', selecao_dict[8]['time2'])
-    ],  validators=[DataRequired()])
-    answer9 = RadioField(selecao_dict[9]['time1'] + ' e ' + selecao_dict[9]['time2'],
-                         choices=[
-        ('1', selecao_dict[9]['time1']),
-        ('2', 'Empate'),
-        ('3', selecao_dict[9]['time2'])
-    ],  validators=[DataRequired()])
-    answer10 = RadioField(selecao_dict[0]['time1'] + ' e ' + selecao_dict[0]['time2'],
-                          choices=[
-        ('1', selecao_dict[0]['time1']),
-        ('2', 'Empate'),
-        ('3', selecao_dict[0]['time2'])
-    ],  validators=[DataRequired()])

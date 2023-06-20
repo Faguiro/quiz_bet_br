@@ -6,7 +6,7 @@ from flask_login import current_user, login_required
 from flask_babel import _, get_locale
 from langdetect import detect, LangDetectException
 from bet import db
-from bet.main.forms import EditProfileForm, EmptyForm, PostForm, QuizForm
+from bet.main.forms import EditProfileForm, EmptyForm, PostForm
 from bet.models import User, Post, Quiz, Pagamento, Produto
 from bet.translate import translate
 from bet.pay import bp

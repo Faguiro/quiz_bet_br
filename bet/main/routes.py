@@ -6,7 +6,7 @@ from flask_login import current_user, login_required
 from flask_babel import _, get_locale
 from langdetect import detect, LangDetectException
 from bet import db
-from bet.main.forms import EditProfileForm, EmptyForm, PostForm, QuizForm
+from bet.main.forms import EditProfileForm, EmptyForm, PostForm, create_quiz_form
 from bet.models import User, Post, Quiz, Pagamento, Produto
 from bet.translate import translate
 from bet.main import bp
@@ -258,34 +258,36 @@ def translate_text():
     return jsonify({'text': translate(request.form['text'],
                                       request.form['source_language'],
                                       request.form['dest_language'])})
+import pandas as pd 
+from wtforms import RadioField
+from wtforms import StringField, SubmitField, TextAreaField, SelectField
+from wtforms.validators import ValidationError, DataRequired, Length, ValidationError
 
-
-@bp.route('/quiz', methods=['GET', 'POST'])
-@login_required
-def quiz():  
-
-    def format_team_name(team_name):
+def format_team_name(team_name):
         # Remove acentos e caracteres especiais
         team_name = unidecode(team_name)
         #team_name = re.sub('[^0-9a-zA-Z]+', '', team_name)
         # Converte para caixa baixa e substitui espaços por underline
         team_name = team_name.lower().replace(' ', '_')
         return team_name
-    
-    # Verificar se o usuário já respondeu o quiz
-    quiz_respondido = Quiz.query.filter_by(
-        user_id=current_user.id, answered=True).first()
 
-    if quiz_respondido:
-        # Se o usuário já respondeu, redirecionar para a rota de resultado
-        return redirect(url_for('main.result'))
+@bp.route('/quiz/<int:rodada>', methods=['GET', 'POST'])
+@login_required
+def quiz_rodada(rodada): 
+    current_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    csv_path = os.path.join(current_dir, 'static', 'data', 'csv', 'dados_rodada.csv')
+    df = pd.read_csv(csv_path)
+    selecao = df.loc[df['rodada'] == str(rodada) + 'ª', ['time1', 'time2']]
+    selecao_dict = selecao.to_dict(orient='records')
+    form = create_quiz_form(selecao_dict)
+    times = selecao_dict
+    print(times[0]['time1'])
+    print(form.__dict__)
 
-    form = QuizForm()
-    times= form.selecao_dict
-    print(times[1]['time1'])
 
     if request.method == 'POST':
         if form.validate_on_submit():
+            answer0 = form.answer0.data
             answer1 = form.answer1.data
             answer2 = form.answer2.data
             answer3 = form.answer3.data
@@ -295,11 +297,12 @@ def quiz():
             answer7 = form.answer7.data
             answer8 = form.answer8.data
             answer9 = form.answer9.data
-            answer10 = form.answer10.data
             answered = True
 
             # Crie um dicionário com os valores dos campos do formulário
             quiz_data = {
+                'rodada': rodada,
+                'answer0': answer0,
                 'answer1': answer1,
                 'answer2': answer2,
                 'answer3': answer3,
@@ -309,7 +312,6 @@ def quiz():
                 'answer7': answer7,
                 'answer8': answer8,
                 'answer9': answer9,
-                'answer10': answer10,
                 'answered': answered,
                 'user_id': current_user.id
             }
@@ -318,7 +320,10 @@ def quiz():
             db.session.add(answer)
             db.session.commit()
             return redirect(url_for('main.result', answer1=answer1, answer2=answer2, answer3=answer3, answer4=answer4, answer5=answer5, answer6=answer6))
-    return render_template('_quiz.html', title='Quiz', form=form, times=times, format_team_name=format_team_name)
+   
+    
+    return render_template('rodadas.html', form=form, rodada=rodada, times=times, format_team_name=format_team_name)
+
 
 
 @bp.route('/result')
@@ -332,6 +337,7 @@ def result():
         try:
             answers = Quiz.query.filter_by(user_id=current_user.id).first()
             quiz_dict = {
+                'resposta10': answers.answer0,
                 'resposta1': answers.answer1,
                 'resposta2': answers.answer2,
                 'resposta3': answers.answer3,
@@ -341,7 +347,7 @@ def result():
                 'resposta7': answers.answer7,
                 'resposta8': answers.answer8,
                 'resposta9': answers.answer9,
-                'resposta10': answers.answer10
+                
             }
 
             return render_template('result.html', answers=quiz_dict)
